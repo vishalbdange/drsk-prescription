@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/drsk-prescription/static/css/main.12f2ad48.chunk.css",
+    "main.js": "/drsk-prescription/static/js/main.10c4541d.chunk.js",
+    "main.js.map": "/drsk-prescription/static/js/main.10c4541d.chunk.js.map",
+    "runtime-main.js": "/drsk-prescription/static/js/runtime-main.93ea64e0.js",
+    "runtime-main.js.map": "/drsk-prescription/static/js/runtime-main.93ea64e0.js.map",
+    "static/js/2.e8dd518f.chunk.js": "/drsk-prescription/static/js/2.e8dd518f.chunk.js",
+    "static/js/2.e8dd518f.chunk.js.map": "/drsk-prescription/static/js/2.e8dd518f.chunk.js.map",
+    "static/js/3.5d38262f.chunk.js": "/drsk-prescription/static/js/3.5d38262f.chunk.js",
+    "static/js/3.5d38262f.chunk.js.map": "/drsk-prescription/static/js/3.5d38262f.chunk.js.map",
+    "static/js/4.1a596d24.chunk.js": "/drsk-prescription/static/js/4.1a596d24.chunk.js",
+    "static/js/4.1a596d24.chunk.js.map": "/drsk-prescription/static/js/4.1a596d24.chunk.js.map",
+    "static/js/5.ae02a612.chunk.js": "/drsk-prescription/static/js/5.ae02a612.chunk.js",
+    "static/js/5.ae02a612.chunk.js.map": "/drsk-prescription/static/js/5.ae02a612.chunk.js.map",
+    "static/js/6.fd92c007.chunk.js": "/drsk-prescription/static/js/6.fd92c007.chunk.js",
+    "static/js/6.fd92c007.chunk.js.map": "/drsk-prescription/static/js/6.fd92c007.chunk.js.map",
+    "index.html": "/drsk-prescription/index.html",
+    "static/css/main.12f2ad48.chunk.css.map": "/drsk-prescription/static/css/main.12f2ad48.chunk.css.map",
+    "static/js/2.e8dd518f.chunk.js.LICENSE.txt": "/drsk-prescription/static/js/2.e8dd518f.chunk.js.LICENSE.txt",
+    "static/js/3.5d38262f.chunk.js.LICENSE.txt": "/drsk-prescription/static/js/3.5d38262f.chunk.js.LICENSE.txt",
+    "static/js/4.1a596d24.chunk.js.LICENSE.txt": "/drsk-prescription/static/js/4.1a596d24.chunk.js.LICENSE.txt",
+    "static/js/5.ae02a612.chunk.js.LICENSE.txt": "/drsk-prescription/static/js/5.ae02a612.chunk.js.LICENSE.txt",
+    "static/media/aakar.80ad471a.jpg": "/drsk-prescription/static/media/aakar.80ad471a.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.93ea64e0.js",
+    "static/js/2.e8dd518f.chunk.js",
+    "static/css/main.12f2ad48.chunk.css",
+    "static/js/main.10c4541d.chunk.js"
+  ]
+}
