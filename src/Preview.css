@@ -1,21 +1,133 @@
 .prescription-view {
     padding:10px;
     border:"1px solid red";
-    margin : 10px 100px;
+
+
+
 }
 
+
+.patient-profile {
+    margin-top:30px;
+    padding: 0px !important;
+    display: flex;
+    flex-direction: row;
+    font-size: 14px !important;
+    
+}
+.doctor-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3.6rem;
+  }
+  .doctor-info span {
+    font-size: 16px;
+    font-weight: 700;
+    color: #5c8ab8;
+    margin-bottom: 1rem;
+  }
+
+#prescriptionData {
+    width:100% !important;
+}
+.content {
+    margin : 30px 90px;
+    padding: 10px 100px ;
+}
+.description {
+    margin-bottom:2px !important;
+    padding: 0px;
+}
+.textArea {
+    font-size:13px;
+    margin:0px !important;
+    padding:0px !important;
+    border:none;
+    width:100%;
+    overflow:hidden;
+    height:auto !important;
+    white-space: normal;
+}
+
+@media screen and (min-width : 1500px){
+    .prescription-view {
+        margin:0px !important;
+    }
+    .prescription-form{
+         
+        padding:40px 200px;
+    }
+
+}
+
+/* @media screen and (max-width : 1685px){
+    .textArea {
+        height: 260px;
+    }
+} */
 @media screen and (max-width : 560px){
     .prescription-view {
         margin:0px !important;
     }
+    .aakar-logo {
+        width:281px;
+    }
+    .patient-profile  {
+        font-size: 8px;
+    }
+
 }
+@media screen and (max-width : 970px){
+    .prescription-view {
+        margin:2px !important;
+    }
+    .aakar-logo {
+        width:400px;
+    }
+    .patient-profile  {
+        font-size: 8px;
+        color: crimson;
+    }
+    .textArea {
+        /* min-height: 130px; */
+        height: 400px;
+        font-size: 12px;
+    }
+}
+td{
+    min-width: 160px;
+}
+td,th{
+    padding: 0px !important;
+}
+
+/* .PreForm {
+    height:60vh !important;
+} */
 
 .aakar-logo{
     width:481px;
-    height: 125px;
-    position: relative;
-    align-self: center  ;
+   
+    /* position: relative;
+    left:100px; 
+    margin:30px 0px; */
 }
+
+
+.doctor-logo{
+    height: 80px;
+    width:auto;
+    text-align:center !important;
+    position: relative;
+    left:-2% !important;
+    bottom: 10px;
+
+}
+
+b{
+    margin: 0px !important;
+}
+
 
 .prescription-heading {
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -25,4 +137,36 @@
     color:rgb(60, 60, 216);
     margin-bottom:20px;
     
+}
+
+
+
+@import "sheets-of-paper.css";
+
+.page {
+	/* Styles for better appearance on screens only -- are reset to defaults in print styles later */
+
+	/* Reflect the paper width in the screen rendering (must match size from @page rule) */
+	width: 21cm;
+	/* Reflect the paper height in the screen rendering (must match size from @page rule) */
+	min-height: 29.7cm;
+
+	/* Reflect the actual page margin/padding on paper in the screen rendering (must match margin from @page rule) */
+	padding-left: 2cm;
+	padding-top: 2cm;
+	padding-right: 2cm;
+	padding-bottom: 2cm;
+}
+/* Use CSS Paged Media to switch from continuous documents to sheet-like documents with separate pages */
+@page {
+	/* You can only change the size, margins, orphans, widows and page breaks here */
+
+	/* Paper size and page orientation */
+	size: A4 portrait;
+
+	/* Margin per single side of the page */
+	margin-left: 2cm;
+	margin-top: 2cm;
+	margin-right: 2cm;
+	margin-bottom: 2cm;
 }

@@ -9,3 +9,19 @@
 @media screen and (max-width : 408px){
     
 }
+.password-container {
+    margin: 10px 100px;
+
+}
+.prescription-form{
+    /* border: 1px solid blue; */
+    padding:30px 100px;
+}
+.inp{
+    border: 1.1px solid #fc8019;
+    
+   
+}
+.alert-heading {
+    text-align: center;
+}
