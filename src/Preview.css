@@ -1,6 +1,6 @@
 .prescription-view {
     padding:10px;
-    border:"1px solid red";
+    
 
 
 
@@ -94,6 +94,7 @@
         font-size: 12px;
     }
 }
+
 td{
     min-width: 160px;
 }
@@ -144,6 +145,8 @@ b{
 @import "sheets-of-paper.css";
 
 .page {
+    border : 2px solid red;
+     
 	/* Styles for better appearance on screens only -- are reset to defaults in print styles later */
 
 	/* Reflect the paper width in the screen rendering (must match size from @page rule) */

@@ -5,6 +5,7 @@ import TestPDF from './TestPDF'
 import { useScreenshot } from 'use-react-screenshot'
 import { saveAs } from 'file-saver'
 import sign from "./sign.png"
+import drskinfo from "./drskinfo.jpeg"
 import doctorInfo from "./doctorInfo.jpeg"
 import { FormGroup, Form, Input, Label, Button, Col,Alert ,Badge,Table,List} from 'reactstrap'
 import Draggable from 'react-draggable'; // The default
@@ -38,7 +39,7 @@ const Preview = () => {
  
    
     useEffect(() => {
-      
+        // console.log(Prescription)
 
         if(window.innerWidth > 900){
               
@@ -54,7 +55,7 @@ const Preview = () => {
         saveAs(image, 'image.jpg') // Put your image url here.
       }
     //  var vis = {visibility:"hidden"}
-    const { date, Visit_No,file, Name, Address, Age, Sex, Diagnosis,Goal,Prescription,Description} = state;
+    const { date, file,Visit_No, Case_Serial_No,Name, Address, Age, Sex, Diagnosis,Goal,Prescription,Description} = state;
     function ChangeFormateDate(date){
         var p = date.split(/\D/g)
         return [p[2],p[1],p[0] ].join("/")
@@ -67,11 +68,10 @@ const Preview = () => {
     return (
         <div className="prescription-view" >
             <section className ="page"  ref={ref} >
-            <section >
-            <Draggable >
+            <section>
+            <Draggable>
             <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
             </Draggable>
-
         
             <section class="doctor-info">
                 <div class="doctor-name">
@@ -96,10 +96,12 @@ const Preview = () => {
                 </div>
             </section> */}
             {/* <h2 class="prescription-heading">Prescription</h2> */}
-            <Draggable style={{width:"40px !important",margin:"0px !important",padding:"0px !important"}}>
-            <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}><img src={file} style={{width:"160px"}} alt="Patient's Image" /> </div>
-            </Draggable>
+            {/* <Draggable style={{textAlign:"center",border:"2px solid black"}}> */}
+            
+        <img src={file} style={{width:"144px",position:"absolute",top:"355px",right:"440px"}} alt="" /> 
+           {/* </Draggable> */}
             <section class="patient-profile">
+               
             <Table >
             <tbody>
                 <tr>
@@ -107,7 +109,9 @@ const Preview = () => {
                     Date &nbsp;  
                 </td>
                 <td >
-               {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case_Serial_no  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{JSON.parse(localStorage.getItem('counter'))+2000} 
+               {/* {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case_Serial_no  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{JSON.parse(localStorage.getItem('counter')-2)}  */}
+               {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Payment Receipt No. &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2021
+
                 </td>
                 </tr>
                 <tr>
@@ -169,41 +173,51 @@ const Preview = () => {
                 </tr>
             </tbody>
             </Table>
-            
+           
             
             </section>
-            <section>          
-             <div>
-                <p>PRESCRIPTION : &nbsp; ( Join parent support group and read more about Goal Directed Cognitive Approach at <a href="http://www.neuropediatrician.com">www.neuropediatrician.com</a> )</p>
-
-                <ul> {prescription?.map((p)=>{
-                        return(
-                            <li>{p}</li>
-                        )
-                })}</ul >
-            </div>
-
-            <br />
-            </section>
-<div style={{borderTop: "2px solid grey"}}></div>
+            {
+                prescription.length === 0 ? (
+                    <></>
+                )  : (
+                    <section>          
+                    <div>
+                       <p>PRESCRIPTION : &nbsp; ( Join parent support group and read more about Goal Directed Cognitive Approach at <a href="http://www.neuropediatrician.com">www.neuropediatrician.com</a> )</p>
+       
+                       <ul> {prescription?.map((p)=>{
+                               return(
+                                   <li>{p}</li>
+                               )
+                       })}</ul >
+                   </div>
+                       
+                   <br />
+                   </section>
+                )
+            }
+          
 <br />
             <section className="description">
                            
-              <Draggable style={{margin:"0px !important",padding:"0px !important"}}>
-                <div style={{height:"100px",textAlign:"center",margin :"0px !important",padding:"0px !important"}}>
-                <img  style={{height:"85px",margin:"0px !important",padding:"0px !important"}}  src={sign} alt='sign' />
-                </div>
-                </Draggable>
+
+  
                <p className="textArea" >
                {Description}
                </p>
-               <p className="textArea" style={{color:"#338BA8"}}>
+
+                <br /> 
+                <Draggable style={{margin:"0px !important",padding:"0px !important",width:"100px !important"}}>
+                <div style={{height:"100px",margin :"0px !important",paddingLeft:"50px",maxWidth:"100px !important"}}>
+                <img  style={{height:"85px",margin:"0px !important",padding:"0px !important"}}  src={sign} alt='sign' />
+                <img  style={{height:"85px",margin:"0px !important",padding:"0px !important"}}  src={drskinfo} alt='drskinfo' />
+                 
+                </div>
+                </Draggable>
+                <p className="textArea" style={{color:"#338BA8"}}>
                Read <b>www.pedneuro.in</b> for Dr kondekar's Protocol of managing Autism. For basic health queries  visit  <b>www.aakaarclinic.com</b> or <b>www.kondekar.com</b>. F/u on whatsapp every 07 days to titrate doses and physical follow up one monthly or as needed
                </p>
-                <br /> 
-
                 <b style={{color:"#338BA8",textAlign:"center",margin:"0px",padding:"0px"}}>
-                <p style={{margin:"0px",padding:"0px",fontSize:"12px"}}> DR KONDEKAR SANTOSH V. MD DNB DCH FCPS R NO 126232 MMC  </p>
+                <p style={{margin:"0px",padding:"0px",fontSize:"12px"}}> DR KONDEKAR SANTOSH V. MD DNB DCH FCPS R NO  86230 MMC  </p>
                 <p style={{margin:"0px",padding:"0px",fontSize:"12px"}}>WWW.AAKAARCLINIC.COM  </p>
                 <p style={{margin:"0px",padding:"0px",fontSize:"12px"}}>AAKAAR CLINIC OPP BYCULLA STATION WEST MUMBAI 400024 INDIA   </p>
                  </b>

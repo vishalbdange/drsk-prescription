@@ -8,6 +8,7 @@ import ReactPDF from '@react-pdf/renderer';
 import TestPDF from "./TestPDF.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from './AutismScorePredictor/Form'
+import AutismDSM from './AUTISM DSM/AutismDSM'
 import NavbarComponent from "./NavbarComponent"
 
 import Home from "./Home"
@@ -46,6 +47,7 @@ function App() {
         <Route exact path="/prescription" element={ <PrescriptionForm />} />
         <Route  exact path="/prescription-view" element={<Preview />} />
         <Route  exact path="/autism-score" element={<Form />} />
+        <Route  exact path="/autism-dsm" element={<AutismDSM />} />
       </Routes>
     </Router>
 

@@ -1,10 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { Alert,Button,FormGroup,Input,Label,Col,Collapse,UncontrolledCollapse,Badge, CardTitle,Card,UncontrolledAlert} from 'reactstrap'
-import Section1  from './Sections/Section1'
-import Section2  from './Sections/Section2'
-import Section3  from './Sections/Section3'
-import Section4  from './Sections/Section4'
-import  ScoreBoard  from './Sections/ScoreBoard'
+import  ScoreBoard  from './ScoreBoard'
 import AppContext from '../AppContext';
 import { initializeApp,RecaptchaVerifier  } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -12,7 +8,7 @@ import  {getAuth} from "firebase/auth"
 // import Firebase from './firebase';
 import aakar from "../aakar.jpg"
 
-const Form = () => {
+const AutismDSM = () => {
 
 
     // const firebaseConfig = {
@@ -143,85 +139,50 @@ const Form = () => {
         }
     }
     
-    const renderSwitch = (param) => {
-        switch(param) {
-            case  1 :
-                return <Section1    />;
-            case  2 :
-                return <Section2    />;
-            case  3 :
-                return <Section3    />;
-            case  4 :
-                return <Section4     />;
-            default:
-                return <Section1    />;
-        }
-      }
+    var A = [];
+    var ATrue = false;
+    var B = [];
+    var BTrue = false;
+    const [result,setResult] = useState(false)
     const getVal = () => { 
-            var val = document.getElementById("Q1").value;
-            processScore(val);
-         
-            val = document.getElementById("Q2").value;
-            processScore(val);
-       
-            val = document.getElementById("Q3").value;
-            processScore(val);
-            
-            val = document.getElementById("Q4").value;
-            processScore(val);
-            
-            val = document.getElementById("Q5").value;
-            processScore(val);
+            var A1 = document.getElementById("A1").value;
+            if(A1 != "None"){ A[0] = true}
+            var A2 = document.getElementById("A2").value;
+            if(A2 != "None"){ A[1] = true}
+            var A3 = document.getElementById("A3").value;
+            if(A3 != "None"){ A[2] = true}
 
-            val = document.getElementById("Q6").value;
-            processScore(val);
-       
-            val = document.getElementById("Q7").value;
-            processScore(val);
-            
-            val = document.getElementById("Q8").value;
-            processScore(val);
-            
-            val = document.getElementById("Q9").value;
-            processScore(val);
-            val = document.getElementById("Q10").value;
-            processScore(val);
-       
-            val = document.getElementById("Q11").value;
-            processScore(val);
-            
-            val = document.getElementById("Q12").value;
-            processScore(val);
-            
-            val = document.getElementById("Q13").value;
-            processScore(val);
-            val = document.getElementById("Q14").value;
-            processScore(val);
-       
-            val = document.getElementById("Q15").value;
-            processScore(val);
-            
-            val = document.getElementById("Q16").value;
-            processScore(val);
-            
-            val = document.getElementById("Q17").value;
-            processScore(val);
+            if(A[0] && A[1] && A[2]){
+                ATrue = true;
+            }
 
-            val = document.getElementById("Q18").value;
-            processScore(val);
-            
-            val = document.getElementById("Q19").value;
-            processScore(val);
-            
-            val = document.getElementById("Q20").value;
-            processScore(val);
+            var B1 = document.getElementById("B1").value;
+            if(B1 != "None"){ B[0] = true}
+            var B2 = document.getElementById("B2").value;
+            if(B2 != "None"){ B[1] = true}
+            var B3 = document.getElementById("B3").value;
+            if(B3 != "None"){ B[2] = true}
+            var B4 = document.getElementById("B4").value;
+            if(B4 != "None"){ B[3] = true}
+
+            if((B[1] && B[2] ) || (B[1] || B[3]) || (B[1] && B[4] ) || (B[2] || B[3]) || (B[2] && B[4] ) || (B[4] || B[3])){
+                BTrue = true;
+            }
+        
         }
-    const handleSubmit = () => {  
+
+    const handleSubmit = (e) => {  
+            e.preventDefault();
 
             getVal();
-            console.log("Total Score is : ",score);
-            setFinalScore(score);
-            score = 0;
+            console.log(ATrue)
+            console.log(BTrue)
+            console.log(result)
+            if(ATrue && BTrue){
+                setResult(true)
+            }else{
+                setResult(false)
+            }
             setScoreBoard(true);
     }
 
@@ -290,8 +251,8 @@ const Form = () => {
                     scoreBoard ? 
                     (
                     <>
-                    <ScoreBoard finalScore={finalScore}  patientForm={patientForm}/>
-                    <Button onClick={() => {setScoreBoard(false)}} style={{margin:"20px",float:"right"}}> Check Score Again ?</Button> 
+                    <ScoreBoard result={result}  patientForm={patientForm}/>
+                    <Button onClick={() => {setScoreBoard(false)}} style={{margin:"20px",float:"right"}}> Check  Again ?</Button> 
                     </> ) :
                     (   
                         <>
@@ -306,9 +267,9 @@ const Form = () => {
                                 </div> <br />
                                 <div style={{textAlign:"center",fontSize:"20px"}}>
                                 <Badge color="danger" >
-                                  Autism Score Predictor
+                                    Check AUTISM DSM 5 
                                 </Badge>
-                                </div>
+                                </div>  
                             <form onSubmit={gotoAssesment} style={{padding:"20px 100px"}}>
                             <FormGroup>
 
@@ -317,14 +278,14 @@ const Form = () => {
                                                    </Label>
                                                    <Col sm-10>
                                                        <input
+                                                      
                                                            id="Name"
                                                            name="Name"
                                                            type="text"
                                                            className="autInp"
                                                            onChange={handleChangeForm}
                                                            required
-                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
-                                                        
+                                                            style={{padding:"5px",border:"none",outline:"none",boxShadow:"1px 1px 5px grey",borderRadius:"8px"}}
                                                            
                                                        />
                                                    </Col>
@@ -341,7 +302,7 @@ const Form = () => {
                                                            className="autInp"
                                                            onChange={handleChangeForm}
                                                            required
-                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                            style={{padding:"5px",border:"none",outline:"none",boxShadow:"1px 1px 5px grey",borderRadius:"8px"}}
                                                        />
                                                    </Col>
                             </FormGroup>
@@ -357,7 +318,7 @@ const Form = () => {
                                                            className="autInp"
                                                            onChange={handleChangeForm}
                                                            required
-                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                            style={{padding:"5px",border:"none",outline:"none",boxShadow:"1px 1px 5px grey",borderRadius:"8px"}}
                                                        />
                                                    </Col>
                             </FormGroup>
@@ -373,7 +334,7 @@ const Form = () => {
                                                            className="autInp"
                                                            onChange={handleChangeForm}
                                                            required
-                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                            style={{padding:"5px",border:"none",outline:"none",boxShadow:"1px 1px 5px grey",borderRadius:"8px"}}
                                                        />
                                                    </Col>
                             </FormGroup>
@@ -390,7 +351,7 @@ const Form = () => {
                                                            className="autInp"
                                                            onChange={handleChangeForm}
                                                            required
-                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                           style={{padding:"5px",border:"none",outline:"none",boxShadow:"1px 1px 5px grey",borderRadius:"8px"}}
                                                        />
                                                    </Col>
                             </FormGroup>
@@ -405,8 +366,8 @@ const Form = () => {
                             (
                                 <>
                                     {
-                                       !forgotPswd ? 
-                                            <div style={{padding:"20px 100px"}}>
+                                       !forgotPswd ?    
+                                            <div style={{padding:"60px 90px"}}>
                                                    <FormGroup row p-0 >
                                                    <Label for="exampleSex" sm-2>
                                                         Enter Password :
@@ -417,6 +378,7 @@ const Form = () => {
                                                            name="password"
                                                            type="text"
                                                            className="inp"
+                                                           style={{padding:"5px",border:"none",outline:"none",boxShadow:"1px 1px 5px grey",borderRadius:"8px"}}
                                                            onChange={handleChangePassword}
                                                        />
                                                    </Col>
@@ -477,268 +439,273 @@ const Form = () => {
                         (
                             <>     
                        <br /> <br /> <br />  
-                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section1">Section 1 :  SOCIAL INTERACTION  </Button></div>
+                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section1">Section A :  SOCIAL COMMUNICATION AND INTERACTION: PERSISTENT DEFICIT  </Button></div>
+                        <form style={{textAlign:"center"}} onSubmit={handleSubmit}>
                         <UncontrolledCollapse  toggler="#section1">
-                        <FormGroup row p-0 >
+                            
+                        <FormGroup row   p-0 >
                             <Label for="exampleSex" sm-2>
-                            Q1.  Inability to establish and/or maintain eye contact
+                            <b>A1.  SOCIAL EMOTIONAL RECIPROCITY</b>
                             </Label>
                             <Col sm-10>
-                                <Input
-                                    id="Q1"
-                                    name="Q1"
+                                <select
+                                    id="A1"
+                                    name="A1"
                                     type="select"
+                                    multiple 
                                     className="inp"
+                                     
+                                     required
+                                     style={{padding:"15px",border:"none",outline:"none"}}
                                     
                                 >
-                                    <option>
-                                    Never
+                                    <option >
+                                   None
                                     </option>
                                     <option>
-                                    Sometimes
+                                    SOCIAL APPROACH ABNORMAL
                                     </option>
                                     <option>
-                                        Often
+                                    ABNORMAL BACK FORTH CONVERSATION
                                     </option>
                                     <option>
-                                        Always
+                                    REDUCED SHARING OF INTEREST EMOTION/ AFFECT
                                     </option>
-                                </Input>
+                                    <option>
+                                    FAILURE TO INITIATE OR RESPOND TO SOCIAL INRTERACTIONS
+                                    </option>
+                                </select>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row  >
                             <Label for="exampleSex" sm-2>
-                            Q2. Child does not respond when called,sometimes appears to be deaf
+                            <b>A2. DEFICIT IN NONVERBAL COMMUNICATION </b>
                             </Label>
                             <Col sm-10>
-                                <Input
-                                    id="Q2"
-                                    name="Q2"
+                                <select
+                                    id="A2"
+                                    name="A2"
                                     type="select"
+                                    multiple
                                     className="inp"
-                                    
+                                     
+                                     style={{padding:"15px",border:"none",outline:"none"}}
                                 >
                                     <option>
-                                    Never
+                                    None
                                     </option>
                                     <option>
-                                    Sometimes
+                                    POOR VERBAL / NON VERBAL COMMUNICATION, POOR EYE CONTACT
                                     </option>
                                     <option>
-                                        Often
+                                    POOR BODY LANGUAGE
                                     </option>
                                     <option>
-                                        Always
+                                    DEFICIT IN GESTURE USE 
                                     </option>
-                                </Input>
+                                    <option>
+                                    TOTAL LACK OF FACIAL EXPRESSIONS OR NON VERBAL COMMUNICATION
+                                    </option>
+                                </select>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row  >
                             <Label for="exampleSex" sm-2>
-                            Q3. Difficulty in mixing and playing with other children of same age
+                          <b> A3</b>
                             </Label>
                             <Col sm-10>
-                                <Input
-                                    id="Q3"
-                                    name="Q3"
+                                <select
+                                    id="A3"
+                                    name="A3"
                                     type="select"
+                                    multiple
                                     className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                        Q4. Lack of appropriate emotional response
+                                    required
+                                     
+                                     style={{padding:"15px",border:"none",outline:"none"}}
 
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q4"
-                                    name="Q4"
-                                    type="select"
-                                    className="inp"
                                     
                                 >
                                     <option>
-                                    Never
+                                    None
                                     </option>
                                     <option>
-                                    Sometimes
+                                    DEFICIT IN DEVELOPING MAINTAINING AND UNDERSTANDING RELATIONSHIPS
                                     </option>
                                     <option>
-                                        Often
+                                    DIFFICUTY ADJUSTING BEHAVIOR TO SUIT VARIOUS SOCIAL CONTEXT
                                     </option>
                                     <option>
-                                        Always
+                                    DIFFICULTY IN SHARING IMAGINATIVE PLAY OR MAKING FRIENDS 
                                     </option>
-                                </Input>
+                                    <option>
+                                    ABSENCE OF INTEREST IN PEERS
+                                    </option>
+                                </select>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q5. Can do certain tasks well,but not the tasks involving social undestanding
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q5"
-                                    name="Q5"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-
+                       
                         </UncontrolledCollapse>
 
 
-                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section2">Section 2 : COMMUNICATION </Button></div>
-                        <UncontrolledCollapse  toggler="#section2">
-                        <FormGroup row p-0 >
+                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section2">Section B : RESTRICTED, REPITIVE PATTERNS OF BEHAVIOUR, OR INTEREST, OR ACTIVITIES</Button></div>
+                        <UncontrolledCollapse  toggler="#section2" >
+
+                        <FormGroup   >
                             <Label for="exampleInp" sm-2>
-                            Q6.  Difficulty in comprehension/communication
+                           <b>B1.  STEREOTYPED OR REPITITVE MOTOR MOVEMENTS </b>
                             </Label>
                             <Col sm-10>
-                                <Input
-                                    id="Q6"
+                                <select
+                                    id="B1"
                                     name="Q1"
                                     type="select"
+                                    multiple
                                     className="inp"
+                                    required
+                                     
+                                     style={{padding:"15px",border:"none",outline:"none",overflow:"auto"}}
+
                                 
                                 >
                                     <option>
-                                    Never
+                                    None
                                     </option>
                                     <option>
-                                    Sometimes
+                                    USE OF OBJECTS
                                     </option>
                                     <option>
-                                        Often
+                                    SIMPLE MOTOR STEREOTYPES
                                     </option>
                                     <option>
-                                        Always
+                                    LINING UP TOYS
                                     </option>
-                                </Input>
+                                    <option>
+                                    FLIPPING OBJECTS
+                                    </option>
+                                    <option>
+                                    ECHOLALIA
+                                    </option>
+                                    <option>
+                                    IDIOSYNCHRATIC PHRASES
+                                    </option>
+                                </select>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row  >
                             <Label for="exampleInp" sm-2>
-                            Q7. May/may not indicate needs by gestures or leading adults by the hand
+                            <b>B2. SAMENESS / RIGIDNESS/ INFLEXIBILITY/ RITUALITY VERBAL OR NON VERBAL </b>
 
                             </Label>
                             <Col sm-10>
-                                <Input
-                                    id="Q7"
+                                <select
+                                    id="B2"
                                     name="Q1"
                                     type="select"
+                                    multiple
                                     className="inp"
+                                    required
+                                     
+                                     style={{padding:"15px",border:"none",outline:"none"}}
+
                                 
                                 >
                                     <option>
-                                    Never
+                                        None
                                     </option>
                                     <option>
-                                    Sometimes
+                                        EXTREME DISTRESS AT SMALL CHANGES 
                                     </option>
                                     <option>
-                                        Often
+                                        DIFFICULTY ITH CHANGE OR TRANSITION
                                     </option>
                                     <option>
-                                        Always
+                                        RIGID THINKING PATTERN 
                                     </option>
-                                </Input>
+                                    <option>
+                                        GREETING RITUALS
+                                    </option>
+                                    <option>
+                                    NEED TO TAKE SAME ROUTE 6. EAT SAME FOOD EVERY DAY
+                                    </option>
+                                </select>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row  >
                             <Label for="exampleInp" sm-2>
-                            Q8. Echolalia/using nonsensical words and muttering to self
+                           <b> B3. RESTRICTED FIXATD INTEREST OF ABNORMAL INTENSITY / FOCUS</b>
                             </Label>
                             <Col sm-10>
-                                <Input
-                                    id="Q8"
+                                <select
+                                    id="B3"
                                     name="Q1"
                                     type="select"
+                                    multiple
                                     className="inp"
+                                    required
+                                     
+                                     style={{padding:"15px",border:"none",outline:"none"}}
+
                                 
                                 >
                                     <option>
-                                    Never
+                                        None
                                     </option>
                                     <option>
-                                    Sometimes
+                                        STRONG ATTACHMENT / PREOCCUPATION WITH UNUSUAL OBJECTS 
                                     </option>
                                     <option>
-                                        Often
+                                        EXCESSIVE CIRCUMSCRIBED OR PERSERVATIVE INTERESTS
                                     </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
+                                </select>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row  >
                             <Label for="exampleInp" sm-2>
-                        Q9. Lack of Pretend play 
+                        <b>B4. HYPER OR HYPO REACTIVITY TO SENSORY INPUT OR UNUSUAL INTEREST IN SENSORY ASPECTS AROUND </b>
 
                             </Label>
                             <Col sm-10>
-                                <Input
-                                    id="Q9"
+                                <select
+                                    id="B4"
                                     name="Q1"
                                     type="select"
+                                    multiple
                                     className="inp"
+                                    required
+                                     
+                                     style={{padding:"15px",border:"none",outline:"none"}}
+
                                 
                                 >
                                     <option>
-                                    Never
+                                        None
                                     </option>
                                     <option>
-                                    Sometimes
+                                        APPARENT INDIFFERRENCE TO PAIN AND TEMPERATURE
                                     </option>
                                     <option>
-                                        Often
+                                        ADVERSE RESPONSE TO SOUND OR TEXTURE 
                                     </option>
                                     <option>
-                                        Always
+                                        EXCESSIVE SMELLING OR TOUCHING OF OBJECTS
                                     </option>
-                                </Input>
+                                    <option>
+                                        VISUAL FASCINATION WITH LIGHT OR MOVEMENT
+                                    </option>
+                                    
+                                </select>
                             </Col>
                         </FormGroup>
-                
+                            
                         </UncontrolledCollapse>
-
+                        
+{/* 
                         <div style={{textAlign:"center",margin:"15px"}}><Button color="info"  id="section3">Section 3 : BEHAVIOURAL CHARACTERISTICS </Button></div>
                         
                         <UncontrolledCollapse  toggler="#section3">
 
-                        <FormGroup row p-0 >
+                        <FormGroup row   p-0 >
                             <Label for="exampleSex" sm-2>
                             Q 10.  Likes sameness in everyday routine
                             </Label>
@@ -747,7 +714,12 @@ const Form = () => {
                                     id="Q10"
                                     name="Q1"
                                     type="select"
+                                    multiple
                                     className="inp"
+                                    required
+                                     
+                                   
+
                                     
                                 >
                                     <option>
@@ -765,7 +737,7 @@ const Form = () => {
                                 </Input>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row  >
                             <Label for="exampleSex" sm-2>
                             Q 11. Inappropriate attachment to objects
 
@@ -793,7 +765,7 @@ const Form = () => {
                                 </Input>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row  >
                             <Label for="exampleSex" sm-2>
                             Q 12. Unsual body movements such as flapping hands or rocking or jumping
 
@@ -821,7 +793,7 @@ const Form = () => {
                                 </Input>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row style={{margin:"0px 300px"}} >
                             <Label for="exampleSex" sm-2>
                         Q 13. Extreme restlessness,hyperactivity/overpassivity or prefers to be alone all the time 
 
@@ -1049,11 +1021,12 @@ const Form = () => {
                             </Col>
                         </FormGroup>
            
-                        </UncontrolledCollapse>
+                        </UncontrolledCollapse> */}
 
                         <div style={{display:"flex",flexDirection:"row",justifyContent:"center"}} >
-                            <Button color="success" onClick={handleSubmit}>Show Autism Score </Button>  
+                            <Button color="success" type="submit">Check Autism DSM 5 </Button>  
                         </div> 
+                        </form>
                          </>) }
                         </>
                         }
@@ -1065,4 +1038,4 @@ const Form = () => {
     )
 }
 
-export default Form
+export default AutismDSM

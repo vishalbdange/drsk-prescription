@@ -1,4 +1,4 @@
-import React, { useRef, useState ,useMemo,useCallback} from 'react'
+import React, { useRef, useState,useMemo,useCallback } from 'react'
 import Pdf from "react-to-pdf";
 import TestPDF from './TestPDF';
 import { Link ,useNavigate} from "react-router-dom"
@@ -8,13 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormGroup, Form, Input, Label, Button, Col,Alert ,Badge} from 'reactstrap'
 import ImageCapture from "react-image-data-capture"; 
 
-const PrescriptionForm = () => {
+const PrescriptionForm = (props) => {
   
     const navigate = useNavigate();
     const [state, setState] = useState( {
-        date: new Date(Date.now()).toLocaleString(),
+        date: new Date(Date.now()).toLocaleString(),    
+        file:null,
         Visit_No: '',
-        file : null,
         Name: '',
         Address: '',
         Age: '',
@@ -25,7 +25,7 @@ const PrescriptionForm = () => {
         Description:"For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions."
     });
     var prescription = [];
-
+    var imageSource = null;
     const [emptyStates,setEmptyStates] = useState({
         isName:true,
         isAddress:true,
@@ -63,7 +63,7 @@ const PrescriptionForm = () => {
     function createInputs() {
       return values.val.map((el, i) =>
         <div key={i} style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-          <Input type="text" value={el||''}  style={{margin:"10px",width:"700px"}} onChange={e => {handleChangeList(e,i)}} />
+          <Input type="text" value={el||''}  style={{margin:"10px",width:"720px"}} onChange={e => {handleChangeList(e,i)}} />
           <Input type='button' style={{width:"60px",borderRadius:"10%",margin:"10px"}} value='X' onClick={() => removeClick(i)} />
         </div>
       );
@@ -103,11 +103,6 @@ const PrescriptionForm = () => {
         const value = e.target.value;
         setState({ ...state, [name]: value })
     }
-    const handleChangeImage  =  (event) => {
-        setState(
-          {...state,file: URL.createObjectURL(event.target.files[0])}
-        )
-      }
     const [enterPswd,setEnterPswd] = useState(true);
     const [pswd,setPswd] = useState('');
     const onHandleChangePswd = (e) => {
@@ -122,6 +117,7 @@ const PrescriptionForm = () => {
     }   
     const [imageOpen,setImageOpen] = useState(false)
     const [showImgCapture, setShowImgCapture] = useState(true);
+    const [imageTaken,setImageTaken] = useState(false)
       const config = useMemo(() => ({ video: true }), []);
       /*
         { video: true } - Default Camera View
@@ -134,18 +130,19 @@ const PrescriptionForm = () => {
         // read as webP
 
         // Unmount component to stop the video track and release camera
-        setTimeout(()=>{
-            setImgSrc(imageData.webP);
+        
+        console.log(imageData.webP)
+            imageSource = imageData.webP;
             // read as file
             setImgFile(imageData.file);
-        } ,5000);
-        console.log(imgSrc)
+
+              console.log(imageSource)
         // setTimeout(()=>{
             setState(
-                {...state,file: imgSrc}
+                {...state,file: imageSource}
               )
         // },2000)
-        
+        setImageTaken(true)
         setImageOpen(false);
         setShowImgCapture(false);
       };
@@ -162,7 +159,7 @@ const PrescriptionForm = () => {
 
 
         <div className="PreForm">
-            <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
+            <div style={{textAlign:"center",display:"flex",justifyContent:"center",marginTop:"15px"}}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
             {/* {validateContent} */}
             {
                 enterPswd ? (<div className="password-container">
@@ -171,8 +168,8 @@ const PrescriptionForm = () => {
                                     Prescription Form  : 
                                 </Badge>
                             </div>
-                            <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-                            <FormGroup floating  style={{width:"400px"}}>
+                            <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",cborder:"2px solid black"}}>
+                            <FormGroup floating  style={{width:"400px",margin:"4px"}}>
                                     <Input
                                         id="examplepswd"
                                         name="pswd"
@@ -187,14 +184,15 @@ const PrescriptionForm = () => {
                                     </Label>
                                 </FormGroup>
                                 
-                             <Button onClick={submitPswd} style={{width:"400px"}}>Go To Prescription Form</Button>
+                             <Button onClick={submitPswd} style={{width:"400px",margin:"4px"}}>Go To Prescription Form</Button>
                              </div>
 
                 </div> ) : (<> 
 
             <Form className="prescription-form" >
-            <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",cborder:"2px solid black"}}>
-                <FormGroup floating style={{width:"400px"}}>
+            {/* <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",cborder:"2px solid black"}}> */}
+            <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
+                <FormGroup floating style={{width:"400px",margin:"4px"}}>
                     <Input
                         id="exampleDate"
                         name="date"
@@ -208,8 +206,10 @@ const PrescriptionForm = () => {
                         Date
                     </Label>
                 </FormGroup>
-    
-                <FormGroup floating style={{width:"400px"}}>
+               
+         
+                {' '}
+                <FormGroup floating style={{width:"400px",margin:"4px"}}>
                     <Input
                         id="Visit_No"
                         name="Visit_No"
@@ -223,31 +223,8 @@ const PrescriptionForm = () => {
                          Visit_No
                     </Label>
                 </FormGroup>
-                <FormGroup floating style={{width:"400px"}}>
-                    <Input
-                        id="UploadImage"
-                        name="UploadImage"
-                        placeholder="UploadImage"
-                        type="file"
-                        onChange={handleChangeImage}
-                        className="inp"
-                        required
-                    />
-                    <Label for="exampleUploadImage">
-                         UploadImage
-                    </Label>
-                </FormGroup>
-                   <span> OR  &nbsp;  &nbsp; <Button onClick={() => {setImageOpen(true); setShowImgCapture(true)}} >Take Photo</Button> </span>
-                {showImgCapture && imageOpen &&(
-                    <ImageCapture
-                    onCapture={onCapture}
-                    onError={onError}
-                    width={300}
-                    userMediaConfig={config}
-                    />
-                )} 
-                
-                <FormGroup floating style={{width:"400px"}}>
+
+                <FormGroup floating style={{width:"400px",margin:"4px"}}>
                     <Input
                         id="Name"
                         name="Name"
@@ -261,7 +238,9 @@ const PrescriptionForm = () => {
                         Name
                     </Label>
                 </FormGroup>
-                <FormGroup floating style={{width:"400px"}}>
+                </div>
+                <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
+                <FormGroup floating style={{width:"400px",margin:"4px",margin:"4px"}}>
                     <Input
                         id="Address"
                         name="Address"
@@ -276,7 +255,7 @@ const PrescriptionForm = () => {
                     </Label>
                 </FormGroup>
 
-                <FormGroup floating style={{width:"400px"}}>
+                <FormGroup floating style={{width:"400px",margin:"4px"}}>
                     <Input
                         id="Age"
                         name="Age"
@@ -291,7 +270,7 @@ const PrescriptionForm = () => {
                     </Label>
                 </FormGroup >
 
-                <FormGroup floating style={{width:"400px"}}>
+                <FormGroup floating style={{width:"400px",margin:"4px"}}>
 
                     <Input
                         id="exampleSelect"
@@ -316,7 +295,9 @@ const PrescriptionForm = () => {
                         Sex
                     </Label>
                 </FormGroup>
-                <FormGroup floating style={{width:"400px"}}>
+                </div>
+                <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
+                <FormGroup floating style={{width:"400px",margin:"4px"}}>
                     <Input
                         id="exampleDiagnosis"
                         name="Diagnosis"
@@ -331,7 +312,7 @@ const PrescriptionForm = () => {
                         Diagnosis
                     </Label>
                 </FormGroup>
-                <FormGroup floating style={{width:"400px"}}>
+                <FormGroup floating style={{width:"400px",margin:"4px"}}>
                     <Input
                         id="exampleGoal"
                         name="Goal"
@@ -346,13 +327,14 @@ const PrescriptionForm = () => {
                     Goal for Next Month
                     </Label>
                 </FormGroup>
+                </div>
+                <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
                 <Label for="exampleDiagnosis">
                        Prescription
                 </Label>
                 {createInputs()}
-                <FormGroup  style={{width:"800px !important",marginBottom:"10px"}}>
-                <Input type='button' value='+ Add Prescription '  onClick={addClick}   />
-                </FormGroup>
+                <Input type='button' value='+ Add Prescription '  onClick={addClick} style={{  marginBottom:"10px",width:"800px"}} />
+ 
                 <FormGroup floating style={{width:"800px"}}>
                     <Input
                         id="exampleDescription"
@@ -369,15 +351,34 @@ const PrescriptionForm = () => {
                         Description
                     </Label>
                 </FormGroup>
+                <Button onClick={() => {setImageOpen(true); setShowImgCapture(true)}} style={{marginBottom:"10px"}} >Take Photo</Button>
+                {showImgCapture && imageOpen &&(
+                    <>
+                    <ImageCapture
+                    onCapture={onCapture}
+                    onError={onError}
+                    width={300}
+                    userMediaConfig={config}
+                    />
+
+                    </>
+                )} 
+                    {/* { imageTaken ? (
+                        <div>
+                            <p>Image Taken</p>
+                            <img style={{width:"60px"}} src={imageSource} alt="Patient's Photo" />
+                       </div>
+                    ) : null} */}
+
                 <Button
                     color="success"
                     outline
                     onClick={validateForm}
                  >Submit
                  </Button>
+                 </div>
            
            
-           </div>
             </Form>
             </>
     )
@@ -389,4 +390,3 @@ const PrescriptionForm = () => {
 }
 
 export default PrescriptionForm
-

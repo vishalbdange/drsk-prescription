@@ -2,26 +2,38 @@ import React,{useState,useEffect,createRef} from 'react'
 import { Card,CardBody,CardTitle,CardSubtitle,CardText,Button,Table} from 'reactstrap'
 import { useScreenshot } from 'use-react-screenshot'
 import { saveAs } from 'file-saver'
-
-const ScoreBoard = ({finalScore,patientForm}) => {
+import aakar from "../aakar.jpg"
+import './style.css'
+const ScoreBoard = ({result,patientForm}) => {
     const [text,setText] = useState("No Autism");
     const [criteria,setCriteria] = useState("");
 
-    console.log(finalScore)
-    useEffect(() =>{
-        if(finalScore >= 20 && finalScore <=35){
-            setText("No Autism")
-            setCriteria("20 - 35");
-        }
-        else if(finalScore >= 30 && finalScore <=43){
-            setText("Likely Autism")
-            setCriteria("20 - 35");
-        }
-        else if( finalScore >= 44){
-            setText("Severe Autism")
-            setCriteria("20 - 35");
-        }
-    },[])
+    // console.log(finalScore)
+    // useEffect(() =>{
+    //     if(finalScore >= 20 && finalScore <=35){
+    //         setText("No Autism")
+    //         setCriteria("20 - 35");
+    //     }
+    //     else if(finalScore >= 30 && finalScore <=43){
+    //         setText("Likely Autism")
+    //         setCriteria("20 - 35");
+    //     }
+    //     else if( finalScore >= 44){
+    //         setText("Severe Autism")
+    //         setCriteria("20 - 35");
+    //     }
+    // },[])
+    // const ref = createRef(null)
+    // const [image, takeScreenshot] = useScreenshot();
+    // var isSS = false;
+    // const getImage = () => {
+    //     // ssBtnStyle.assign({},ssBtnStyle,vis);
+    //     isSS = true;
+    //     takeScreenshot(ref.current)
+    //     console.log(isSS)
+        
+
+    // }
     const ref = createRef(null)
     const [image, takeScreenshot] = useScreenshot();
     var isSS = false;
@@ -37,13 +49,16 @@ const ScoreBoard = ({finalScore,patientForm}) => {
 
     return (
         <div >
-            <section className="page" ref={ref}>
-            <CardTitle>
-                <b>Patient Info : </b>
-            </CardTitle>
+            <section  className="page" ref={ref} >
+            <div style={{textAlign:"center",margin:"0px"}} >
+                        <img src={aakar} alt="aakar" style={{height:"80px"}}/>
+                </div>
+                <br /> <br />
+            <CardTitle style={{fontSize:"16px"}}><strong>Patient's Info : </strong></CardTitle>
             <Table
+             
             >
-        <thead>
+            <thead>
                 <tr>
                 <th>
                     Name
@@ -82,28 +97,20 @@ const ScoreBoard = ({finalScore,patientForm}) => {
             </tbody>
             </Table>
             <Card
-            ref={ref}
+          
             >
                 <CardBody>
                 <CardTitle tag="h5">
-                    Result : {text}
+                    Result :   <b> {result ? ( <>AutismDSM 5 Satisfied</>) :  <>Autism DSM 5 not Satisfied </>}</b>
                   
-                   
                 </CardTitle>
-                <CardSubtitle
-                    className="mb-2 text-muted"
-                    tag="h6"
-                >
-                    Autism Score : {finalScore}
-                   
-                </CardSubtitle>
                 <hr  style={{ width:"0%",outline:"0"} }/>
-                <p>
+                {/* <p>
                 Happy to have a <b>no</b> label, have lots of hopes. Score can change 3 monthly and some issues which you may find to answer as sometimes or often....
                 Till then work on what is lacking in the child, beyond the label. This score is based on old classification DSM IV, <b>do confirm what u scored is same with the dr scoring same for your kid.</b>
-                </p>
+                </p> */}
 
-<hr  style={{ width:"0%",outline:"0"} }/>
+{/* <hr  style={{ width:"0%",outline:"0"} }/>
                 <Table
                     style={{fontSize:"15px "}}
                     >
@@ -143,7 +150,7 @@ const ScoreBoard = ({finalScore,patientForm}) => {
                         </td>
                         </tr>
                     </tbody>
-                    </Table>
+                    </Table> */}
                 <CardText>
                     <b>Note : </b> 
                     <p>Repeat to the same test every 3 months.  <br />If any doubts or issues regarding the score or confirmation of he dignosis and its advice related to treatment , contact &nbsp; Dr.Kondekar <b>9869405747</b> .</p>
@@ -151,6 +158,7 @@ const ScoreBoard = ({finalScore,patientForm}) => {
                 </CardBody>
 
             </Card>
+
             </section>
             <section className="screenshot-capture">
                 <Button color="primary" onClick={getImage} style= {{margin:"10px"}}>
@@ -159,9 +167,10 @@ const ScoreBoard = ({finalScore,patientForm}) => {
                 <span><b>Certificate : </b> </span>
                 <div>
                 <br />
-                <img style={{width:"1000px",position:"relative",border:"2px solid orange",borderRadius:"30px"}} src={image} alt={'Screenshot Will Come Here'} />
+                <img style={{height:"300px",position:"relative",borderRadius:"30px",padding:"20px"}} src={image} alt={'Screenshot Will Come Here'} />
                 </div>
             </section>
+        
         </div>
     )
 }
