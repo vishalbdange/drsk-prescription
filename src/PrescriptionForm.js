@@ -12,12 +12,11 @@ const PrescriptionForm = (props) => {
   
     const navigate = useNavigate();
     const [state, setState] = useState( {
-        date: new Date(Date.now()).toLocaleString(),    
+        DOB: new Date(Date.now()).toLocaleString(),    
         file:null,
         Visit_No: '',
         Name: '',
         Address: '',
-        Age: '',
         Sex: '',
         Diagnosis: '',
         Goal:'',
@@ -29,8 +28,8 @@ const PrescriptionForm = (props) => {
     const [emptyStates,setEmptyStates] = useState({
         isName:true,
         isAddress:true,
-        isAge:true,
-        isSex:true
+        isSex:true,
+        isDOB:true,
     })
     localStorage.setItem('state',JSON.stringify(state))
     localStorage.setItem('prescription',JSON.stringify(prescription))
@@ -97,9 +96,9 @@ const PrescriptionForm = (props) => {
             setEmptyStates({...emptyStates,isName:true})
         }else   if(name == "Address"){
             setEmptyStates({...emptyStates,isAddress:true})
-        }else  if(name == "Age"){
-            setEmptyStates({...emptyStates,isAge:true})
-        } 
+        }else if(name == "DOB"){
+            setEmptyStates({...emptyStates,isDOB:true})
+        }
         const value = e.target.value;
         setState({ ...state, [name]: value })
     }
@@ -153,7 +152,7 @@ const PrescriptionForm = (props) => {
 
     
       // imgFile can be used as a file upload form submission
-      const formData = new FormData();
+      const formData = new FormData();  
       formData.append("file", imgFile);
     return (
 
@@ -184,7 +183,7 @@ const PrescriptionForm = (props) => {
                                     </Label>
                                 </FormGroup>
                                 
-                             <Button onClick={submitPswd} style={{width:"400px",margin:"4px"}}>Go To Prescription Form</Button>
+                             <Button onClick={submitPswd} style={{width:"400px",margin:"4px"}} >Go To Prescription Form</Button>
                              </div>
 
                 </div> ) : (<> 
@@ -194,16 +193,16 @@ const PrescriptionForm = (props) => {
             <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                 <FormGroup floating style={{width:"400px",margin:"4px"}}>
                     <Input
-                        id="exampleDate"
-                        name="date"
-                        placeholder="Date"
+                        id="exampleDOB"
+                        name="DOB"
+                        placeholder="DOB"
                         type="date"
                         onChange={handleChange}
                         className="inp"
                         required    
                     />
-                    <Label for="exampleDate" >
-                        Date
+                    <Label for="exampleDOB" >
+                        DOB
                     </Label>
                 </FormGroup>
                
@@ -255,20 +254,7 @@ const PrescriptionForm = (props) => {
                     </Label>
                 </FormGroup>
 
-                <FormGroup floating style={{width:"400px",margin:"4px"}}>
-                    <Input
-                        id="Age"
-                        name="Age"
-                        placeholder="Age"
-                        type="text"
-                        onChange={handleChange}
-                        className="inp"
-                        required
-                    />
-                    <Label for="exampleAge">
-                        Age
-                    </Label>
-                </FormGroup >
+                
 
                 <FormGroup floating style={{width:"400px",margin:"4px"}}>
 

@@ -50,20 +50,30 @@ const Preview = () => {
         } 
         
     })
-
+    function getAge(dateString) {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+    
     const downloadImage = () => {
         saveAs(image, 'image.jpg') // Put your image url here.
       }
     //  var vis = {visibility:"hidden"}
-    const { date, file,Visit_No, Case_Serial_No,Name, Address, Age, Sex, Diagnosis,Goal,Prescription,Description} = state;
+    const { DOB, file,Visit_No, Case_Serial_No,Name, Address, Sex, Diagnosis,Goal,Prescription,Description} = state;
     function ChangeFormateDate(date){
         var p = date.split(/\D/g)
         return [p[2],p[1],p[0] ].join("/")
      }
-     var displayDate = moment(date).format("Do MMM YYYY");
+     var x =  moment().format('LLLL');
+     var displayDate = x;
 
-
-
+    var Age  = getAge(DOB); 
 
     return (
         <div className="prescription-view" >
@@ -106,11 +116,12 @@ const Preview = () => {
             <tbody>
                 <tr>
                 <td scope="row" >
-                    Date &nbsp;  
+                    Date 
                 </td>
                 <td >
-               {/* {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case_Serial_no  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{JSON.parse(localStorage.getItem('counter')-2)}  */}
-               {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Payment Receipt No. &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2021
+
+               {/* {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  Case_Serial_no  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{JSON.parse(localStorage.getItem('counter')-2)}  */}
+               {displayDate } &nbsp; &nbsp;&nbsp; Payment Receipt No. &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2021
 
                 </td>
                 </tr>
