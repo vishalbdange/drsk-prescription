@@ -17,9 +17,11 @@ const PrescriptionForm = (props) => {
         Visit_No: '',
         Name: '',
         Address: '',
+        Age:'',
         Sex: '',
         Diagnosis: '',
         Goal:'',
+        MoblieNo: '',
         Prescription : [],
         Description:"For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions."
     });
@@ -28,8 +30,10 @@ const PrescriptionForm = (props) => {
     const [emptyStates,setEmptyStates] = useState({
         isName:true,
         isAddress:true,
+        isAge:true,
         isSex:true,
         isDOB:true,
+        isMobileNo:true
     })
     localStorage.setItem('state',JSON.stringify(state))
     localStorage.setItem('prescription',JSON.stringify(prescription))
@@ -96,8 +100,12 @@ const PrescriptionForm = (props) => {
             setEmptyStates({...emptyStates,isName:true})
         }else   if(name == "Address"){
             setEmptyStates({...emptyStates,isAddress:true})
+        }else   if(name == "Age"){
+            setEmptyStates({...emptyStates,isAge:true})
         }else if(name == "DOB"){
             setEmptyStates({...emptyStates,isDOB:true})
+        }else if(name == "MobileNo"){
+            setEmptyStates({...emptyStates,isMobileNo:true})
         }
         const value = e.target.value;
         setState({ ...state, [name]: value })
@@ -253,7 +261,20 @@ const PrescriptionForm = (props) => {
                         Address
                     </Label>
                 </FormGroup>
-
+                <FormGroup floating style={{width:"400px",margin:"4px",margin:"4px"}}>
+                    <Input
+                        id="Age"
+                        name="Age"
+                        placeholder="Age"
+                        type="text"
+                        onChange={handleChange}
+                        className="inp"
+                        required
+                    />
+                    <Label for="exampleAge">
+                        Age
+                    </Label>
+                </FormGroup>
                 
 
                 <FormGroup floating style={{width:"400px",margin:"4px"}}>
@@ -283,6 +304,20 @@ const PrescriptionForm = (props) => {
                 </FormGroup>
                 </div>
                 <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
+                <FormGroup floating style={{width:"400px",margin:"4px",margin:"4px"}}>
+                    <Input
+                        id="MobileNo"
+                        name="MobileNo"
+                        placeholder="MobileNo"
+                        type="text"
+                        onChange={handleChange}
+                        className="inp"
+                        required
+                    />
+                    <Label for="exampleMobileNo">
+                        Mobile No.
+                    </Label>
+                </FormGroup>
                 <FormGroup floating style={{width:"400px",margin:"4px"}}>
                     <Input
                         id="exampleDiagnosis"

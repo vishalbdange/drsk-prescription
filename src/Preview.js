@@ -54,10 +54,21 @@ const Preview = () => {
         var today = new Date();
         var birthDate = new Date(dateString);
         var age = today.getFullYear() - birthDate.getFullYear();
+        console.log(age);
         var m = today.getMonth() - birthDate.getMonth();
+        
+        
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
+            m = -m;
         }
+        if(age  != 0 ||  m != 0){
+            age = age + " year(s) ," + m + " month(s) ";
+        }else{
+            age = "";
+        }
+        
+
         return age;
     }
     
@@ -65,7 +76,7 @@ const Preview = () => {
         saveAs(image, 'image.jpg') // Put your image url here.
       }
     //  var vis = {visibility:"hidden"}
-    const { DOB, file,Visit_No, Case_Serial_No,Name, Address, Sex, Diagnosis,Goal,Prescription,Description} = state;
+    const { DOB, file,Visit_No, Case_Serial_No,Name, Address,Age, Sex, Diagnosis,Goal,MobileNo,Prescription,Description} = state;
     function ChangeFormateDate(date){
         var p = date.split(/\D/g)
         return [p[2],p[1],p[0] ].join("/")
@@ -73,7 +84,10 @@ const Preview = () => {
      var x =  moment().format('LLLL');
      var displayDate = x;
 
-    var Age  = getAge(DOB); 
+    var age_c  = getAge(DOB); 
+    if(age_c == ""){
+            age_c = Age; 
+    }
 
     return (
         <div className="prescription-view" >
@@ -130,9 +144,20 @@ const Preview = () => {
                         Visit_No &nbsp;
                     </td>
                     <td >
-                     {Visit_No}
+                     {Visit_No}  
+                    
                     </td>
                 </tr>
+                <tr>
+                    <td scope="row">
+                        Moblie No : &nbsp;
+                    </td>
+                    <td >
+                     {MobileNo}  
+                    
+                    </td>
+                </tr>
+                
                 <tr>
                 <td scope="row">
                     Name &nbsp;
@@ -141,20 +166,13 @@ const Preview = () => {
                 {Name}
                 </td>
                 </tr>
-                <tr>
-                <td scope="row">
-                    Address &nbsp;
-                </td>
-                <td >
-                {Address}
-                </td>
-                </tr>
+               
                 <tr>
                 <td scope="row">
                     Age &nbsp;
                 </td>
                 <td >
-                  {Age}
+                  {age_c}
                 </td>
 
                 </tr>
@@ -164,6 +182,14 @@ const Preview = () => {
                 </td>
                 <td >
                 {Sex}
+                </td>
+                </tr>
+                <tr>
+                <td scope="row">
+                    Address &nbsp;
+                </td>
+                <td >
+                {Address}
                 </td>
                 </tr>
                 <tr>
