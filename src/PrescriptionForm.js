@@ -23,6 +23,7 @@ const PrescriptionForm = (props) => {
         Goal:'',
         MoblieNo: '',
         Prescription : [],
+        Receipt : ' ',
         Description:"For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions."
     });
     var prescription = [];
@@ -33,7 +34,8 @@ const PrescriptionForm = (props) => {
         isAge:true,
         isSex:true,
         isDOB:true,
-        isMobileNo:true
+        isMobileNo:true,
+        isReceipt : true,
     })
     localStorage.setItem('state',JSON.stringify(state))
     localStorage.setItem('prescription',JSON.stringify(prescription))
@@ -106,6 +108,8 @@ const PrescriptionForm = (props) => {
             setEmptyStates({...emptyStates,isDOB:true})
         }else if(name == "MobileNo"){
             setEmptyStates({...emptyStates,isMobileNo:true})
+        }else if(name == "Receipt"){
+            setEmptyStates({...emptyStates,isReceipt:true})
         }
         const value = e.target.value;
         setState({ ...state, [name]: value })
@@ -355,7 +359,21 @@ const PrescriptionForm = (props) => {
                 </Label>
                 {createInputs()}
                 <Input type='button' value='+ Add Prescription '  onClick={addClick} style={{  marginBottom:"10px",width:"800px"}} />
- 
+                <FormGroup floating style={{width:"400px",margin:"4px"}}>
+                    <Input
+                        id="exampleReceipt"
+                        name="Receipt"
+                        type="textarea"
+                        placeholder="Write Payement Receipt"
+                        style={{ height: "70px" }}
+                        className="inp"
+                        required
+                        onChange={handleChange}
+                    />
+                    <Label for="exampleReceipt">
+                        Payment Receipt  :
+                    </Label>
+                </FormGroup>
                 <FormGroup floating style={{width:"800px"}}>
                     <Input
                         id="exampleDescription"

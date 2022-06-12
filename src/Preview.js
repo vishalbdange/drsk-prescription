@@ -9,8 +9,10 @@ import drskinfo from "./drskinfo.jpeg"
 import doctorInfo from "./doctorInfo.jpeg"
 import { FormGroup, Form, Input, Label, Button, Col,Alert ,Badge,Table,List} from 'reactstrap'
 import Draggable from 'react-draggable'; // The default
-import ReactToPrint from 'react-to-print';
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 import moment from 'moment';
+ 
 
 const Preview = () => {
 
@@ -19,6 +21,19 @@ const Preview = () => {
     const prescription = JSON.parse(localStorage.getItem('prescription'));
     // console.log(state)
     
+    const exportPDF = () => {
+        const input = document.getElementById("Page");
+        html2canvas(input,{logging:true,letterRendering:1,useCORS:true,}).then(canvas =>{
+            const imgWidth = 0;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            const imgData = canvas.toDataURL('img/png');
+            const pdf = new jsPDF('p','mm','a4');
+            pdf.addImage(imgData,'JPEG',0,0,210,310);
+            pdf.save("prescription.pdf");
+        })
+    }
+
+
     const ref = createRef(null)
     const [image, takeScreenshot] = useScreenshot();
     var isSS = false;
@@ -54,21 +69,21 @@ const Preview = () => {
         var today = new Date();
         var birthDate = new Date(dateString);
         var age = today.getFullYear() - birthDate.getFullYear();
-        console.log(age);
+      
         var m = today.getMonth() - birthDate.getMonth();
         
+        var Age = "";
         
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
             m = -m;
         }
         if(age  != 0 ||  m != 0){
+
             age = age + " year(s) ," + m + " month(s) ";
         }else{
             age = "";
         }
-        
-
         return age;
     }
     
@@ -76,7 +91,7 @@ const Preview = () => {
         saveAs(image, 'image.jpg') // Put your image url here.
       }
     //  var vis = {visibility:"hidden"}
-    const { DOB, file,Visit_No, Case_Serial_No,Name, Address,Age, Sex, Diagnosis,Goal,MobileNo,Prescription,Description} = state;
+    const { DOB, file,Visit_No, Case_Serial_No,Name, Address,Age, Sex, Diagnosis,Goal,MobileNo,Prescription,Receipt,Description} = state;
     function ChangeFormateDate(date){
         var p = date.split(/\D/g)
         return [p[2],p[1],p[0] ].join("/")
@@ -86,12 +101,13 @@ const Preview = () => {
 
     var age_c  = getAge(DOB); 
     if(age_c == ""){
-            age_c = Age; 
+            age_c = Age     ; 
     }
 
     return (
         <div className="prescription-view" >
-            <section className ="page"  ref={ref} >
+           
+            <section id = "Page" className ="page"  ref={ref} >
             <section>
             <Draggable>
             <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
@@ -135,7 +151,7 @@ const Preview = () => {
                 <td >
 
                {/* {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  Case_Serial_no  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{JSON.parse(localStorage.getItem('counter')-2)}  */}
-               {displayDate } &nbsp; &nbsp;&nbsp; Payment Receipt No. &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2021
+               {displayDate } &nbsp; &nbsp;&nbsp; Payment Receipt No. &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2022
 
                 </td>
                 </tr>
@@ -232,7 +248,9 @@ const Preview = () => {
                    </section>
                 )
             }
-          
+           <section>
+               <p><strong>Payment Receipt : </strong> {Receipt}</p>
+           </section>
 <br />
             <section className="description">
                            
@@ -241,7 +259,7 @@ const Preview = () => {
                <p className="textArea" >
                {Description}
                </p>
-
+                 
                 <br /> 
                 <Draggable style={{margin:"0px !important",padding:"0px !important",width:"100px !important"}}>
                 <div style={{height:"100px",margin :"0px !important",paddingLeft:"50px",maxWidth:"100px !important"}}>
@@ -266,9 +284,11 @@ const Preview = () => {
                 <Button color="primary" onClick={getImage} style={{height:"35px",margin:"15px"}}>
                         Take screenshot
                 </Button>
+                <Button onClick={exportPDF}>Download PDF</Button> <br />
            
-            <span><b>Image : </b></span>
+            <span><b>Image : </b></span> 
             <div>
+            <br />
             <img style={{width:"400px",position:"relative",border:"2px solid orange",borderRadius:"30px"}} src={image} alt={'Screenshot Will Come Here'} />
             </div>
             </section>
