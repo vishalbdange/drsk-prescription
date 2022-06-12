@@ -65,26 +65,81 @@ const Preview = () => {
         } 
         
     })
-    function getAge(dateString) {
-        var today = new Date();
-        var birthDate = new Date(dateString);
-        var age = today.getFullYear() - birthDate.getFullYear();
-      
-        var m = today.getMonth() - birthDate.getMonth();
+    function getAge(dob) {
+          
+        console.log(" dobs ");
+        var dobYear = dob.slice(0,4)-1900;  
+        var dobMonth = dob.slice(5,7);  
+        var dobDate = dob.slice(8,10);  
+ 
+          
+        //get the current date from the system  
+        var now = new Date();  
+        //extract the year, month, and date from current date  
+        var currentYear = now.getYear();  
+        var currentMonth = now.getMonth()+1;  
+        var currentDate = now.getDate();  
+          
         
-        var Age = "";
+        //declare a variable to collect the age in year, month, and days  
+        var age = {};  
+        var ageString = "";  
         
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-            m = -m;
-        }
-        if(age  != 0 ||  m != 0){
+        //get years  
+       var yearAge = currentYear - dobYear;  
+       console.log(currentYear);
+       console.log(dobYear);
+       console.log(yearAge);
 
-            age = age + " year(s) ," + m + " month(s) ";
-        }else{
-            age = "";
-        }
-        return age;
+        //get months  
+        if (currentMonth >= dobMonth)  
+          //get months when current month is greater  
+          var monthAge = currentMonth - dobMonth;  
+        else {  
+          yearAge--;  
+          var monthAge = 12 + currentMonth - dobMonth;  
+        }  
+
+      
+        //get days  
+        if (currentDate >= dobDate)  
+          //get days when the current date is greater  
+          var dateAge = currentDate - dobDate;  
+        else {  
+          monthAge--;  
+          var dateAge = 31 + currentDate - dobDate;  
+      
+          if (monthAge < 0) {  
+            monthAge = 11;  
+            yearAge--;  
+          }  
+        }  
+        //group the age in a single variable  
+        age = {  
+        years: yearAge,  
+        months: monthAge,  
+        days: dateAge  
+        };  
+            
+            
+        if ( (age.years > 0) && (age.months > 0) && (age.days > 0) )  
+           ageString = age.years + " years, " + age.months + " months, and " + age.days + " days old.";  
+        else if ( (age.years == 0) && (age.months == 0) && (age.days > 0) )  
+           ageString = "Only " + age.days + " days old!";  
+        //when current month and date is same as birth date and month  
+        else if ( (age.years > 0) && (age.months == 0) && (age.days == 0) )  
+            ageString = age.years +  " years old. Happy Birthday!!";  
+        else if ( (age.years > 0) && (age.months > 0) && (age.days == 0) )  
+            ageString = age.years + " years and " + age.months + " months old.";  
+        else if ( (age.years == 0) && (age.months > 0) && (age.days > 0) )  
+            ageString = age.months + " months and " + age.days + " days old.";  
+        else if ( (age.years > 0) && (age.months == 0) && (age.days > 0) )  
+            ageString = age.years + " years, and" + age.days + " days old.";  
+        else if ( (age.years == 0) && (age.months > 0) && (age.days == 0) )  
+            ageString = age.months + " months old.";  
+        //when current date is same as dob(date of birth)  
+        else ageString = "";
+        return ageString ;
     }
     
     const downloadImage = () => {
@@ -92,13 +147,15 @@ const Preview = () => {
       }
     //  var vis = {visibility:"hidden"}
     const { DOB, file,Visit_No, Case_Serial_No,Name, Address,Age, Sex, Diagnosis,Goal,MobileNo,Prescription,Receipt,Description} = state;
+      
     function ChangeFormateDate(date){
         var p = date.split(/\D/g)
         return [p[2],p[1],p[0] ].join("/")
      }
      var x =  moment().format('LLLL');
      var displayDate = x;
-
+     
+ 
     var age_c  = getAge(DOB); 
     if(age_c == ""){
             age_c = Age     ; 
@@ -188,7 +245,7 @@ const Preview = () => {
                     Age &nbsp;
                 </td>
                 <td >
-                  {age_c}
+                  {age_c} 
                 </td>
 
                 </tr>

@@ -12,7 +12,7 @@ const PrescriptionForm = (props) => {
   
     const navigate = useNavigate();
     const [state, setState] = useState( {
-        DOB: new Date(Date.now()).toLocaleString(),    
+        DOB: new Date(Date.now()),    
         file:null,
         Visit_No: '',
         Name: '',
