@@ -30,7 +30,13 @@ const Preview = ({imageURL}) => {
             const imgData = canvas.toDataURL('img/png');
             const pdf = new jsPDF('p','mm','a4');
             pdf.addImage(imgData,'JPEG',0,0,210,310);
-            pdf.save("prescription.pdf");
+            if(state.name !== null){
+                var pdfname = `${state.Name}.pdf`;
+                pdf.save(pdfname);
+            }
+            else{
+                pdf.save(`${state.Visit_No}.pdf`);
+            }
         })
     }
 

@@ -380,6 +380,7 @@ const PrescriptionForm = ({changeImgURL}) => {
                         name="Receipt"
                         type="textarea"
                         placeholder="Write Payement Receipt"
+                        defaultValue={"Rs  Payment received."}
                         style={{ height: "70px" }}
                         className="inp"
                         required
