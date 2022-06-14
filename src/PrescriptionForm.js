@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormGroup, Form, Input, Label, Button, Col,Alert ,Badge} from 'reactstrap'
 import ImageCapture from "react-image-data-capture"; 
 
-const PrescriptionForm = (props) => {
+const PrescriptionForm = ({changeImgURL}) => {
   
     const navigate = useNavigate();
     const [state, setState] = useState( {
@@ -78,7 +78,7 @@ const PrescriptionForm = (props) => {
             // console.log(e.target.files[0]);
              ImageURL = URL.createObjectURL(e.target.files[0]);
             console.log(ImageURL)
-            localStorage.setItem('imageFile',ImageURL)
+            changeImgURL(ImageURL);
     }
 
     function handleChangeList(e,i) {

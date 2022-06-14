@@ -1,4 +1,4 @@
-import React,{useRef} from 'react';
+import React,{ createRef, useState ,useEffect,useRef} from 'react'
 import './App.css';
 import PrescriptionForm from './PrescriptionForm'
 import Preview from './Preview';
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 
 function App() {
 
-  
+  const [imageURL,setImageURL] = useState(null);
  
   
 
@@ -44,8 +44,8 @@ function App() {
       <Routes>
         
         <Route exact path="/" element={ <Home />} />
-        <Route exact path="/prescription" element={ <PrescriptionForm />} />
-        <Route  exact path="/prescription-view" element={<Preview />} />
+        <Route exact path="/prescription" element={ <PrescriptionForm changeImgURL={(url) => setImageURL(url)}/>} />
+        <Route  exact path="/prescription-view" element={<Preview  imageURL={imageURL}/>} />
         <Route  exact path="/autism-score" element={<Form />} />
         <Route  exact path="/autism-dsm" element={<AutismDSM />} />
       </Routes>

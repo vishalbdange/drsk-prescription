@@ -14,14 +14,14 @@ import jsPDF from 'jspdf'
 import moment from 'moment';
  
 
-const Preview = () => {
+const Preview = ({imageURL}) => {
 
 
     const state = JSON.parse(localStorage.getItem('state'));
     const prescription = JSON.parse(localStorage.getItem('prescription'));
-    const imageURL= localStorage.getItem('imageFile');
-    // console.log(state)
-    
+        // console.log(state)
+
+
     const exportPDF = () => {
         const input = document.getElementById("Page");
         html2canvas(input,{logging:true,letterRendering:1,useCORS:true,}).then(canvas =>{
@@ -190,9 +190,21 @@ const Preview = () => {
             </section> */}
             {/* <h2 class="prescription-heading">Prescription</h2> */}
             {/* <Draggable style={{textAlign:"center",border:"2px solid black"}}> */}
-            
-        <img src={file} style={{width:"140px",position:"absolute",top:"355px",right:"400px"}} alt="Patient Image" /> 
-        <img src={imageURL} style={{width:"140px",position:"absolute",top:"355px",right:"400px"}} alt="Patient Image" /> 
+       {
+            file !== null ? 
+            (
+                <>
+                <img src={file} style={{width:"140px",position:"absolute",top:"355px",right:"400px"}} alt="" /> 
+                </>
+            ) : 
+            (
+                <>
+                 <img src={imageURL} style={{width:"140px",position:"absolute",top:"355px",right:"400px"}} alt="" /> 
+                </>
+            )
+       } 
+   
+       
         
            {/* </Draggable> */}
             <section class="patient-profile">
