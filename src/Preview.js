@@ -19,6 +19,7 @@ const Preview = () => {
 
     const state = JSON.parse(localStorage.getItem('state'));
     const prescription = JSON.parse(localStorage.getItem('prescription'));
+    const imageURL= localStorage.getItem('imageFile');
     // console.log(state)
     
     const exportPDF = () => {
@@ -67,7 +68,6 @@ const Preview = () => {
     })
     function getAge(dob) {
           
-        console.log(" dobs ");
         var dobYear = dob.slice(0,4)-1900;  
         var dobMonth = dob.slice(5,7);  
         var dobDate = dob.slice(8,10);  
@@ -87,9 +87,7 @@ const Preview = () => {
         
         //get years  
        var yearAge = currentYear - dobYear;  
-       console.log(currentYear);
-       console.log(dobYear);
-       console.log(yearAge);
+
 
         //get months  
         if (currentMonth >= dobMonth)  
@@ -146,24 +144,22 @@ const Preview = () => {
         saveAs(image, 'image.jpg') // Put your image url here.
       }
     //  var vis = {visibility:"hidden"}
-    const { DOB, file,Visit_No, Case_Serial_No,Name, Address,Age, Sex, Diagnosis,Goal,MobileNo,Prescription,Receipt,Description} = state;
-      
+    const { DOB, file,Visit_No,Name, Address,Age, Sex, Diagnosis,Goal,MobileNo,Receipt,Description,ImageFile} = state;
+       
     function ChangeFormateDate(date){
         var p = date.split(/\D/g)
         return [p[2],p[1],p[0] ].join("/")
      }
      var x =  moment().format('LLLL');
      var displayDate = x;
-     
- 
+      
     var age_c  = getAge(DOB); 
     if(age_c == ""){
             age_c = Age     ; 
     }
-
     return (
         <div className="prescription-view" >
-           
+            
             <section id = "Page" className ="page"  ref={ref} >
             <section>
             <Draggable>
@@ -195,7 +191,9 @@ const Preview = () => {
             {/* <h2 class="prescription-heading">Prescription</h2> */}
             {/* <Draggable style={{textAlign:"center",border:"2px solid black"}}> */}
             
-        <img src={file} style={{width:"144px",position:"absolute",top:"355px",right:"440px"}} alt="" /> 
+        <img src={file} style={{width:"140px",position:"absolute",top:"355px",right:"400px"}} alt="Patient Image" /> 
+        <img src={imageURL} style={{width:"140px",position:"absolute",top:"355px",right:"400px"}} alt="Patient Image" /> 
+        
            {/* </Draggable> */}
             <section class="patient-profile">
                
@@ -203,18 +201,18 @@ const Preview = () => {
             <tbody>
                 <tr>
                 <td scope="row" >
-                    Date 
+                    <b>Date</b>
                 </td>
                 <td >
 
                {/* {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  Case_Serial_no  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{JSON.parse(localStorage.getItem('counter')-2)}  */}
-               {displayDate } &nbsp; &nbsp;&nbsp; Payment Receipt No. &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2022
+               {displayDate } &nbsp; &nbsp;&nbsp; <b>Payment Receipt No.</b> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2022
 
                 </td>
                 </tr>
-                <tr>
+                <tr >
                     <td scope="row">
-                        Visit_No &nbsp;
+                        <b>Visit_No</b> &nbsp;
                     </td>
                     <td >
                      {Visit_No}  
@@ -223,7 +221,7 @@ const Preview = () => {
                 </tr>
                 <tr>
                     <td scope="row">
-                        Moblie No : &nbsp;
+                        <b>Moblie No :</b> &nbsp;
                     </td>
                     <td >
                      {MobileNo}  
@@ -233,7 +231,7 @@ const Preview = () => {
                 
                 <tr>
                 <td scope="row">
-                    Name &nbsp;
+                    <b>Name</b> &nbsp;
                 </td>
                 <td >
                 {Name}
@@ -242,7 +240,7 @@ const Preview = () => {
                
                 <tr>
                 <td scope="row">
-                    Age &nbsp;
+                    <b>Age</b> &nbsp;
                 </td>
                 <td >
                   {age_c} 
@@ -251,7 +249,7 @@ const Preview = () => {
                 </tr>
                 <tr>
                 <td scope="row">
-                    Sex &nbsp;
+                    <b>Sex</b> &nbsp;
                 </td>
                 <td >
                 {Sex}
@@ -259,7 +257,7 @@ const Preview = () => {
                 </tr>
                 <tr>
                 <td scope="row">
-                    Address &nbsp;
+                    <b>Address</b> &nbsp;
                 </td>
                 <td >
                 {Address}
@@ -267,7 +265,7 @@ const Preview = () => {
                 </tr>
                 <tr>
                 <td scope="row" >
-                    Diagnosis &nbsp;
+                    <b>Diagnosis</b> &nbsp;
                 </td>
                 <td style={{width:"100%"}}>
                 {Diagnosis} 
@@ -275,7 +273,7 @@ const Preview = () => {
                 </tr>
                 <tr>
                 <td scope="row" id="goal">
-                    Goal for Next Month    &nbsp;
+                    <b>Goal for Next Month</b>    &nbsp;
                 </td>
                 <td style={{width:"100%"}}>
                {Goal} 
@@ -292,7 +290,7 @@ const Preview = () => {
                 )  : (
                     <section>          
                     <div>
-                       <p>PRESCRIPTION : &nbsp; ( Join parent support group and read more about Goal Directed Cognitive Approach at <a href="http://www.neuropediatrician.com">www.neuropediatrician.com</a> )</p>
+                       <p><b>PRESCRIPTION</b> : &nbsp; ( Join parent support group and read more about Goal Directed Cognitive Approach at <a href="http://www.neuropediatrician.com">www.neuropediatrician.com</a> )</p>
        
                        <ul> {prescription?.map((p)=>{
                                return(
@@ -343,10 +341,15 @@ const Preview = () => {
                 </Button>
                 <Button onClick={exportPDF}>Download PDF</Button> <br />
            
-            <span><b>Image : </b></span> 
-            <div>
-            <br />
-            <img style={{width:"400px",position:"relative",border:"2px solid orange",borderRadius:"30px"}} src={image} alt={'Screenshot Will Come Here'} />
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",color:"white",fontSize:"44px"}}>
+                <div > Image :  </div> 
+                <hr />
+                <div style={{textAlign:"center"}}>
+                
+                <img style={{width:"400px",position:"relative",border:"2px solid orange",borderRadius:"30px"}} src={image} alt={'Screenshot Will Come Here'} />
+            
+            </div>
+           
             </div>
             </section>
             {/* <TestPDF state={state} /> */}

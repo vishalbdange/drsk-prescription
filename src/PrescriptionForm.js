@@ -27,6 +27,7 @@ const PrescriptionForm = (props) => {
         Description:"For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions."
     });
     var prescription = [];
+    var ImageURL = null;
     var imageSource = null;
     const [emptyStates,setEmptyStates] = useState({
         isName:true,
@@ -36,6 +37,7 @@ const PrescriptionForm = (props) => {
         isDOB:true,
         isMobileNo:true,
         isReceipt : true,
+       
     })
     localStorage.setItem('state',JSON.stringify(state))
     localStorage.setItem('prescription',JSON.stringify(prescription))
@@ -54,11 +56,9 @@ const PrescriptionForm = (props) => {
         //     validateContent(emptyStates)
         // }
         // else{
-            console.log(values.val)
             prescription = values.val;
             setState({...state,Prescription:values.val})
             localStorage.setItem('prescription',JSON.stringify(prescription))
-            console.log(state)
           
             navigate("/prescription-view")
         // }
@@ -72,6 +72,13 @@ const PrescriptionForm = (props) => {
           <Input type='button' style={{width:"60px",borderRadius:"10%",margin:"10px"}} value='X' onClick={() => removeClick(i)} />
         </div>
       );
+    }
+
+    const handleImageFile = (e) =>{
+            // console.log(e.target.files[0]);
+             ImageURL = URL.createObjectURL(e.target.files[0]);
+            console.log(ImageURL)
+            localStorage.setItem('imageFile',ImageURL)
     }
 
     function handleChangeList(e,i) {
@@ -110,9 +117,13 @@ const PrescriptionForm = (props) => {
             setEmptyStates({...emptyStates,isMobileNo:true})
         }else if(name == "Receipt"){
             setEmptyStates({...emptyStates,isReceipt:true})
+        }else if(name == "ImageFile"){
+            setEmptyStates({...emptyStates,isImageFile:true})
         }
-        const value = e.target.value;
+        const value = name == "ImageFile" ? e.target.files[0] : e.target.value;
+         
         setState({ ...state, [name]: value })
+       
     }
     const [enterPswd,setEnterPswd] = useState(true);
     const [pswd,setPswd] = useState('');
@@ -161,8 +172,15 @@ const PrescriptionForm = (props) => {
         
         console.log(error);
       }, []);
-
-    
+    //   const handleKeyDown = (e) => {
+    //     console.log("HII")
+    //     if (e.key === 'Enter') {
+    //         console.log("HII")
+    //          submitPswd();
+    //       }
+    //  }
+     
+     
       // imgFile can be used as a file upload form submission
       const formData = new FormData();  
       formData.append("file", imgFile);
@@ -170,12 +188,12 @@ const PrescriptionForm = (props) => {
 
 
         <div className="PreForm">
-            <div style={{textAlign:"center",display:"flex",justifyContent:"center",marginTop:"15px"}}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
+            <div style={{textAlign:"center",display:"flex",justifyContent:"center",padding:"20px"}}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
             {/* {validateContent} */}
             {
                 enterPswd ? (<div className="password-container">
-                            <div style={{textAlign:"center",fontSize:"22px", fontWeight : "300 !important",margin:"20px",padding:"20px"}}>
-                                <Badge color="danger" >
+                            <div style={{textAlign:"center",fontSize:"26px", fontWeight : "200 !important",margin:"20px",padding:"10px"}}>
+                                <Badge color="success" style={{padding:"20px"}} >
                                     Prescription Form  : 
                                 </Badge>
                             </div>
@@ -195,7 +213,7 @@ const PrescriptionForm = (props) => {
                                     </Label>
                                 </FormGroup>
                                 
-                             <Button onClick={submitPswd} style={{width:"400px",margin:"4px"}} >Go To Prescription Form</Button>
+                             <Button   onClick={submitPswd}  style={{width:"400px",margin:"4px"}} >Go To Prescription Form</Button>
                              </div>
 
                 </div> ) : (<> 
@@ -354,9 +372,6 @@ const PrescriptionForm = (props) => {
                 </FormGroup>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-                <Label for="exampleDiagnosis">
-                       Prescription
-                </Label>
                 {createInputs()}
                 <Input type='button' value='+ Add Prescription '  onClick={addClick} style={{  marginBottom:"10px",width:"800px"}} />
                 <FormGroup floating style={{width:"400px",margin:"4px"}}>
@@ -390,6 +405,22 @@ const PrescriptionForm = (props) => {
                         Description
                     </Label>
                 </FormGroup>
+                <Label >
+                        Upload Image 
+                </Label>
+                <FormGroup  style={{width:"800px"}}>
+                    <Input
+                       
+                        id="ImageFile"
+                        name="ImageFile"
+                        type="file"                        
+                        accept=".png,.jpeg"
+                        className="inp"
+                        onChange={handleImageFile}
+                        
+                    />
+
+                </FormGroup>
                 <Button onClick={() => {setImageOpen(true); setShowImgCapture(true)}} style={{marginBottom:"10px"}} >Take Photo</Button>
                 {showImgCapture && imageOpen &&(
                     <>
@@ -411,7 +442,6 @@ const PrescriptionForm = (props) => {
 
                 <Button
                     color="success"
-                    outline
                     onClick={validateForm}
                  >Submit
                  </Button>
