@@ -5,7 +5,7 @@ import NavbarComponent from "./NavbarComponent"
 import UseFulLinks from './UseFulLinks'
 const Home = () => {
     return (
-        <div >
+        <div className='home'>
             <NavbarComponent />
             <div style={{textAlign:"center",width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}} className="homebg">
                 <Link to="/prescription" style={{margin:"68px"}} ><Button  color="info" >Prescription Generator</Button></Link>

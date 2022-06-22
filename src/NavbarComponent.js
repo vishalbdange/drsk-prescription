@@ -5,7 +5,7 @@ const NavbarComponent = () => {
     return (
         <div>
             {/* <Navbar
-                color="light"
+                color="light"jpg
                 expand="md"
                 light   
                 style={{height:"50px"}}
@@ -26,7 +26,7 @@ const NavbarComponent = () => {
                 </Collapse>
             </Navbar> */}
                 <div style={{textAlign:"center"}}>
-                 <img src={aakar}  style={{width:"550px"}} alt="Aakar Clinic Image"/>
+                 <img src={aakar}  style={{width:"550px",marginTop:"20px"}} alt="Aakar Clinic Image"/>
                 </div>
         </div>
     )

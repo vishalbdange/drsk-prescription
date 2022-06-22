@@ -7,28 +7,34 @@ import Button from '@mui/material/Button';
 import {Typography,Paper,Link,Stack} from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+
 const UseFulLinks = () => {
   
     const links = [
         {
             linkName : "www.kondekar.com",
             link : "http://kondekar.weebly.com",
+            desc : "",
         },
         {
             linkName : "www.breathingdiary.com",
             link : "http://childasthma.weebly.com/",
+            desc : "",
         },
         {
             linkName : "www.neuropediatrician.com",
             link : "http://pedneuro.weebly.com/",
+            desc : "To Download lectures, videos, learning material on autism",
         },
         {
             linkName : "http://pedneuro.in",
             link : " https://pedneuromumbai.blogspot.com/2020/05/pediatric-learning-disability-autism.html",
+            desc : "For Online Appointment Procedure",
         },
         {
             linkName : "www.aaakaarclinic.com",
             link : "https://kondekar.weebly.com/aakaar.html",
+            desc : "For Clinic Address and Map",
         },
     ]
 
@@ -50,6 +56,24 @@ const UseFulLinks = () => {
             link : "https://chat.whatsapp.com/K3FFLSwvgMcEbLn1ciLWJ6",
         },
     ]
+    const resources = [
+        {
+            name : "Weekly autism monitoring chart",
+            link : "http://bit.ly/monitoringautism",
+        },
+        {
+            name : "For clinic address and map ",
+            link : "https://kondekar.weebly.com/aakaar.html",
+        },
+        {
+            name : "To Download Lectures,Videos,Learning material on Autism",
+            link : "https://chat.whatsapp.com/K3FFLSwvgMcEbLn1ciLWJ6",
+        },
+        {
+            name:"For General Child Health Advice",
+            link :" https://kondekar.weebly.com/topics-ask-a-pediatrician-in-mumbai.html#.YrLLPnZByM8"
+        }
+    ]
 
   const styles = {
     LinkComponent : {
@@ -62,7 +86,7 @@ const UseFulLinks = () => {
         textAlign : "center",
         fontWeight:"600",
         fontSize : "20px",
-        color:"orange   "
+        color:"green    "
     },
     PaperHead1 : {
         margin:"10px",
@@ -76,8 +100,7 @@ const UseFulLinks = () => {
     AllCards : {
         display:"flex",
         justifyContent : "space-around",
-        margin:"10px"
-
+        margin:"10px",
     },
     card :{
         boxShadow : "grey 2px 1px 10px"
@@ -103,7 +126,11 @@ const UseFulLinks = () => {
                                 <Typography sx={{ fontSize: 18 }} color="text.primary" gutterBottom>
                                  {link.linkName} 
                                 </Typography> <hr />
-                                <Button variant="outlined"><Link  href= {link.link} style={{textDecoration:"none"}} target="_blank">Visit here</Link></Button>
+                                <p>
+                                    {link.desc}
+                                </p>
+                                 { link.desc ? (<><hr /></>): (<></>) }
+                                 <Link  href= {link.link}  target="_blank">Visit here</Link> 
                             </CardContent>
                         </Card>
                     </>)
@@ -114,23 +141,52 @@ const UseFulLinks = () => {
             <Paper style={styles.PaperHead} elevation={3}>Social Media Sites</Paper>
         </div>  
         <Box sx={{ width: '100%' }}>
-      <div style={{display:"flex",flexWrap:"wrap"}}>
-        {
-            socials.map((social)=>{
-                return(
-                    <div style={{margin:"20px"}}>
-                    <Paper style={{padding:"10px"}}>
-                        <div> <b style={{fontSize:"20px "}}>{social.linkName} </b> &nbsp;&nbsp;<Button variant="contained"><Link  href={social.link} style={{textDecoration:"none",color:"white"}} target="_blank">Visit here</Link></Button></div>
-                    </Paper>
-                    </div>
-                )
-            })
-        }
-        
-        
-      </div>
-    </Box>
-        
+            <div style={{display:"flex",flexWrap:"wrap",background:"white",margin:"20px",boxShadow:"grey 2px 5px 10px",borderRadius:"20px"}}>
+                {
+                    socials.map((social)=>{ 
+                        return(
+                            <div style={{margin:"20px"}}>
+                            <Paper style={{padding:"10px"}}>
+                                <div> <b style={{fontSize:"20px "}}>{social.linkName} </b> &nbsp;&nbsp;<Link  href={social.link}  target="_blank">Visit here</Link></div>
+                            </Paper>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </Box>
+        <div style={{display:"flex",justifyContent:"center"}}>
+            <Paper style={styles.PaperHead} elevation={3}>Resources </Paper>
+        </div>  
+        <Box sx={{ width: '100%' }}>
+            <div style={{display:"flex",flexWrap:"wrap",background:"white",margin:"20px",boxShadow:"grey 2px 5px 10px",borderRadius:"20px"}}>
+                {
+                    resources.map((resource)=>{
+                        return(
+                            <div style={{margin:"20px"}}>
+                            <Paper style={{padding:"10px"}}>
+                                <div> <b style={{fontSize:"20px "}}>{resource.name} </b> &nbsp;&nbsp;<Link  href={resource.link}  target="_blank">Visit here</Link></div>
+                            </Paper>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </Box>  
+        <div style={{display:"flex",justifyContent:"center"}}>
+            <Paper style={styles.PaperHead} elevation={3}>Testinomials </Paper>
+        </div>  
+        <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center"}}>
+                
+                <Paper style={{padding:"10px"}}>
+                    <iframe width="360" height="215" src="https://www.youtube.com/embed/-2APXN8AV6M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </Paper>
+                <Paper style={{padding:"10px"}}>
+                <iframe width="360" height="215" src="https://www.youtube.com/embed/Dz-7Ypmb1jk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </Paper>
+                &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                <Link href="http://bit.ly/autismtalks"> View More >> </Link>
+        </div>
     </div>
   )
 }
