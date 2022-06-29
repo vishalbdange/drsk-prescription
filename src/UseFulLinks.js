@@ -12,14 +12,9 @@ const UseFulLinks = () => {
   
     const links = [
         {
-            linkName : "www.kondekar.com",
-            link : "http://kondekar.weebly.com",
-            desc : "",
-        },
-        {
-            linkName : "www.breathingdiary.com",
-            link : "http://childasthma.weebly.com/",
-            desc : "",
+            linkName : "Pay Here",
+            link : "https://www.payumoney.com/webfronts/#/index/autism",
+            desc : "Pay Your Fees Here",
         },
         {
             linkName : "www.neuropediatrician.com",
@@ -35,6 +30,16 @@ const UseFulLinks = () => {
             linkName : "www.aaakaarclinic.com",
             link : "https://kondekar.weebly.com/aakaar.html",
             desc : "For Clinic Address and Map",
+        },
+        {
+            linkName : "www.kondekar.com",
+            link : "http://kondekar.weebly.com",
+            desc : "About   Us",
+        },
+        {
+            linkName : "www.breathingdiary.com",
+            link : "http://childasthma.weebly.com/",
+            desc : "Breathing Diary",
         },
     ]
 
@@ -99,8 +104,10 @@ const UseFulLinks = () => {
     },
     AllCards : {
         display:"flex",
+        flexWrap:"wrap",
         justifyContent : "space-around",
         margin:"10px",
+        
     },
     card :{
         boxShadow : "grey 2px 1px 10px"
@@ -114,29 +121,24 @@ const UseFulLinks = () => {
             <Paper style={styles.PaperHead1} elevation={3}>Useful Links </Paper>
         </div>
         <div style={{display:"flex",justifyContent:"center"}}>
-            <Paper style={styles.PaperHead} elevation={3}>Our Websites</Paper>
-        </div>
-        <div style={styles.AllCards}>
-            {/* <h4>Websites : </h4> */}
-            {
-                links.map((link)=>{
-                    return(<>
-                        <Card style={styles.card}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 18 }} color="text.primary" gutterBottom>
-                                 {link.linkName} 
-                                </Typography> <hr />
-                                <p>
-                                    {link.desc}
-                                </p>
-                                 { link.desc ? (<><hr /></>): (<></>) }
-                                 <Link  href= {link.link}  target="_blank">Visit here</Link> 
-                            </CardContent>
-                        </Card>
-                    </>)
-                })
-            }
-        </div>
+            <Paper style={styles.PaperHead} elevation={3}>Our Websites Sites</Paper>
+        </div>  
+        <Box sx={{ width: '100%' }}>
+            <div style={{display:"flex",flexWrap:"wrap",background:"white",margin:"20px",boxShadow:"grey 2px 5px 10px",borderRadius:"20px"}}>
+                {
+                    links.map((link)=>{ 
+                        return(
+                            <div style={{margin:"20px"}}>
+                            <Paper style={{padding:"10px"}}>
+                                <div > <b style={{fontSize:"20px "}}>{link.desc} </b> &nbsp;&nbsp;<Button variant="outlined"><Link  href={link.link}  target="_blank">{link.linkName}</Link></Button></div>
+                            </Paper>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            
+        </Box>
         <div style={{display:"flex",justifyContent:"center"}}>
             <Paper style={styles.PaperHead} elevation={3}>Social Media Sites</Paper>
         </div>  
@@ -185,7 +187,7 @@ const UseFulLinks = () => {
                 <iframe width="360" height="215" src="https://www.youtube.com/embed/Dz-7Ypmb1jk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </Paper>
                 &nbsp;  &nbsp;  &nbsp;  &nbsp;
-                <Link href="http://bit.ly/autismtalks"> View More >> </Link>
+                <Link href="http://bit.ly/autismtalks"> View More.. </Link>
         </div>
     </div>
   )

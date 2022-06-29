@@ -9,80 +9,104 @@ import AppContext from '../AppContext';
 import { initializeApp,RecaptchaVerifier  } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import  {getAuth} from "firebase/auth"
+ 
 // import Firebase from './firebase';
 import aakar from "../aakar.jpg"
 
 const Form = () => {
+ 
 
-
-    // const firebaseConfig = {
-    //     apiKey: "AIzaSyAcODvBHsFSBnyl31zCQaYtuaTngEqL8EU",
-    //     authDomain: "aakarclinic-51421.firebaseapp.com",
-    //     projectId: "aakarclinic-51421",
-    //     storageBucket: "aakarclinic-51421.appspot.com",
-    //     messagingSenderId: "414140524527",
-    //     appId: "1:414140524527:web:ba9435449e97806232b81a",
-    //     measurementId: "G-8Z6GG21XXJ"
-    //   };
-      
-      // Initialize Firebase
-    //   const app = initializeApp(firebaseConfig);
-    //   const analytics = getAnalytics(app);
-    
-    //   const auth = firebase.auth();
-      const [viewOtpForm, setViewOtpForm] = useState(false);
-
-      const loginSubmit = (e) => {
-        // e.preventDefault();
-        // setSendOtp(true)
-        // let phone_number = 9960855675;
-        // const appVerifier = window.recaptchaVerifier;
-    
-        // getAuth()
-        //     .signInWithPhoneNumber(phone_number, appVerifier)
-        //     .then((confirmationResult) => {
-        //         // SMS sent. Prompt user to type the code from the message, then sign the
-        //         // user in with confirmationResult.confirm(code).
-        //         console.log("otp sent");
-        //         setViewOtpForm(true);
-        //         window.confirmationResult = confirmationResult;
-        //         // ...
-        //     })
-        //     .catch((error) => {
-        //         // Error; SMS not sent
-        //         // ...
-        //         alert(error.message);
-        //     });
-    };
-    const [otp,setOtp] = useState(0);
-
-    const otpSubmit = () => {
-
-    
-        // window.confirmationResult
-        //     .confirm(otp)
-        //     .then((confirmationResult) => {
-        //         console.log(confirmationResult);
-        //         console.log("success");
-        //         window.open("/", "_self");
-        //     })
-        //     .catch((error) => {
-        //         // User couldn't sign in (bad verification code?)
-        //         alert(error.message);
-        //     });
-    };
-
-
-
-
-
-
-
-
-
-
-
-
+    const questionset1 = [
+       {
+        name : "Q1.  Inability to establish and/or maintain eye contact",
+        id:"Q1"
+       },
+       {
+        name : "Q2. Child does not respond when called,sometimes appears to be deaf",
+        id:"Q2"
+       },
+       {
+        name : "Q3. Difficulty in mixing and playing with other children of same age",
+        id:"Q3"
+       },
+       {
+        name : "Q4. Lack of appropriate emotional response",
+        id:"Q4"
+       },
+       {
+        name : "Q5. Can do certain tasks well,but not the tasks involving social undestanding",
+        id:"Q5"
+       }
+    ]
+    const questionset2 = [
+        {
+         name : "Q6.Difficulty in comprehension/communication",
+         id:"Q6"
+        },
+        {
+         name : "Q7.May/may not indicate needs by gestures or leading adults by the hand",
+         id:"Q7"
+        },
+        {
+         name : "Q8. Echolalia/using nonsensical words and muttering to self",
+         id:"Q8"
+        },
+        {
+         name : "Q9. Lack of Pretend play ",
+         id:"Q9"
+        },
+        {
+         name : "Q10.Likes sameness in everyday routine",
+         id:"Q10"
+        }
+     ]
+     const questionset3 = [
+        {
+         name : "Q11. Inappropriate attachment to objects",
+         id:"Q11"
+        },
+        {
+         name : "Q12. Unsual body movements such as flapping hands or rocking or jumping",
+         id:"Q12"
+        },
+        {
+         name : "Q13. Extreme restlessness,hyperactivity/overpassivity or prefers to be alone all the time ",
+         id:"Q13"
+        },
+        {
+         name : "Q14. Not responsive to normal teaching methods",
+         id:"Q14"
+        },
+        {
+         name : "Q15. Doesn’t like to be hugged or or touched/apparent insensitivity to pain",
+         id:"Q15"
+        }
+     ]
+     const questionset4 = [
+        {
+         name : " Q16. Intolerance/addiction to certain sounds,tastes,odours,visuals",
+         id:"Q16"
+        },
+        {
+         name : "Q17. No understanding or fear of real dangers /Excessive fear for heights,change in position",
+         id:"Q17"
+        },
+        {
+         name : "Q18. Enjoys spinning or rotating objects",
+         id:"Q18"
+        },
+        {
+         name : " Q19. Inappropriate laughing and giggling/crying spells with extreme distress for no apparent reason",
+         id:"Q19"
+        },
+        {
+         name : "Q20. Difficulty in fine motor skills/a tendency to fall/clumsiness/resistance to motor movement activities ",
+         id:"Q20"
+        }
+     ]
+     const allQs = [...questionset1,...questionset2,...questionset3,...questionset4];
+    var qsAns = [];
+    const [ans,setAns ] = useState();
     const [section,setSection] = useState(1);
      let score = 0;
      const [finalScore,setFinalScore] = useState(0);
@@ -158,63 +182,16 @@ const Form = () => {
         }
       }
     const getVal = () => { 
-            var val = document.getElementById("Q1").value;
-            processScore(val);
-         
-            val = document.getElementById("Q2").value;
-            processScore(val);
-       
-            val = document.getElementById("Q3").value;
-            processScore(val);
+            var val;
+            for(let i=1;i<=20;i++){
+                val = document.getElementById(`Q${i}`).value;   
+                console.log(val)
+                qsAns.push(val);
+                processScore(val);
+            }
             
-            val = document.getElementById("Q4").value;
-            processScore(val);
-            
-            val = document.getElementById("Q5").value;
-            processScore(val);
-
-            val = document.getElementById("Q6").value;
-            processScore(val);
-       
-            val = document.getElementById("Q7").value;
-            processScore(val);
-            
-            val = document.getElementById("Q8").value;
-            processScore(val);
-            
-            val = document.getElementById("Q9").value;
-            processScore(val);
-            val = document.getElementById("Q10").value;
-            processScore(val);
-       
-            val = document.getElementById("Q11").value;
-            processScore(val);
-            
-            val = document.getElementById("Q12").value;
-            processScore(val);
-            
-            val = document.getElementById("Q13").value;
-            processScore(val);
-            val = document.getElementById("Q14").value;
-            processScore(val);
-       
-            val = document.getElementById("Q15").value;
-            processScore(val);
-            
-            val = document.getElementById("Q16").value;
-            processScore(val);
-            
-            val = document.getElementById("Q17").value;
-            processScore(val);
-
-            val = document.getElementById("Q18").value;
-            processScore(val);
-            
-            val = document.getElementById("Q19").value;
-            processScore(val);
-            
-            val = document.getElementById("Q20").value;
-            processScore(val);
+            console.log(qsAns)
+            setAns(qsAns);
         }
     const handleSubmit = () => {  
 
@@ -243,20 +220,7 @@ const Form = () => {
       const handleChangeMobNumber = () => {
 
       }
-      const handleSendOTP = () => {
-        setSendOtp(true)
-      }
-      useEffect(() => {
-        // window.recaptchaVerifier  = new getAuth().RecaptchaVerifier(
-        //     "recaptcha-container", {
-        //         size: "invisible",
-        //         callback: function(response) {
-        //             console.log("Captcha Resolved");
-        //         },
-        //         defaultCountry: "IN",
-        //     }
-        // );
-    }, [sendOtp]);
+    
     const [validationAlert,setValidationAlert] = useState(false);
 
     const handleChangeForm = (e) =>{ 
@@ -290,7 +254,7 @@ const Form = () => {
                     scoreBoard ? 
                     (
                     <>
-                    <ScoreBoard finalScore={finalScore}  patientForm={patientForm}/>
+                    <ScoreBoard finalScore={finalScore}  patientForm={patientForm} allQs={allQs} ans={ans} />
                     <Button onClick={() => {setScoreBoard(false)}} style={{margin:"20px",float:"right"}}> Check Score Again ?</Button> 
                     </> ) :
                     (   
@@ -428,7 +392,7 @@ const Form = () => {
                                             </div>
                                             :  (
                                             <>
-                                              {
+                                              {/* {
                                                   sendOtp ? (
                                                   <>
 
@@ -467,7 +431,7 @@ const Form = () => {
                                                 <Button onClick={loginSubmit}> Send OTP</Button>
                                                 </>
                                                 )
-                                              }
+                                              } */}
                                             </>)
                                     }          
  
@@ -479,258 +443,78 @@ const Form = () => {
                        <br /> <br /> <br />  
                         <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section1">Section 1 :  SOCIAL INTERACTION  </Button></div>
                         <UncontrolledCollapse  toggler="#section1">
-                        <FormGroup row p-0 >
-                            <Label for="exampleSex" sm-2>
-                            Q1.  Inability to establish and/or maintain eye contact
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q1"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q2. Child does not respond when called,sometimes appears to be deaf
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q2"
-                                    name="Q2"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q3. Difficulty in mixing and playing with other children of same age
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q3"
-                                    name="Q3"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                        Q4. Lack of appropriate emotional response
-
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q4"
-                                    name="Q4"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q5. Can do certain tasks well,but not the tasks involving social undestanding
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q5"
-                                    name="Q5"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-
+                            {questionset1.map((qs1)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="exampleSex" sm-2>
+                                             {qs1.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs1.id}
+                                                    name={qs1.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    <option>
+                                                    Never
+                                                    </option>
+                                                    <option>
+                                                    Sometimes
+                                                    </option>
+                                                    <option>
+                                                        Often
+                                                    </option>
+                                                    <option>
+                                                        Always
+                                                    </option>
+                                                </Input>
+                                            </Col>
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
+                       
                         </UncontrolledCollapse>
 
 
                         <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section2">Section 2 : COMMUNICATION </Button></div>
                         <UncontrolledCollapse  toggler="#section2">
-                        <FormGroup row p-0 >
-                            <Label for="exampleInp" sm-2>
-                            Q6.  Difficulty in comprehension/communication
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q6"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleInp" sm-2>
-                            Q7. May/may not indicate needs by gestures or leading adults by the hand
-
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q7"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleInp" sm-2>
-                            Q8. Echolalia/using nonsensical words and muttering to self
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q8"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleInp" sm-2>
-                        Q9. Lack of Pretend play 
-
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q9"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
+                        {questionset2.map((qs2)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="exampleSex" sm-2>
+                                             {qs2.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs2.id}
+                                                    name={qs2.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    <option>
+                                                    Never
+                                                    </option>
+                                                    <option>
+                                                    Sometimes
+                                                    </option>
+                                                    <option>
+                                                        Often
+                                                    </option>
+                                                    <option>
+                                                        Always
+                                                    </option>
+                                                </Input>
+                                            </Col>
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
                 
                         </UncontrolledCollapse>
 
@@ -738,144 +522,39 @@ const Form = () => {
                         
                         <UncontrolledCollapse  toggler="#section3">
 
-                        <FormGroup row p-0 >
-                            <Label for="exampleSex" sm-2>
-                            Q 10.  Likes sameness in everyday routine
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q10"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q 11. Inappropriate attachment to objects
-
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q11"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q 12. Unsual body movements such as flapping hands or rocking or jumping
-
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q12"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                        Q 13. Extreme restlessness,hyperactivity/overpassivity or prefers to be alone all the time 
-
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q13"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q 14. Not responsive to normal teaching methods
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q14"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
+                        {questionset3.map((qs3)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="exampleSex" sm-2>
+                                             {qs3.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs3.id}
+                                                    name={qs3.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    <option>
+                                                    Never
+                                                    </option>
+                                                    <option>
+                                                    Sometimes
+                                                    </option>
+                                                    <option>
+                                                        Often
+                                                    </option>
+                                                    <option>
+                                                        Always
+                                                    </option>
+                                                </Input>
+                                            </Col>
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
 
                         </UncontrolledCollapse>
 
@@ -884,170 +563,39 @@ const Form = () => {
                         
                         <UncontrolledCollapse  toggler="#section4">
 
-                        <FormGroup row p-0 >
-                            <Label for="exampleSex" sm-2>
-                            Q 15.  Doesn’t like to be hugged or or touched/apparent insensitivity to pain
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q15"
-                                    name="Q1"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q 16. Intolerance/addiction to certain sounds,tastes,odours,visuals
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q16"
-                                    name="Q2"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q 17. No understanding or fear of real dangers /Excessive fear for heights,change in position
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q17"
-                                    name="Q3"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                        Q 18. Enjoys spinning or rotating objects
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q18"
-                                    name="Q4"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q 19. Inappropriate laughing and giggling/crying spells with extreme distress for no apparent reason
-
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q19"
-                                    name="Q5"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSex" sm-2>
-                            Q 20. Difficulty in fine motor skills/a tendency to fall/clumsiness/resistance to motor movement activities 
-
-                            </Label>
-                            <Col sm-10>
-                                <Input
-                                    id="Q20"
-                                    name="Q6"
-                                    type="select"
-                                    className="inp"
-                                    
-                                >
-                                    <option>
-                                    Never
-                                    </option>
-                                    <option>
-                                    Sometimes
-                                    </option>
-                                    <option>
-                                        Often
-                                    </option>
-                                    <option>
-                                        Always
-                                    </option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
+                        {questionset4.map((qs4)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="exampleSex" sm-2>
+                                             {qs4.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs4.id}
+                                                    name={qs4.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    <option>
+                                                    Never
+                                                    </option>
+                                                    <option>
+                                                    Sometimes
+                                                    </option>
+                                                    <option>
+                                                        Often
+                                                    </option>
+                                                    <option>
+                                                        Always
+                                                    </option>
+                                                </Input>
+                                            </Col>
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
            
                         </UncontrolledCollapse>
 
