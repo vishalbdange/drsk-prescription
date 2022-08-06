@@ -9,6 +9,7 @@ const Home = () => {
             <NavbarComponent />
             <div style={{textAlign:"center",width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}} className="homebg">
                 <Link to="/prescription" style={{margin:"68px"}} ><Button  color="info" >Prescription Generator</Button></Link>
+                <Link to="/short-prescription" style={{margin:"68px"}} ><Button  color="info" >Short Prescription </Button></Link>
                 <Link to="/autism-score"  style={{margin:"68px"}}><Button color="info" >Autism Score Predictor</Button></Link>
             </div>
             <div>

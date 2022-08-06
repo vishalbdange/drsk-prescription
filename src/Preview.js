@@ -224,7 +224,7 @@ const Preview = ({imageURL}) => {
                 <td >
 
                {/* {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  Case_Serial_no  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{JSON.parse(localStorage.getItem('counter')-2)}  */}
-               {displayDate } &nbsp; &nbsp;&nbsp; <b>Payment Receipt No.</b> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2022
+               {displayDate } &nbsp; &nbsp;&nbsp; <b>Payment Receipt No.</b> &nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2022
 
                 </td>
                 </tr>
@@ -249,7 +249,7 @@ const Preview = ({imageURL}) => {
                 
                 <tr>
                 <td scope="row">
-                    <b>Name</b> &nbsp;
+                    <b style={{fontColor : "red"}}>Name</b> &nbsp;
                 </td>
                 <td >
                 {Name}
