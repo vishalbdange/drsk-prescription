@@ -12,6 +12,11 @@ const UseFulLinks = () => {
   
     const links = [
         {
+            linkName : "Autism Dr.Mumbai",
+            link : "https://www.autismdrmumbai.com",
+            desc : "",
+        },
+        {
             linkName : "Pay Here",
             link : "https://www.payumoney.com/webfronts/#/index/autism",
             desc : "Pay Your Fees Here",
@@ -19,7 +24,7 @@ const UseFulLinks = () => {
         {
             linkName : "www.neuropediatrician.com",
             link : "http://pedneuro.weebly.com/",
-            desc : "To Download lectures, videos, learning material on autism",
+            desc : "Learning material on autism (Download)",
         },
         {
             linkName : "http://pedneuro.in",
