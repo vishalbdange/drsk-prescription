@@ -41,6 +41,13 @@ const PrescriptionForm = ({ changeImgURL }) => {
     })
     localStorage.setItem('state', JSON.stringify(state))
     localStorage.setItem('prescription', JSON.stringify(prescription))
+    // const csvDOB = state.DOB.toString();
+    // const csvPrescription = prescription.toString();
+
+    // const csvState = {
+    //     "csvDOB" : "","Visit_No" : "","Name" : "", "csvPrescription" :" ","Address " : "","Age" : "", "Sex" : "", "Diagnosis":  "","Goal":"","MobileNo":"","Receipt":"","Description" :""
+    // }
+    // localStorage.setItem('prescription_data', JSON.stringify([csvState]))
     const validateForm = () => {
         // console.log("Validating")
         // if(state.Name == ""){

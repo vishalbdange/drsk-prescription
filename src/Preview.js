@@ -12,7 +12,7 @@ import Draggable from 'react-draggable'; // The default
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import moment from 'moment';
- 
+import CsvDownload from 'react-json-to-csv'
 
 const Preview = ({imageURL}) => {
 
@@ -20,6 +20,8 @@ const Preview = ({imageURL}) => {
     const state = JSON.parse(localStorage.getItem('state'));
     const prescription = JSON.parse(localStorage.getItem('prescription'));
         // console.log(state)
+    // var p_data = [];
+    const { DOB, file,Visit_No,Name, Address,Age, Sex, Diagnosis,Goal,MobileNo,Receipt,Description,ImageFile} = state;
 
 
     const exportPDF = () => {
@@ -62,7 +64,16 @@ const Preview = ({imageURL}) => {
    
     useEffect(() => {
         // console.log(Prescription)
-
+        // const csvDOB = DOB.toString();
+        // const csvPrescription = prescription.toString();
+    
+        // const csvState = {
+        //     csvDOB,Visit_No,Name, csvPrescription,Address,Age, Sex, Diagnosis,Goal,MobileNo,Receipt,Description
+        // }
+        // const prescription_d = JSON.parse(localStorage.getItem('prescription_data'));
+        // prescription_d.push(csvState);
+        // localStorage.setItem('prescription_data', JSON.stringify(prescription_d))
+        // p_data = prescription_d;
         if(window.innerWidth > 900){
               
             setTextAreaStyle({width:"100%",border:"none",padding:"0%",margin:"0%",overflow:"hidden !important",maxHeight:"200px"})
@@ -150,8 +161,7 @@ const Preview = ({imageURL}) => {
         saveAs(image, 'image.jpg') // Put your image url here.
       }
     //  var vis = {visibility:"hidden"}
-    const { DOB, file,Visit_No,Name, Address,Age, Sex, Diagnosis,Goal,MobileNo,Receipt,Description,ImageFile} = state;
-       
+    
     function ChangeFormateDate(date){
         var p = date.split(/\D/g)
         return [p[2],p[1],p[0] ].join("/")
@@ -163,6 +173,8 @@ const Preview = ({imageURL}) => {
     if(age_c == ""){
             age_c = Age     ; 
     }
+
+
     return (
         <div className="prescription-view" >
             
@@ -172,6 +184,26 @@ const Preview = ({imageURL}) => {
             <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
             </Draggable>
         
+            {/* <CsvDownload 
+    data={ p_data}
+    filename="good_data.csv"
+    style={{ //pass other props, like styles
+      boxShadow:"inset 0px 1px 0px 0px #e184f3",
+      background:"linear-gradient(to bottom, #c123de 5%, #a20dbd 100%)",
+      backgroundColor:"#c123de",
+      borderRadius:"6px",
+      border:"1px solid #a511c0",
+      display:"inline-block",
+      cursor:"pointer","color":"#ffffff",
+      fontSize:"15px",
+      fontWeight:"bold",
+      padding:"6px 24px",
+      textDecoration:"none",
+      textShadow:"0px 1px 0px #9b14b3"
+      }}
+  >
+    Good Data ✨
+  </CsvDownload> */}
             <section class="doctor-info">
                 <div class="doctor-name">
                 <span>Dr Santosh <surname>Kondekar</surname></span>
@@ -208,10 +240,7 @@ const Preview = ({imageURL}) => {
                  <img src={imageURL} style={{width:"140px",position:"absolute",top:"355px",right:"400px"}} alt="" /> 
                 </>
             )
-       } 
-   
-       
-        
+       }      
            {/* </Draggable> */}
             <section class="patient-profile">
                
@@ -225,7 +254,6 @@ const Preview = ({imageURL}) => {
 
                {/* {displayDate} &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  Case_Serial_no  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{JSON.parse(localStorage.getItem('counter')-2)}  */}
                {displayDate } &nbsp; &nbsp;&nbsp; <b>Payment Receipt No.</b> &nbsp; &nbsp;W-{JSON.parse(localStorage.getItem('counter'))+2000}/2022
-
                 </td>
                 </tr>
                 <tr >
