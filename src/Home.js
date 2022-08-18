@@ -7,10 +7,11 @@ const Home = () => {
     return (
         <div className='home'>
             <NavbarComponent />
-            <div style={{textAlign:"center",width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}} className="homebg">
-                <Link to="/prescription" style={{margin:"68px"}} ><Button  color="info" >Prescription Generator</Button></Link>
-                <Link to="/short-prescription" style={{margin:"68px"}} ><Button  color="info" >Short Prescription </Button></Link>
-                <Link to="/autism-score"  style={{margin:"68px"}}><Button color="info" >Autism Score Predictor</Button></Link>
+            <div  className="homebg">
+                <Link to="/prescription"  style={{margin:"10px"}}><Button  color="info" >Prescription Generator</Button></Link>
+                <Link to="/short-prescription"  style={{margin:"10px"}}><Button  color="info" >Certificate </Button></Link>
+                <Link to="/autism-score"  style={{margin:"10px"}}><Button color="info" >Autism Score Predictor</Button></Link>
+                <Link to="/form1"  style={{margin:"10px"}}><Button color="info" >Form1</Button></Link>
             </div>
             <div>
                 <UseFulLinks />
