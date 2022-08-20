@@ -11,7 +11,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from './AutismScorePredictor/Form'
 import AutismDSM from './AUTISM DSM/AutismDSM'
 import NavbarComponent from "./NavbarComponent"
-
 import Home from "./Home"
 import {
   BrowserRouter as Router,
@@ -20,6 +19,8 @@ import {
   Link
 } from "react-router-dom";
 import PreviewEmpty from './PreviewEmpty';
+import Form2 from './Form2/Form2'
+import Form1 from './Form1/Form1'
 
 
 const styles = StyleSheet.create({
@@ -52,6 +53,8 @@ function App() {
         <Route  exact path="/short-prescription-view" element={<PreviewEmpty  imageURL={imageURL}/>} />
         <Route  exact path="/autism-score" element={<Form />} />
         <Route  exact path="/autism-dsm" element={<AutismDSM />} />
+        <Route  exact path="/form2" element={<Form2 />} />
+        <Route  exact path="/form1" element={<Form1 />} />
       </Routes>
     </Router>
 

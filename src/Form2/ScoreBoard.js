@@ -10,7 +10,12 @@ import moment from 'moment';
 const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
     const [text,setText] = useState("No Autism");
     const [criteria,setCriteria] = useState("");
-
+    const mapScore = {
+        'Never' : 1,
+        'Sometimes' : 2,
+        'Often' : 3,
+        'Always' : 4
+    }
     console.log(ans)
     useEffect(() =>{
         if(finalScore >= 20 && finalScore <=35){
@@ -69,7 +74,7 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
   var date = moment().format('LLLL');
 
     return (
-        <div>
+        <div  ref={ref}>
             <section  id="Page" className="page" ref={ref}>
             <CardTitle>
                 <b>Patient Info : </b>
@@ -85,9 +90,9 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                     Age
                 </th>
                 <th>
-                &nbsp;  &nbsp; &nbsp; Sex
+                &nbsp;  &nbsp;&nbsp; Sex
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;
-                    &nbsp;  &nbsp;
+                      &nbsp;  &nbsp;
                 City
                 </th>
                 <th>
@@ -107,21 +112,20 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                 </td>
                 <td>
                 &nbsp;  &nbsp; {patientForm.Sex}
-                 &nbsp;  &nbsp;
-                    &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                     &nbsp;  &nbsp;
                 {patientForm.City}
                 </td>
                 <td>
                 {patientForm.Mob_Number}
                 </td>
                 <td>
-                {date}
+                    {date}
                 </td>
                 </tr>
             </tbody>
             </Table>
             <Card
-            ref={ref}
             >
                 <CardBody>
                 <CardTitle tag="h5">
@@ -142,7 +146,7 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                 Till then work on what is lacking in the child, beyond the label. This score is based on old classification DSM IV, <b>do confirm what u scored is same with the dr scoring same for your kid.</b>
                 </p>
 
-<hr  style={{ width:"0%",outline:"0"} }/>
+<hr style={{ width:"0%",outline:"0"} }/>
                 <Table
                     style={{fontSize:"15px "}}
                     >
@@ -188,34 +192,33 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                     <p>Repeat to the same test every 3 months.  <br />If any doubts or issues regarding the score or confirmation of he dignosis and its advice related to treatment , contact &nbsp; Dr.Kondekar <b>9869405747</b> .</p>
                 </CardText>
                 <br />
-                <Button onClick={handleShowReport} size="sm" color="warning"> Show report</Button>
-                
-             {
-                report ? 
-                (
-                    <>
-                    <Paper class="report" style={{marginTop : "20px",padding:"10px 10px"}}>
-                         
+                <div  >
+                <hr />
+                    <div style={{textAlign:"center"}}><p style={{fontSize:"24px"}}   >Form2  Report</p ></div>
+                    <hr />
+                    
+                    <table  >
+                         <thead>
+                         <th style={{textAlign:"center"}}>Questions</th> &nbsp;
+                         <th> Answers </th> 
+                         </thead>
                             {
                                 
                                 allQs.map((q,index)=>{
-                                    return(
-                                        <>
-                                            <CardTitle><strong>{q.name.slice(0,3)}</strong>{q.name.slice(3)}</CardTitle>
-                                            <p><strong>Ans :</strong> {ans[parseInt(q.id.slice(1))-1]}</p>
-                                            <hr />
-                                        </>
-                                    )
+                                     if([mapScore[ans[parseInt(q.id.slice(1))]]] !== undefined){
+                                        return(
+                                            <tr style={{fontSize:"9px"}}>
+                                                <td>{q.name}</td>
+                                                &nbsp;
+                                                <td>  {ans[parseInt(q.id.slice(1))]} ( {mapScore[ans[parseInt(q.id.slice(1))]]} ) </td>
+                                            </tr>
+                                        )
+                                     }
                                 })
                             }
                          
-                    </Paper>
-                    </>
-                )
-                :
-                (<></>)
-             }
-
+                    </table>
+                    </div>
                 </CardBody>
 
             </Card>
