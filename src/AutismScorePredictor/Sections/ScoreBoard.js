@@ -5,6 +5,7 @@ import { useScreenshot } from 'use-react-screenshot'
 import { saveAs } from 'file-saver'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
+import moment from 'moment';
 
 const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
     const [text,setText] = useState("No Autism");
@@ -65,6 +66,7 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
   const handleShowReport = () => {
         setReport(!report);
   }
+  var date = moment().format('LLLL');
 
     return (
         <div>
@@ -83,13 +85,16 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                     Age
                 </th>
                 <th>
-                    Sex
+                &nbsp;  &nbsp; &nbsp; Sex
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;
-                    &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    &nbsp;  &nbsp;
                 City
                 </th>
                 <th>
                 Mob.Number
+                </th>
+                <th>
+                    Date
                 </th>
                 </tr>
             </thead>
@@ -101,13 +106,16 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                 {patientForm.Age}
                 </td>
                 <td>
-                {patientForm.Sex}
-                &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                &nbsp;  &nbsp; {patientForm.Sex}
+                 &nbsp;  &nbsp;
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;
                 {patientForm.City}
                 </td>
                 <td>
                 {patientForm.Mob_Number}
+                </td>
+                <td>
+                {date}
                 </td>
                 </tr>
             </tbody>

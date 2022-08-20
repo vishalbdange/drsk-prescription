@@ -12,6 +12,7 @@ const Home = () => {
                 <Link to="/short-prescription"  style={{margin:"10px"}}><Button  color="info" >Certificate </Button></Link>
                 <Link to="/autism-score"  style={{margin:"10px"}}><Button color="info" >Autism Score Predictor</Button></Link>
                 <Link to="/form2"  style={{margin:"10px"}}><Button color="info" >Form2</Button></Link>
+                <Link to="/form1"  style={{margin:"10px"}}><Button color="info" >Form1</Button></Link>
             </div>
             <div>
                 <UseFulLinks />

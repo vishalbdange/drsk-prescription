@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import aakar from "../aakar.jpg"
+import moment from 'moment';
 
 const ScoreBoard = ({state,patientForm}) => {
     const [text,setText] = useState("No Autism");
@@ -60,6 +61,7 @@ const ScoreBoard = ({state,patientForm}) => {
   const handleShowReport = () => {
         setReport(!report);
   }
+  var date = moment().format('LLLL');
 
     return (
         <div  >
@@ -80,16 +82,20 @@ const ScoreBoard = ({state,patientForm}) => {
                     Name
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;
                     &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;
-                    Age
+                    Age  
+
                 </th>
                 <th>
-                    Sex
+                    &nbsp;  &nbsp; Sex
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;
-                    &nbsp;  &nbsp;  &nbsp;  &nbsp;
-                City
+                    
+                    City
                 </th>
                 <th>
-                Mob.Number
+                    Mob.Number
+                </th>
+                <th>
+                   Date
                 </th>
                 </tr>
             </thead>
@@ -101,13 +107,16 @@ const ScoreBoard = ({state,patientForm}) => {
                 {patientForm.Age}
                 </td>
                 <td>
-                {patientForm.Sex}
+                &nbsp;  &nbsp;  {patientForm.Sex}
                 &nbsp;  &nbsp;  &nbsp;  &nbsp;
-                    &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    
                 {patientForm.City}
                 </td>
                 <td>
                 {patientForm.Mob_Number}
+                </td>
+                <td>
+                {date}
                 </td>
                 </tr>
             </tbody>
