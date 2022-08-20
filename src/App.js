@@ -19,6 +19,7 @@ import {
   Link
 } from "react-router-dom";
 import PreviewEmpty from './PreviewEmpty';
+import Form2 from './Form2/Form2'
 import Form1 from './Form1/Form1'
 
 
@@ -52,6 +53,7 @@ function App() {
         <Route  exact path="/short-prescription-view" element={<PreviewEmpty  imageURL={imageURL}/>} />
         <Route  exact path="/autism-score" element={<Form />} />
         <Route  exact path="/autism-dsm" element={<AutismDSM />} />
+        <Route  exact path="/form2" element={<Form2 />} />
         <Route  exact path="/form1" element={<Form1 />} />
       </Routes>
     </Router>

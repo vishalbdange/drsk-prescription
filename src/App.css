@@ -32,12 +32,7 @@ h2 {
   border-bottom-left-radius: 0.5rem;
 }  */
 
-hr {
-  margin: 0.5rem;
-  border: 0.3rem solid #fad2b0;
-  border-radius: 0.5rem;
-}
-
+ 
 .doctor-info {
   display: flex;
   justify-content: space-between;

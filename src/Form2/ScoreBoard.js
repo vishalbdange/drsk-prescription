@@ -9,7 +9,12 @@ import jsPDF from 'jspdf'
 const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
     const [text,setText] = useState("No Autism");
     const [criteria,setCriteria] = useState("");
-
+    const mapScore = {
+        'Never' : 1,
+        'Sometimes' : 2,
+        'Often' : 3,
+        'Always' : 4
+    }
     console.log(ans)
     useEffect(() =>{
         if(finalScore >= 20 && finalScore <=35){
@@ -180,22 +185,27 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                 </CardText>
                 <br />
                 <div  >
-                        
+                <hr />
+                    <div style={{textAlign:"center"}}><p style={{fontSize:"24px"}}   >Form2  Report</p ></div>
+                    <hr />
+                    
                     <table  >
                          <thead>
-                         <th style={{textAlign:"center"}}><strong>Question</strong></th> &nbsp;
-                         <th><strong>Answer</strong></th>
+                         <th style={{textAlign:"center"}}>Questions</th> &nbsp;
+                         <th> Answers </th> 
                          </thead>
                             {
                                 
                                 allQs.map((q,index)=>{
-                                    return(
-                                        <tr style={{fontSize:"9px"}}>
-                                            <td>{q.name}</td>
-                                            &nbsp;
-                                            <td>  {ans[parseInt(q.id.slice(1))]}</td>
-                                        </tr>
-                                    )
+                                     if([mapScore[ans[parseInt(q.id.slice(1))]]] !== undefined){
+                                        return(
+                                            <tr style={{fontSize:"9px"}}>
+                                                <td>{q.name}</td>
+                                                &nbsp;
+                                                <td>  {ans[parseInt(q.id.slice(1))]} ( {mapScore[ans[parseInt(q.id.slice(1))]]} ) </td>
+                                            </tr>
+                                        )
+                                     }
                                 })
                             }
                          
