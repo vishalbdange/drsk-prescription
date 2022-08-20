@@ -309,7 +309,7 @@ const Form2 = () => {
                                 </div> <br />
                                 <div style={{textAlign:"center",fontSize:"30px"}}>
                                 <Badge color="danger" >
-                                  Autism Form2 (In Progress)
+                                  Autism Form2 
                                 </Badge>
                                 </div>
                             <form onSubmit={gotoAssesment} style={{padding:"20px 100px"}}>
