@@ -6,29 +6,40 @@ import { saveAs } from 'file-saver'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import moment from 'moment';
+import aakar from "../aakar.jpg"
+import Draggable from 'react-draggable'; // The default
+
 
 const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
     const [text,setText] = useState("No Autism");
     const [criteria,setCriteria] = useState("");
     const mapScore = {
-        'Never' : 1,
-        'Sometimes' : 2,
-        'Often' : 3,
-        'Always' : 4
+        'Never' : 0,
+        'Sometimes' : 4,
+        'Often' : 8,
+        'Always' : 12
     }
     console.log(ans)
     useEffect(() =>{
-        if(finalScore >= 20 && finalScore <=35){
+        if(finalScore >= 0 && finalScore <=20){
             setText("No Autism")
-            setCriteria("20 - 35");
+            setCriteria("0 - 20");
         }
-        else if(finalScore >= 30 && finalScore <=43){
-            setText("Likely Autism")
-            setCriteria("20 - 35");
+        else if(finalScore >= 21 && finalScore <=40){
+            setText("Independent Autism")
+            setCriteria("21 - 40");
         }
-        else if( finalScore >= 44){
-            setText("Severe Autism")
-            setCriteria("20 - 35");
+        else if(finalScore >= 41 && finalScore <=60){
+            setText("Nearly Independent Autism")
+            setCriteria("41 - 60");
+        }
+        else if(finalScore >= 61 && finalScore <=80){
+            setText("Partly Independent Autism")
+            setCriteria("61 - 80");
+        }
+        else if( finalScore >= 81){
+            setText("Dependent Autism")
+            setCriteria(" > 80");
         }
     },[])
 
@@ -74,8 +85,12 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
   var date = moment().format('LLLL');
 
     return (
-        <div  ref={ref}>
+        <div  ref={ref}>            
+            
             <section  id="Page" className="page" ref={ref}>
+            <div style={{textAlign:"center"}}>
+                 <img src={aakar}  style={{width:"350px"}} alt="Aakar Clinic Image"/>
+            </div> <br/>
             <CardTitle>
                 <b>Patient Info : </b>
             </CardTitle>
@@ -142,8 +157,12 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                 </CardSubtitle>
                 <hr  style={{ width:"0%",outline:"0"} }/>
                 <p>
-                Happy to have a <b>no</b> label, have lots of hopes. Score can change 3 monthly and some issues which you may find to answer as sometimes or often....
-                Till then work on what is lacking in the child, beyond the label. This score is based on old classification DSM IV, <b>do confirm what u scored is same with the dr scoring same for your kid.</b>
+                Dr Kondekars quantitative objective DSM V AUTISM SCORE
+                This scoring system is based on DSM V autism criteria. First ever quantitative objective scoring system based on DSM V autism criteria since it's inception 2013.
+                Key rule for selecting score is age inappropriateness, that is the deficit in development of given parameter or symptoms.
+                </p>
+                <p>
+                The scores are graded as following : 
                 </p>
 
 <hr style={{ width:"0%",outline:"0"} }/>
@@ -163,7 +182,7 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                     <tbody>
                         <tr>
                         <th scope="row">
-                            20 - 35
+                            Level 0 : 0 - 20
                         </th>
                         <td>
                             No Autism
@@ -171,18 +190,33 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                         </tr>
                         <tr>
                         <th scope="row">
-                            36 - 43
+                            Level 1 : 21 - 40
                         </th>
                         <td>
-                             Likely Autism
+                             Independent Autism
+                        </td>
+                        </tr>          <tr>
+                        <th scope="row">
+                            Level 2 : 41 - 60
+                        </th>
+                        <td>
+                             Nearly Independent Autism
+                        </td>
+                        </tr>          <tr>
+                        <th scope="row">
+                            Level 3 : 61 - 80
+                        </th>
+                        <td>
+                             Partly Independent Autism
                         </td>
                         </tr>
+                        
                         <tr>
                         <th scope="row">
-                            More than 44
+                            Level 4 : More than 80
                         </th>
                         <td>
-                             Severe Autism
+                             Dependent Autism
                         </td>
                         </tr>
                     </tbody>

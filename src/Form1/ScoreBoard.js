@@ -1,18 +1,26 @@
-import React,{useState,createRef} from 'react'
+import React,{useState,createRef,useEffect} from 'react'
 import { Card,CardBody,CardTitle,CardSubtitle,CardText,Button,Table,UncontrolledCollapse,Badge} from 'reactstrap'
 import {Paper} from "@material-ui/core"
 import { useScreenshot } from 'use-react-screenshot'
-import { saveAs } from 'file-saver'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import aakar from "../aakar.jpg"
 import moment from 'moment';
+import Draggable from 'react-draggable'; // The default
+
 
 const ScoreBoard = ({state,patientForm}) => {
     const [text,setText] = useState("No Autism");
     const [pdfContent,setPdfContent] = useState(true);
  
 
+    const [form1srNo,setForm1srNo] = useState(0);
+    useEffect(()=>{
+        setForm1srNo(JSON.parse(localStorage.getItem('form1SrNo') || 0));
+        console.log(form1srNo)
+        setForm1srNo(form1srNo+1);
+        localStorage.setItem('form1SrNo', form1srNo)
+    },[ScoreBoard])
 
     const exportPDF = () => {
         
@@ -67,6 +75,7 @@ const ScoreBoard = ({state,patientForm}) => {
         <div  >
    
             <section  className="page"  id="Page" ref={ref} >
+ 
             <Badge color='warning'> In progress</Badge>
             <div style={{textAlign:"center"}}>
                  <img src={aakar}  style={{width:"350px"}} alt="Aakar Clinic Image"/>
@@ -79,14 +88,18 @@ const ScoreBoard = ({state,patientForm}) => {
         <thead>
                 <tr>
                 <th>
-                    Name
-                    &nbsp;  &nbsp;  &nbsp;  &nbsp;
-                    &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    No.   &nbsp;  &nbsp;  &nbsp;  &nbsp;   &nbsp;  &nbsp;                 Name
+                    
+                </th>
+                <th>
+                  
+
+                     &nbsp;  &nbsp;  &nbsp;
                     Age  
 
                 </th>
                 <th>
-                    &nbsp;  &nbsp; Sex
+                    Sex
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;
                     
                     City
@@ -102,8 +115,9 @@ const ScoreBoard = ({state,patientForm}) => {
             <tbody>
                 <tr>
                 <td scope="row">
+                    {form1srNo}&nbsp;  &nbsp;  &nbsp;  &nbsp; 
                     {patientForm.Name}
-                    &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
                 {patientForm.Age}
                 </td>
                 <td>
