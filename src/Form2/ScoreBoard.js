@@ -228,7 +228,7 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                 <br />
                 <div  >
                 <hr />
-                    <div style={{textAlign:"center"}}><p style={{fontSize:"24px"}}   >Form2  Report</p ></div>
+                    <div style={{textAlign:"center"}}><p style={{fontSize:"24px"}}>Form2  Report</p ></div>
                     <hr />
                     
                     <table  >
@@ -237,15 +237,15 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
                          <th> Answers </th> 
                          </thead>
                             {
-                                
+                  
                                 allQs.map((q,index)=>{
-                                     if([mapScore[ans[parseInt(q.id.slice(1))]]] !== undefined){
+                                     if([mapScore[ans[parseInt(q.id.slice(1))]]] !== undefined && ans[parseInt(q.id.slice(1))] != 'Never'){
                                         return(
                                             <tr style={{fontSize:"9px"}}>
                                                 <td>{q.name}</td>
                                                 &nbsp;
                                                 <td>  {ans[parseInt(q.id.slice(1))]} ( {mapScore[ans[parseInt(q.id.slice(1))]]} ) </td>
-                                            </tr>
+                                       </tr>
                                         )
                                      }
                                 })

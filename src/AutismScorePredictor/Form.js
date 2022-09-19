@@ -270,7 +270,7 @@ const Form = () => {
                                 </div> <br />
                                 <div style={{textAlign:"center",fontSize:"20px"}}>
                                 <Badge color="danger" >
-                                  Autism Score Predictor
+                                    DSM 4 Autism score
                                 </Badge>
                                 </div>
                             <form onSubmit={gotoAssesment} style={{padding:"20px 100px"}}>
@@ -365,12 +365,13 @@ const Form = () => {
                         <>
 
                        {
-                          ( password  != "wwwpedneuroin" || !submitPswd) ?
+                          ( password  != "www.pedneuro.in" || !submitPswd) ?
                             (
                                 <>
                                     {
                                        !forgotPswd ? 
                                             <div style={{padding:"20px 100px"}}>
+                                                <p>Password is : www.pedneuro.in</p>
                                                    <FormGroup row p-0 >
                                                    <Label for="exampleSex" sm-2>
                                                         Enter Password :

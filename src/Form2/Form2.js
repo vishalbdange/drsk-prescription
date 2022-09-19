@@ -15,78 +15,78 @@ const Form2 = () => {
 
     const questionset1 = [
        {
-        name : "A1.1: Abnormal Social Approach, Describe age inappropriateness",
+        name : "A1.1: Abnormal Social Approach, age inappropriateness",
         id:"Q1"
        },
        {
-        name : "A1.2: Abnormal Back and forth conversation. Describe age inappropriateness",
+        name : "A1.2: Abnormal Back and forth conversation.age inappropriateness",
         id:"Q2"
        },
        {
-        name : "A1.3: Reduced sharing of interest, emotions, affect, feelings. Describe age inappropriateness",
+        name : "A1.3: Reduced sharing of interest, emotions, affect, feelings.age inappropriateness",
         id:"Q3"
        },
        {
-        name : "A1.4: Failure to initiate or respond to social intercations. Describe age inappropriateness",
+        name : "A1.4: Failure to initiate or respond to social intercations.age inappropriateness",
         id:"Q4"
        },
        {
-        name : "A2.1: Poor eye contact, poor nonverbal or verbal communication. Describe age inappropriateness",
+        name : "A2.1: Poor eye contact, poor nonverbal or verbal communication.age inappropriateness",
         id:"Q5"
        },
         {
-         name : "A2.2: Poor body language. Describe age inappropriateness",
+         name : "A2.2: Poor body language.age inappropriateness",
          id:"Q6"
         },
         {
-         name : "A2.3: Deficit in use of gestures. Describe age inappropriateness",
+         name : "A2.3: Deficit in use of gestures.age inappropriateness",
          id:"Q7"
         },
         {
-         name : "A2.4: Total lack of facial expressions, or lacks nonverbal communication. Describe age inappropriateness",
+         name : "A2.4: Total lack of facial expressions, or lacks nonverbal communication.age inappropriateness",
          id:"Q8"
         },
         {
-         name : "A3.1: Deficit in developing maintaining and understanding relationships Describe age inappropriateness",
+         name : "A3.1: Deficit in developing maintaining and understanding relationshipsage inappropriateness",
          id:"Q9"
         },
         {
-         name : "A 3.2: Difficulty in adjusting behaviours to various social contexts. Describe age inappropriateness",
+         name : "A 3.2: Difficulty in adjusting behaviours to various social contexts.age inappropriateness",
          id:"Q10"
         },
         {
-            name : "A3.3: Difficulty in sharing imaginative play or making friends. Describe age inappropriatenes",
+            name : "A3.3: Difficulty in sharing imaginative play or making friends.age inappropriatenes",
             id:"Q11"
         },
         {
-            name : "A3.4: Absence of interest in peers or friends. Describe age inappropriateness",
+            name : "A3.4: Absence of interest in peers or friends.age inappropriateness",
             id:"Q12"
         },
 
      ]
      const questionset2 = [
         {
-         name : "B1.1: Repetitive movements /stereotypes with objects . Describe age inappropriateness",
+         name : "B1.1: Repetitive movements /stereotypes with objects .age inappropriateness",
          id:"Q13"
         },
         {
-         name : "B1.2:Repetitive movements /stereotypes Movements. Describe age inappropriateness",
+         name : "B1.2:Repetitive movements /stereotypes Movements.age inappropriateness",
          id:"Q14"
         },
         {
-         name : "B1.3:Repetitive movements /stereotypes lining up toys, shoes etc. Describe age inappropriateness",
+         name : "B1.3:Repetitive movements /stereotypes lining up toys, shoes etc.age inappropriateness",
          id:"Q15"
         },
         {
-         name : " B 1.4: Repetitive movements /stereotypes with flipping objects / movements . Describe age inappropriateness",
+         name : " B 1.4: Repetitive movements /stereotypes with flipping objects / movements .age inappropriateness",
          id:"Q16"
         },
         {
-         name : "B1.5: Repetitive words: echolalia / copying . Describe age inappropriateness",
+         name : "B1.5: Repetitive words: echolalia / copying .age inappropriateness",
          id:"Q17"
         },
         {
-         name : "B1.6: Repetitive phrases with or without meaning. Describe age inappropriateness",
+         name : "B1.6: Repetitive phrases with or without meaning.age inappropriateness",
          id:"Q18"
         },
         {
@@ -94,27 +94,23 @@ const Form2 = () => {
          id:"Q19"
         },
         {
-         name : "B2.2:Sameness / Rigidness: difficulty in change or transition from routine. Describe age inappropriatenes",
+         name : "B2.2:Sameness / Rigidness: difficulty in change or transition from routine.age inappropriatenes",
          id:"Q20"
         },
         {
-            name : "B2.3: Sameness / Rigidness: Rigid thinking patterns. Describe age inappropriateness",
+            name : "B2.3: Sameness / Rigidness: Rigid thinking patterns.age inappropriateness",
             id:"Q21"
         },
         {
-            name : "B2.4: Sameness / Rigidness: Greeting rituals. Describe age inappropriatenes",
+            name : "B2.4: Sameness / Rigidness: Greeting rituals.age inappropriatenes",
             id:"Q22"
         },
         {
-            name : "B2.5:Sameness / Rigidness: Need to take same route. Describe age inappropriateness",
+            name : "B2.5:Sameness / Rigidness: Need to take same route.age inappropriateness",
             id:"Q23"
         },
         {
-            name : "B2.6:Sameness / Rigidness: Need to take same route. Describe age inappropriateness",
-            id:"Q23"
-        },
-        {
-            name : "B2.7: Sameness / Rigidness: Same food pattern every day. Describe age inappropriateness ",
+            name : "B2.6: Sameness / Rigidness: Same food pattern every day.age inappropriateness ",
             id:"Q24"
         },
         {
@@ -306,7 +302,6 @@ const Form2 = () => {
       }
     
     const [validationAlert,setValidationAlert] = useState(false);
-
     const handleChangeForm = (e) =>{ 
 
         var name = e.target.name;
@@ -345,19 +340,16 @@ const Form2 = () => {
                         <>
                         {
                             atHome  ? (<>
-                            <div >
-                              <Card   style={{textAlign:"center",fontSize:"22px",margin:"40px 200px 10px 200px",color:"green"}} >
-                                   
-                                   <CardTitle > 
-                                      Neuro Developmental Pediatrician Dr Kondekar Treatment for Autism ADHD Learning disability Epilepsy
-                                    </CardTitle>
-                                    
+                         <div style={{textAlign:"center",fontSize:"22px"}}>
+                              <Card color="info" >
+                                  <CardTitle style={{margin:"20px 10px !important"}}> 
+                                    Neuro Developmental Pediatrician Dr Kondekar Treatment for Autism ADHD Learning disability Epilepsy
+                              </CardTitle>
                                 </Card>
-                              
                                 </div> <br />
                                 <div style={{textAlign:"center",fontSize:"30px"}}>
                                 <Badge color="danger" >
-                                  Autism Form2 
+                                    Form 2 DSM for Autism score
                                 </Badge>
                                 </div>
                             <form onSubmit={gotoAssesment} style={{padding:"20px 100px"}}>
