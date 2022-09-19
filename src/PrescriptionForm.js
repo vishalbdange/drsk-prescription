@@ -5,11 +5,13 @@ import { Link, useNavigate } from "react-router-dom"
 import './Form.css'
 import aakar from "./aakar.jpg"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FormGroup, Form, Input, Label, Button, Col, Alert, Badge } from 'reactstrap'
+import { FormGroup, Form, Input, Label, Button, Col, Alert } from 'reactstrap'
+import {FormControl,InputLabel,Select,MenuItem,Badge} from '@material-ui/core'
 import ImageCapture from "react-image-data-capture";
-
+const prescription_Items = require('./prescription_Items').prescription_Items;
 const PrescriptionForm = ({ changeImgURL }) => {
 
+    console.log(prescription_Items[0])     
     const navigate = useNavigate();
     const [state, setState] = useState({
         DOB: new Date(Date.now()),
@@ -93,9 +95,10 @@ const PrescriptionForm = ({ changeImgURL }) => {
         vals[i] = e.target.value;
         setValues({ val: vals });
     }
-    const addClick = () => {
-        setValues({ val: [...values.val, ''] })
+    const addClick = (text) => {
+        setValues({ val: [...values.val, text] })
     }
+ 
 
     const removeClick = (i) => {
         let vals = [...values.val];
@@ -200,9 +203,9 @@ const PrescriptionForm = ({ changeImgURL }) => {
             {
                 enterPswd ? (<div className="password-container">
                     <div style={{ textAlign: "center", fontSize: "26px", fontWeight: "200 !important", margin: "20px", padding: "10px" }}>
-                        <Badge color="success" style={{ padding: "20px" }} >
+                        <Button varient="contained" color="success" style={{ padding: "20px" }} >
                             Prescription Form  :
-                        </Badge>
+                        </Button>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", cborder: "2px solid black" }}>
                         <FormGroup floating style={{ width: "400px", margin: "4px" }}>
@@ -222,6 +225,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
 
                         <Button onClick={submitPswd} style={{ width: "400px", margin: "4px" }} >Go To Prescription Form</Button>
                     </div>
+                    
 
                 </div>) : (<>
 
@@ -380,7 +384,23 @@ const PrescriptionForm = ({ changeImgURL }) => {
                         </div>
                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                             {createInputs()}
-                            <Input type='button' value='+ Add Prescription ' onClick={addClick} style={{ marginBottom: "10px", width: "800px" }} />
+                            <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-around"}}>
+                                <Input type='button' value='+ Add Prescription ' onClick={() => addClick('')} style={{ marginBottom: "10px",marginRight:"15px", width: "500px" }} />
+                                <Badge badgeContent="New" color="primary">
+                                <Select    
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select" 
+                                    value='All'
+                                    label='All'
+                                    style={{padding:"2px",backgroundColor:"white"}}
+                                    
+                                >
+                                    {prescription_Items.map((p_item,i) => {
+                                        return(<MenuItem onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>)                                        
+                                    })}
+                                </Select>   
+                                </Badge>               
+                            </div>
                             <FormGroup floating style={{ width: "400px", margin: "4px" }}>
                                 <Input
                                     id="exampleReceipt"

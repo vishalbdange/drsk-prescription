@@ -121,16 +121,16 @@ const Form1 = () => {
                         <>
                             {
                                 atHome ? (<>
-                                    <div style={{ textAlign: "center", fontSize: "22px" }}>
-                                        <Card style={{ textAlign: "center", fontSize: "22px", margin: "40px 200px 10px 200px", color: "green" }} >
-                                            <CardTitle style={{ margin: "20px 10px !important" }}>
-                                                Neuro Developmental Pediatrician Dr Kondekar Treatment for Autism ADHD Learning disability Epilepsy
-                                            </CardTitle>
-                                        </Card>
-                                    </div> <br />
+                        <div style={{textAlign:"center",fontSize:"22px"}}>
+                              <Card color="info" >
+                                  <CardTitle style={{margin:"20px 10px !important"}}> 
+                                    Neuro Developmental Pediatrician Dr Kondekar Treatment for Autism ADHD Learning disability Epilepsy
+                              </CardTitle>
+                                </Card>
+                                </div> <br />
                                     <div style={{ textAlign: "center", fontSize: "30px" }}>
                                         <Badge color="danger" >
-                                            Autism Form1 ( In Progress)
+                                            Form 1 Neuro-Develoopmental History ( In Progress)
                                         </Badge>
                                     </div>
                                     <form onSubmit={gotoAssesment} style={{ padding: "20px 100px" }}>
@@ -215,12 +215,13 @@ const Form1 = () => {
                                     <>
 
                                         {
-                                            (password != "wwwpedneuroin" || !submitPswd) ?
+                                            (password != "www.pedneuro.in" || !submitPswd) ?
                                                 (
                                                     <>
                                                         {
                                                             !forgotPswd ?
                                                                 <div style={{ padding: "20px 100px" }}>
+                                                                     <p>Password is : www.pedneuro.in</p>
                                                                     <FormGroup row p-0 >
                                                                         <Label for="exampleSex" sm-2>
                                                                             Enter Password :
