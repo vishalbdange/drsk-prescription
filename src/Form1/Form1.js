@@ -57,8 +57,7 @@ const Form1 = () => {
         squint: '',
         imp_history_b: '',
     })
-
-
+  
 
     const [password, setPassword] = useState("");
 
@@ -107,7 +106,7 @@ const Form1 = () => {
         }
     }
     return (
-        <div >
+        <div>
             <div style={{ textAlign: "center", margin: "20px" }} >
                 <img src={aakar} alt="aakar" className="aakar-logo" />
             </div>
@@ -115,7 +114,7 @@ const Form1 = () => {
                 scoreBoard ?
                     (
                         <>
-                            <ScoreBoard state={state} patientForm={patientForm} />
+                            <ScoreBoard state={state} patientForm={patientForm}  />
                             <Button onClick={() => { setScoreBoard(false) }} style={{ margin: "20px", float: "right" }}> Fill Again ?</Button>
                         </>) :
                     (

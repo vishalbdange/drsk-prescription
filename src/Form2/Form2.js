@@ -8,6 +8,7 @@ import  {getAuth} from "firebase/auth"
  
 // import Firebase from './firebase';
 import aakar from "../aakar.jpg"
+import { ElevatorSharp } from '@mui/icons-material';
 
 const Form2 = () => {
  
@@ -109,11 +110,11 @@ const Form2 = () => {
             id:"Q23"
         },
         {
-            name : "B2.5:Sameness / Rigidness: Need to take same route. Describe age inappropriateness",
+            name : "B2.6:Sameness / Rigidness: Need to take same route. Describe age inappropriateness",
             id:"Q23"
         },
         {
-            name : "B2.6: Sameness / Rigidness: Same food pattern every day. Describe age inappropriateness ",
+            name : "B2.7: Sameness / Rigidness: Same food pattern every day. Describe age inappropriateness ",
             id:"Q24"
         },
         {
@@ -153,7 +154,9 @@ const Form2 = () => {
             id:"Q33"
         },
 ]
-     const allQs = [...questionset1,...questionset2];
+
+    let a1=0,a2=0,a3=0,b1=0,b2=0,b3=0,b4=0;
+    const allQs = [...questionset1,...questionset2];
     var qsAns = [];
     const [ans,setAns ] = useState();
     const [section,setSection] = useState(1);
@@ -201,27 +204,50 @@ const Form2 = () => {
    
     }
     const processScore = (value) => {
-        console.log(value)
         if(value == "Never"){
             console.log("Never")
-            console.log(score)
-            score = score + 1;
-            console.log(score)
+            score = score + 0;
         }else if(value == "Sometimes"){
-            score += 2;
-        }else if(value == "Often"){
-            score += 3;
-        }else if(value == "Always"){
             score += 4;
+        }else if(value == "Often"){
+            score += 8;
+        }else if(value == "Always"){
+            score += 12;
         }
     }
-    
+
+    const processAndCalc = (idx1,idx2,it) => {
+        let sum = 0;
+        for(let i = idx1;i<=idx2;i++){
+            let value = document.getElementById(`Q${i}`).value;
+            if(value == "Sometimes"){
+                sum += 4;
+            }else if(value == "Often"){
+                sum += 8;
+            }else if(value == "Always"){
+                sum += 12;
+            }
+        } 
+        if(it == "a1"){
+            a1 += sum;
+        }else if(it == "a2") {
+            a2 += sum;
+        }else if(it == "a3"){
+            a3 += sum;
+        }else if(it == "b1") {
+            b1 += sum;
+        }else if(it == "b2"){
+            b2 += sum;
+        }else if(it == "b3"){
+            b3 += sum;
+        }
+    }
 
     const getVal = () => { 
             var val;
             for(let i=1;i<=33;i++){
                 val = document.getElementById(`Q${i}`).value;   
-                console.log(val)
+                 
                 qsAns.push(val);
                 processScore(val);
             }
@@ -229,11 +255,33 @@ const Form2 = () => {
             console.log(qsAns)
             setAns(qsAns);
         }
-    const handleSubmit = () => {  
 
+     
+    const handleSubmit = () => {  
+            
             getVal();
-            console.log("Total Score is : ",score);
+            
+        //Writing Special conditions for A1s,B1s conditions
+            
+            processAndCalc(1,4,"a1");
+            processAndCalc(5,8,"a2");
+            processAndCalc(9,12,"a3");
+
+            processAndCalc(13,18,"b1");
+            processAndCalc(19,25,"b2");
+            processAndCalc(26,28,"b3");
+            processAndCalc(29,32,"b4");
+            console.log(a1,a2,a3,b1,b2,b3,b4);
+ 
+           if(a1 == 0 || a2 == 0 || a3 == 0){
+            setFinalScore(0);
+           }
+           if(b1+b2+b3 == 0 || b2+b3+b4 == 0 || b3+b4+b1 == 0 || b1+b2+b4 == 0){
+            setFinalScore(0);
+           }
+           else{
             setFinalScore(score);
+           }
             score = 0;
             setScoreBoard(true);
     }
@@ -325,7 +373,7 @@ const Form2 = () => {
                                                            type="text"
                                                            className="autInp"
                                                            onChange={handleChangeForm}
-                                                           required                                                        
+                                                                                                                   
                                                            
                                                        />
                                                    </Col>
@@ -341,7 +389,7 @@ const Form2 = () => {
                                                            type="number"
                                                            className="autInp"
                                                            onChange={handleChangeForm}
-                                                           required                                                       />
+                                                                                                                  />
                                                    </Col>
                             </FormGroup>
                             <FormGroup>
@@ -355,7 +403,7 @@ const Form2 = () => {
                                                            type="text"
                                                            className="autInp"
                                                            onChange={handleChangeForm}
-                                                           required                                                       />
+                                                                                                                  />
                                                    </Col>
                             </FormGroup>
                             <FormGroup>
@@ -369,7 +417,7 @@ const Form2 = () => {
                                                            type="text"
                                                            className="autInp"
                                                            onChange={handleChangeForm}
-                                                           required                                                       />
+                                                                                                                  />
                                                    </Col>
                             </FormGroup>
                             <FormGroup>
@@ -384,7 +432,7 @@ const Form2 = () => {
                                                            type="number"
                                                            className="autInp"
                                                            onChange={handleChangeForm}
-                                                           required                                                       />
+                                                                                                                  />
                                                    </Col>
                             </FormGroup>
                             
@@ -394,12 +442,13 @@ const Form2 = () => {
                         <>
 
                        {
-                          ( password  != "wwwpedneuroin" || !submitPswd) ?
+                          ( password  != "www.pedneuro.in" || !submitPswd) ?
                             (
                                 <>
                                     {
                                        !forgotPswd ? 
                                             <div style={{padding:"20px 100px"}}>
+                                                   <p>Password is : www.pedneuro.in</p>
                                                    <FormGroup row p-0 >
                                                    <Label for="exampleSex" sm-2>
                                                         Enter Password :

@@ -6,6 +6,9 @@ import { saveAs } from 'file-saver'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import moment from 'moment';
+import aakar from "../../aakar.jpg"
+import Draggable from 'react-draggable'; // The default
+
 
 const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
     const [text,setText] = useState("No Autism");
@@ -71,11 +74,13 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
     return (
         <div>
             <section  id="Page" className="page" ref={ref}>
+            <Draggable>
+            <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
+            </Draggable>
             <CardTitle>
                 <b>Patient Info : </b>
             </CardTitle>
-            <Table
-            >
+            <Table>
         <thead>
                 <tr>
                 <th>
