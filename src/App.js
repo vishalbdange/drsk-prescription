@@ -21,7 +21,7 @@ import {
 import PreviewEmpty from './PreviewEmpty';
 import Form2 from './Form2/Form2'
 import Form1 from './Form1/Form1'
-
+import CARS from './CARS/Form'
 
 const styles = StyleSheet.create({
   page: {
@@ -55,6 +55,7 @@ function App() {
         <Route  exact path="/autism-dsm" element={<AutismDSM />} />
         <Route  exact path="/form2" element={<Form2 />} />
         <Route  exact path="/form1" element={<Form1 />} />
+        <Route  exact path="/cars" element={<CARS />} />
       </Routes>
     </Router>
 
