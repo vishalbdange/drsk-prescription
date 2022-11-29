@@ -61,7 +61,6 @@ const PostAdForm = () => {
   
   const handleSubmit = (e) => {
     console.log(carsData)
-     console.log("Submitted")
   };
 
   function getSteps() {
@@ -113,17 +112,17 @@ const PostAdForm = () => {
                     fullWidth
                   >
                     <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
+                      IMITATION
                     </InputLabel>
                     <Select
                       labelId="type-label"
                       id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
+                      label="IMITATION"
+                      name="IMITATION"
                       onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
+                      value={carsData.IMITATION}
                     >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
+                      <MenuItem value="NO ABNORMALITY">APPROPRIATE</MenuItem>
                       <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
                         AVOIDS LOOKING /EXCESS SHY/CLINGY
                       </MenuItem>
@@ -153,7 +152,37 @@ const PostAdForm = () => {
                       onChange={handleChange}
                       value={carsData.RELATING_TO_PEOPLE}
                     >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
+                      <MenuItem value="APPROPRIATE">NO ABNORMALITY</MenuItem>
+                      <MenuItem value="ONLY SIMPLE BEHAVIOURS LIKE CLAP, NEEDS PROMPT">
+                        ONLY SIMPLE BEHAVIOURS LIKE CLAP, NEEDS PROMPT
+                      </MenuItem>
+                      <MenuItem value="EVEN SIMPLE ONE NEEDS GREAT EFFORTS">
+                        EVEN SIMPLE ONE NEEDS GREAT EFFORTS
+                      </MenuItem>
+                      <MenuItem value="EVEN SIMPLE ONE NEEDS GREAT EFFORTS">
+                        EVEN SIMPLE ONE NEEDS GREAT EFFORTS
+                      </MenuItem>
+                    </Select>
+                  </FormControl>             
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                 <FormControl
+                    variant="outlined"
+                    className={classes.formControl}
+                    fullWidth
+                  >
+                    <InputLabel id="type-label">
+                      EMOTIONAL_RESPONSE
+                    </InputLabel>
+                    <Select
+                      labelId="type-label"
+                      id="type"
+                      label="EMOTIONAL_RESPONSE"
+                      name="EMOTIONAL_RESPONSE"
+                      onChange={handleChange}
+                      value={carsData.EMOTIONAL_RESPONSE}
+                    >
+                      <MenuItem value="NO ABNORMALITY">AGE-APPROPRIATE SITUATION APPROPRIATE</MenuItem>
                       <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
                         AVOIDS LOOKING /EXCESS SHY/CLINGY
                       </MenuItem>
@@ -183,39 +212,9 @@ const PostAdForm = () => {
                       onChange={handleChange}
                       value={carsData.RELATING_TO_PEOPLE}
                     >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
+                      <MenuItem value="AGE-APPROPRIATE SITUATION APPROPRIATE">NO ABNORMALITY</MenuItem>
+                      <MenuItem value="OCCASIONAL INAPPROPRIATE">
+                        OCCASIONAL INAPPROPRIATE
                       </MenuItem>
                       <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
                         UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
@@ -259,11 +258,11 @@ const PostAdForm = () => {
                       <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
                         AVOIDS LOOKING /EXCESS SHY/CLINGY
                       </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
+                      <MenuItem value="INAPPRPRIATE, INHIBITED OR EXCESSIVE, MAY GRIMACE , LAUGH OR BECOME RIGID EVEN WITHOUT REASON">
+                        INAPPRPRIATE, INHIBITED OR EXCESSIVE, MAY GRIMACE , LAUGH OR BECOME RIGID EVEN WITHOUT REASON
                       </MenuItem>
                       <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
+                        RARELY APPROPRIATE THAT TOO ONLY WHEN MOOD, WILD EMOTIONS EVEN IF NO REASONT
                       </MenuItem>
                     </Select>
                   </FormControl>
@@ -292,8 +291,8 @@ const PostAdForm = () => {
                       <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
                         UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
                       </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
+                      <MenuItem value="RARELY APPROPRIATE THAT TOO ONLY WHEN MOOD, WILD EMOTIONS EVEN IF NO REASONT">
+                        RARELY APPROPRIATE THAT TOO ONLY WHEN MOOD, WILD EMOTIONS EVEN IF NO REASON
                       </MenuItem>
                     </Select>
                   </FormControl>

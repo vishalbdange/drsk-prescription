@@ -440,7 +440,8 @@ const Form = () => {
                             )   
                             :    
                         (
-                            <>     
+                            <> 
+                              
                        <br /> <br /> <br />  
                         <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section1">Section 1 :  SOCIAL INTERACTION  </Button></div>
                         <UncontrolledCollapse  toggler="#section1">
