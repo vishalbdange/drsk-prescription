@@ -1,726 +1,538 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Grow,
-  Grid,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Stepper,
-  Step,
-  StepLabel,
-  Box,
-} from "@material-ui/core";
-import PropTypes from "prop-types";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import StepConnector from "@material-ui/core/StepConnector";
-import clsx from "clsx";
-import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
-import AddToPhotosOutlinedIcon from "@material-ui/icons/AddToPhotosOutlined";
-import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
-import MuiAlert from "@material-ui/lab/Alert";
-import {useNavigate}  from "react-router-dom";
-import useStyles from "./style";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-
-const initialState = {
-  RELATING_TO_PEOPLE: "",
-  IMITATION: "",
-  EMOTIONAL_RESPONSE: "",
-  BODY_USE: "",
-  OBJECT_USE: "",
-  ADAPTION_TO_CHANGE: "",
-  VISUAL_RESPONSE: "",
-  LISTENING_SKILLS: "",
-  TASTE_SMELL_TOUCH_RESPONSE_AND_USE: [],
-  FEAR_OR_NERVOUSNESS: "",
-  VERBAL_COMMUNICATION: "",
-  ACTIVITY_LEVEL: "",
-  LEVEL_AND_CONSISTENCY_OF_INTELLECTUAL_RESPONSE: "",
-  GENERAL_IMPRESSIONS: "",
-};
-
-const PostAdForm = () => {
-  const classes = useStyles();
-  const history = useNavigate();
+import React,{useState,useEffect} from 'react'
+import { Alert,Button,FormGroup,Input,Label,Col,Collapse,UncontrolledCollapse,Badge, CardTitle,Card,UncontrolledAlert} from 'reactstrap'
+import  ScoreBoard  from './ScoreBoard'
+import AppContext from '../AppContext';
+import { initializeApp,RecaptchaVerifier  } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import  {getAuth} from "firebase/auth"
  
-    const [carsData,setCarsData] = useState(initialState)
-  const handleChange = (e) => {
-    setCarsData({ ...carsData, [e.target.name]: e.target.value });
-  };
+// import Firebase from './firebase';
+import aakar from "src/aakar.jpgg"
 
-  const Alert = (props) => {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  };
+const Form = () => {
 
-  
-  const handleSubmit = (e) => {
-    console.log(carsData)
-  };
+    const questionset1 = [
+       {
+        name : "RELATING TO PEOPLE",
+        options : ["1.NO ABNORMALITY","2.AVOIDS LOOKING /EXCESS SHY/CLINGY","3.UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDEDc","4.HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT"],
+        id:"Q1"
+       },
+       {
+        name : "IMITATION",
+        options :  ["1.APPROPRIATE","2.ONLY SIMPLE BEHAVIOURS LIKE CLAP, NEEDS PROMPT","3.EVEN SIMPLE ONE NEEDS GREAT EFFORTS","4.RARELY OR NEVER IMITATES ANY SOUND OR ACTION EVEN WITH GREAT EFFORTS"],
+        id:"Q2"
+       },
+       {
+        name : "EMOTIONAL RESPONSE",
+        options :  ["1.AGE-APPROPRIATE SITUATION APPROPRIATE","2.OCCASIONAL INAPPROPRIATE","3.INAPPRPRIATE, INHIBITED OR EXCESSIVE, MAY GRIMACE , LAUGH OR BECOME RIGID EVEN WITHOUT REASON","4.RARELY APPROPRIATE THAT TOO ONLY WHEN MOOD, WILD EMOTIONS EVEN IF NO REASON"],
+        id:"Q3"
+       },
+       {
+        name : "BODY USE",
+        options :  ["1.EASE AND COORDINATION LIKE A NORMAL KID","2.CLUMSY POOR COORDINATION, REPITITIVE MOVEMENTS","3.STARNGE/ UNUSAL BEHAVIOURS/ FINGER MOVEMENTS, STARING, PICKING AT BODY, SELF DIRECTED AGGRESSION, ROCKING SPINNING TOE WALKING, FINGER WRIGGLING","4.SEVERELY ABONORMAL AND REPITITIVE BODY MOVEMENTS DESPITE DIVERSIONS"],
+        id:"Q4"
+       },
+       {
+        name : "OBJECT USE5",
+        options :  ["1.NORMAL INTEREST AND SUE OF TOYS, AGE APPROPRIATE","2.ATYPICAL INTEREST IN A TOY, OR BANGS/ MOUTHS IT	","3.INTEREST IN OTHER OBJECTS OR FASCINATED ABOUT ONLY ONE OBJECT/MOVEMENT /SHAPE","4.SEVERE THAN ABOVE WITH DIFFICULT TO DISTRACT"],
+        id:"Q5"
+       }
+    ]
+    const questionset2 = [
+        {
+         name : "Q6.Difficulty in comprehension/communication",
+         id:"Q6"
+        },
+        {
+         name : "Q7.May/may not indicate needs by gestures or leading adults by the hand",
+         id:"Q7"
+        },
+        {
+         name : "Q8. Echolalia/using nonsensical words and muttering to self",
+         id:"Q8"
+        },
+        {
+         name : "Q9. Lack of Pretend play ",
+         id:"Q9"
+        },
+        {
+         name : "Q10.Likes sameness in everyday routine",
+         id:"Q10"
+        }
+     ]
+     const questionset3 = [
+        {
+         name : "Q11. Inappropriate attachment to objects",
+         id:"Q11"
+        },
+        {
+         name : "Q12. Unsual body movements such as flapping hands or rocking or jumping",
+         id:"Q12"
+        },
+        {
+         name : "Q13. Extreme restlessness,hyperactivity/overpassivity or prefers to be alone all the time ",
+         id:"Q13"
+        },
+        {
+         name : "Q14. Not responsive to normal teaching methods",
+         id:"Q14"
+        },
+        {
+         name : "Q15. Doesn’t like to be hugged or or touched/apparent insensitivity to pain",
+         id:"Q15"
+        }
+     ]
 
-  function getSteps() {
-    return ["Section 1", "Section 2", "Section 3"];
-  }
+     const allQs = [...questionset1,...questionset2,...questionset3];
+    var qsAns = [];
+    const [ans,setAns ] = useState();
+    const [section,setSection] = useState(1);
+     let score = 0;
+     const [finalScore,setFinalScore] = useState(0);
+    const [scoreBoard,setScoreBoard] = useState(false);
+    const [patientForm,setPatientForm] = useState({
+        Name: '',
+        Age:'',
+        Sex:'',
+        City:'',
+        Mob_Number:''
+    })
 
-  function getStepContent(stepIndex) {
-    switch (stepIndex) {
-      case 0:
-        return (
-          <Grow in>
-            <Container>
-              <Paper className={classes.paper}>
-                <Grid item xs={12} sm={12}>
-                <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      IMITATION
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="IMITATION"
-                      name="IMITATION"
-                      onChange={handleChange}
-                      value={carsData.IMITATION}
-                    >
-                      <MenuItem value="NO ABNORMALITY">APPROPRIATE</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="APPROPRIATE">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="ONLY SIMPLE BEHAVIOURS LIKE CLAP, NEEDS PROMPT">
-                        ONLY SIMPLE BEHAVIOURS LIKE CLAP, NEEDS PROMPT
-                      </MenuItem>
-                      <MenuItem value="EVEN SIMPLE ONE NEEDS GREAT EFFORTS">
-                        EVEN SIMPLE ONE NEEDS GREAT EFFORTS
-                      </MenuItem>
-                      <MenuItem value="EVEN SIMPLE ONE NEEDS GREAT EFFORTS">
-                        EVEN SIMPLE ONE NEEDS GREAT EFFORTS
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      EMOTIONAL_RESPONSE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="EMOTIONAL_RESPONSE"
-                      name="EMOTIONAL_RESPONSE"
-                      onChange={handleChange}
-                      value={carsData.EMOTIONAL_RESPONSE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">AGE-APPROPRIATE SITUATION APPROPRIATE</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="AGE-APPROPRIATE SITUATION APPROPRIATE">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="OCCASIONAL INAPPROPRIATE">
-                        OCCASIONAL INAPPROPRIATE
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                </Grid>
-              </Paper>
-            </Container>
-          </Grow>
-        );
-
-      case 1:
-        return (
-          <Grow in>
-            <Container>
-              <Paper className={classes.paper}>
-                <Grid container spacing={2}>
-                 <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="INAPPRPRIATE, INHIBITED OR EXCESSIVE, MAY GRIMACE , LAUGH OR BECOME RIGID EVEN WITHOUT REASON">
-                        INAPPRPRIATE, INHIBITED OR EXCESSIVE, MAY GRIMACE , LAUGH OR BECOME RIGID EVEN WITHOUT REASON
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        RARELY APPROPRIATE THAT TOO ONLY WHEN MOOD, WILD EMOTIONS EVEN IF NO REASONT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                 </Grid>
-                 <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="RARELY APPROPRIATE THAT TOO ONLY WHEN MOOD, WILD EMOTIONS EVEN IF NO REASONT">
-                        RARELY APPROPRIATE THAT TOO ONLY WHEN MOOD, WILD EMOTIONS EVEN IF NO REASON
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                 </Grid>
-                 <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                 </Grid>
-                 <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                 </Grid>
-                 <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                 </Grid>
-
-                </Grid>
-              </Paper>
-            </Container>
-          </Grow>
-        );
-      case 2:
-        return (
-          <Grow in>
-            <Container>
-              <Paper className={classes.paper}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                 <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                    fullWidth
-                  >
-                    <InputLabel id="type-label">
-                      RELATING_TO_PEOPLE
-                    </InputLabel>
-                    <Select
-                      labelId="type-label"
-                      id="type"
-                      label="RELATING_TO_PEOPLE"
-                      name="RELATING_TO_PEOPLE"
-                      onChange={handleChange}
-                      value={carsData.RELATING_TO_PEOPLE}
-                    >
-                      <MenuItem value="NO ABNORMALITY">NO ABNORMALITY</MenuItem>
-                      <MenuItem value="AVOIDS LOOKING /EXCESS SHY/CLINGY">
-                        AVOIDS LOOKING /EXCESS SHY/CLINGY
-                      </MenuItem>
-                      <MenuItem value="UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE">
-                        UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDE
-                      </MenuItem>
-                      <MenuItem value="HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT">
-                        HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT
-                      </MenuItem>
-                    </Select>
-                  </FormControl>             
-                    </Grid>
-                </Grid>
-                <Box align="center">
-                  <Button
-                    className={classes.buttonSubmit}
-                    size="large"
-                    type="submit"
-                  >
-                    Submit
-                  </Button>
-                </Box>
-              </Paper>
-            </Container>
-          </Grow>
-        );
-      default:
-        return "Unknown stepIndex";
+    const goBack = () => {
+        window.scroll(0,0);
+        if(section > 1){
+            setSection(section-1);
+        }
+        if(scoreBoard){
+            setSection(1);
+            setScoreBoard(false)
+        }
     }
-  }
+    const goNext = () => {
+        window.scroll(0,0);
+        if(section >= 4){
+            setSection(4);
+        }else{
+            setSection(section + 1)
+        }
+   
+    }
 
-  const ColorlibConnector = withStyles({
-    alternativeLabel: {
-      top: 22,
-    },
-    active: {
-      "& $line": {
-        backgroundImage:
-          "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
-      },
-    },
-    completed: {
-      "& $line": {
-        backgroundImage:
-          "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
-      },
-    },
-    line: {
-      height: 3,
-      border: 0,
-      backgroundColor: "#eaeaf0",
-      borderRadius: 1,
-    },
-  })(StepConnector);
+    const calcScore = ( ) => {
+        gotoAutismScorer(0);
+    }
+    const gotoAutismScorer = (ans) => {
+        
+        console.log(ans)
+        // setScore(score + Number(ans));
+        // console.log("Your current Score")
+        // console.log(score)
+        // setScoreBoard(false);
+   
+    }
+    const processScore = (value) => {
+        console.log(value)
+        value = value[0]
+        if(value == 1){
+            console.log(score)
+            score = score + 1;
+            console.log(score)
+        }else if(value == 2){
+            score += 2;
+        }else if(value == 3){
+            score += 3;
+        }else if(value == 4){
+            score += 4;
+        }
+    }
+    
+    const getVal = () => { 
+            var val;
+            for(let i=1;i<=20;i++){
+                val = document.getElementById(`Q${i}`).value;   
+                console.log(val)
+                qsAns.push(val);
+                processScore(val);
+            }
+            
+            console.log(qsAns)
+            setAns(qsAns);
+        }
+    const handleSubmit = () => {  
 
-  const useColorlibStepIconStyles = makeStyles({
-    root: {
-      backgroundColor: "#ccc",
-      zIndex: 1,
-      color: "#fff",
-      width: 50,
-      height: 50,
-      display: "flex",
-      borderRadius: "50%",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    active: {
-      backgroundImage:
-        "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
-      boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
-    },
-    completed: {
-      backgroundImage:
-        "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
-    },
-  });
+            getVal();
+            console.log("Total Score is : ",score);
+            setFinalScore(score);
+            score = 0;
+            setScoreBoard(true);
+    }
 
-  function ColorlibStepIcon(props) {
-    const classes = useColorlibStepIconStyles();
-    const { active, completed } = props;
+      const [password,setPassword] = useState("");
+      const [submitPswd,setSubmitPswd] = useState(false);
+      const [forgotPswd,setForgotPswd] = useState(false);
+      const [sendOtp,setSendOtp] = useState(false);
+      const [atHome,setAtHome] = useState(true)
+      const handleChangePassword = (e) => {
+            setPassword(e.target.value);
+      }
 
-    const icons = {
-      1: <LibraryBooksOutlinedIcon />,
-      2: <AddToPhotosOutlinedIcon />,
-      3: <AssignmentOutlinedIcon />,
-    };
+      const handlesubmitPassword = () =>{
+            setSubmitPswd(true)
+      }
+      const handleforgotPassword = () => {
+            setForgotPswd(true);
+      }
+      const handleChangeMobNumber = () => {
+
+      }
+    
+    const [validationAlert,setValidationAlert] = useState(false);
+
+    const handleChangeForm = (e) =>{ 
+
+        var name = e.target.name;
+        var value = e.target.value;
+        setPatientForm({ ...patientForm, [name]: value })
+    }
+    const gotoAssesment = (e) => {
+        e.preventDefault();
+        console.log(document.getElementById('Name'))
+        console.log(document.getElementById('Age'))
+        console.log(document.getElementById('Sex'))
+        console.log(document.getElementById('City'))
+        console.log(document.getElementById('Mob_Number'))
+        if(document.getElementById('Name') === null || document.getElementById('Age') === null || document.getElementById('Sex') === null || document.getElementById('City ') === null || document.getElementById('Mob_Number') === null){
+
+            setValidationAlert(true);
+            setAtHome(false)
+        }else{
+            setAtHome(false)
+            setValidationAlert(false)
+        }
+    }
     return (
-      <div
-        className={clsx(classes.root, {
-          [classes.active]: active,
-          [classes.completed]: completed,
-        })}
-      >
-        {icons[String(props.icon)]}
-      </div>
-    );
-  }
+        <div >
+                <div style={{textAlign:"center",margin:"20px"}} >
+                        <img src={aakar} alt="aakar" className="aakar-logo"/>
+                </div>
+                {
+                    scoreBoard ? 
+                    (
+                    <>
+                    <ScoreBoard finalScore={finalScore}  patientForm={patientForm} allQs={allQs} ans={ans} />
+                    <Button onClick={() => {setScoreBoard(false)}} style={{margin:"20px",float:"right"}}> Check Score Again ?</Button> 
+                    </> ) :
+                    (   
+                        <>
+                        {
+                            atHome  ? (<>
+                            <div style={{textAlign:"center",fontSize:"22px"}}>
+                              <Card color="info" >
+                                  <CardTitle style={{margin:"20px 10px !important"}}> 
+                                    Neuro Developmental Pediatrician Dr Kondekar Treatment for Autism ADHD Learning disability Epilepsy
+                              </CardTitle>
+                                </Card>
+                                </div> <br />
+                                <div style={{textAlign:"center",fontSize:"20px"}}>
+                                <Badge color="danger" >
+                                    DSM 4 Autism score
+                                </Badge>
+                                </div>
+                            <form onSubmit={gotoAssesment} style={{padding:"20px 100px"}}>
+                            <FormGroup>
 
-  ColorlibStepIcon.propTypes = {
-    /**
-     * Whether this step is active.
-     */
-    active: PropTypes.bool,
-    /**
-     * Mark the step as completed. Is passed to child components.
-     */
-    completed: PropTypes.bool,
-    /**
-     * The label displayed in the step icon.
-     */
-    icon: PropTypes.node,
-  };
+                            <Label for="exampleName" sm-2>
+                                                    Enter Name : 
+                                                   </Label>
+                                                   <Col sm-10>
+                                                       <input
+                                                           id="Name"
+                                                           name="Name"
+                                                           type="text"
+                                                           className="autInp"
+                                                           onChange={handleChangeForm}
+                                                           required
+                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                        
+                                                           
+                                                       />
+                                                   </Col>
+                            </FormGroup>
+                            <FormGroup>
+                            <Label for="exampleAge" sm-2>
+                                                    Enter Age : 
+                                                   </Label>
+                                                   <Col sm-10>
+                                                       <input
+                                                           id="Age"
+                                                           name="Age"
+                                                           type="number"
+                                                           className="autInp"
+                                                           onChange={handleChangeForm}
+                                                           required
+                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                       />
+                                                   </Col>
+                            </FormGroup>
+                            <FormGroup>
+                            <Label for="exampleSex" sm-2>
+                                                    Enter Sex : 
+                                                   </Label>
+                                                   <Col sm-10>
+                                                       <input
+                                                           id="Sex"
+                                                           name="Sex"
+                                                           type="text"
+                                                           className="autInp"
+                                                           onChange={handleChangeForm}
+                                                           required
+                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                       />
+                                                   </Col>
+                            </FormGroup>
+                            <FormGroup>
+                            <Label for="exampleSex" sm-2>
+                                                    Enter City : 
+                                                   </Label>
+                                                   <Col sm-10>
+                                                       <input
+                                                           id="City"
+                                                           name="City"
+                                                           type="text"
+                                                           className="autInp"
+                                                           onChange={handleChangeForm}
+                                                           required
+                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                       />
+                                                   </Col>
+                            </FormGroup>
+                            <FormGroup>
+                            <Label for="example" sm-2>
+                                                    Enter Mobile Number : 
+                                                   </Label>
+                                                   <Col sm-10>
+                                                       <input
+                                                        
+                                                           id="Mob_Number"
+                                                           name="Mob_Number"
+                                                           type="number"
+                                                           className="autInp"
+                                                           onChange={handleChangeForm}
+                                                           required
+                                                              style={{padding:"5px",outline:"none",border:"none",boxShadow:"1px 1px 6px grey",borderRadius:"10px"}}
+                                                       />
+                                                   </Col>
+                            </FormGroup>
+                            
+                            <Button type="submit">Go To Assesment</Button> 
+                            </form>
+                            </>) :
+                        <>
 
-  const [activeStep, setActiveStep] = useState(0);
-  const steps = getSteps();
+                       {
+                          ( password  != "www.pedneuro.in" || !submitPswd) ?
+                            (
+                                <>
+                                    {
+                                       !forgotPswd ? 
+                                            <div style={{padding:"20px 100px"}}>
+                                                <p>Password is : www.pedneuro.in</p>
+                                                   <FormGroup row p-0 >
+                                                   <Label for="exampleSex" sm-2>
+                                                        Enter Password :
+                                                   </Label>
+                                                   <Col sm-10>
+                                                       <Input
+                                                           id="password"
+                                                           name="password"
+                                                           type="text"
+                                                           className="inp"
+                                                           onChange={handleChangePassword}
+                                                       />
+                                                   </Col>
+                                               </FormGroup>
+                                               <div style={{display:"flex",justifyContent:"space-between"}}>
+                                               <Button onClick={handlesubmitPassword}>Submit</Button>
+                                               <Button onClick={() => {setAtHome(true)}}>Back</Button>
+                                               </div>
+                                            </div>
+                                            :  (
+                                            <>
+                                              {/* {
+                                                  sendOtp ? (
+                                                  <>
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+                                                        <FormGroup>
+                                                            <Label for="exampleSex" sm-2>
+                                                            Enter OTP   : 
+                                                        </Label>
+                                                        <Col sm-10>
+                                                            <Input
+                                                                id="Otp_number"
+                                                                name="Otp_number"
+                                                                type="number"
+                                                                className="inp"
+                                                                onChange={(e) => setOtp(e.target.value) }
+                                                            />
+                                                        </Col>
+                                                    </FormGroup>
+                                                    <Button onClick={otpSubmit}>Verify OTP</Button>
+                                                  </>
+                                                  ):(
+                                                      <>
+                                               <FormGroup>
+                                                <Label for="exampleSex" sm-2>
+                                                    Enter Mobile Number : 
+                                                   </Label>
+                                                   <Col sm-10>
+                                                       <Input
+                                                           id="Mob_number"
+                                                           name="Mob_number"
+                                                           type="number"
+                                                           className="inp"
+                                                           onChange={handleChangeMobNumber}
+                                                       />
+                                                   </Col>
+                                               </FormGroup>
+                                                <Button onClick={loginSubmit}> Send OTP</Button>
+                                                </>
+                                                )
+                                              } */}
+                                            </>)
+                                    }          
+ 
+                                </>
+                            )   
+                            :    
+                        (
+                            <> 
+                              
+                       <br /> <br /> <br />  
+                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section1">Section 1 :  SOCIAL INTERACTION  </Button></div>
+                        <UncontrolledCollapse  toggler="#section1">
+                            {questionset1.map((qs1)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="exampleSex" sm-2>
+                                             {qs1.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs1.id}
+                                                    name={qs1.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    {
+                                                        qs1.options.map(option =>{
+                                                            return(
+                                                                <><option>{option}</option></>
+                                                            )
+                                                        })
+                                                    }
+                                                </Input>
+                                            </Col>
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
+                       
+                        </UncontrolledCollapse>
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
 
-  return (
-    <div className={classes.mainContainer}> 
-      
-      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <Grow in>
-          <Box align="center" className={classes.box}>
-            <Stepper
-              activeStep={activeStep}
-              alternativeLabel
-              connector={<ColorlibConnector />}
-              style={{ background: "#eae7dc" }}
-            >
-              {steps.map((label) => {
-                return (
-                  <Step key={label}>
-                    <StepLabel StepIconComponent={ColorlibStepIcon}>
-                      {label}
-                    </StepLabel>
-                  </Step>
-                );
-              })}
-            </Stepper>
-          </Box>
-        </Grow>
+                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section2">Section 2 : COMMUNICATION </Button></div>
+                        <UncontrolledCollapse  toggler="#section2">
+                        {questionset2.map((qs2)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="exampleSex" sm-2>
+                                             {qs2.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs2.id}
+                                                    name={qs2.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    <option>
+                                                    Never
+                                                    </option>
+                                                    <option>
+                                                    Sometimes
+                                                    </option>
+                                                    <option>
+                                                        Often
+                                                    </option>
+                                                    <option>
+                                                        Always
+                                                    </option>
+                                                </Input>
+                                            </Col>
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
+                
+                        </UncontrolledCollapse>
 
-        <div>
-          <Typography>{getStepContent(activeStep)}</Typography>
-          <Box align="center">
-            <Button
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              className={classes.backbutton}
-            >
-              Back
-            </Button>
-            {activeStep === steps.length - 1 ? (
-              <Button
-                variant="contained"
-                color="primary"
-                disabled
-                className={classes.nextbutton}
-              >
-                Next
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.nextbutton}
-              >
-                Next
-              </Button>
-            )}
-          </Box>
+                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info"  id="section3">Section 3 : BEHAVIOURAL CHARACTERISTICS </Button></div>
+                        
+                        <UncontrolledCollapse  toggler="#section3">
+
+                        {questionset3.map((qs3)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="exampleSex" sm-2>
+                                             {qs3.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs3.id}
+                                                    name={qs3.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    <option>
+                                                    Never
+                                                    </option>
+                                                    <option>
+                                                    Sometimes
+                                                    </option>
+                                                    <option>
+                                                        Often
+                                                    </option>
+                                                    <option>
+                                                        Always
+                                                    </option>
+                                                </Input>
+                                            </Col>
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
+
+                        </UncontrolledCollapse>
+
+
+                        <div style={{display:"flex",flexDirection:"row",justifyContent:"center"}} >
+                            <Button color="success" onClick={handleSubmit}>Show Autism Score </Button>  
+                        </div> 
+                         </>) }
+                        </>
+                        }
+                        </>
+                    )
+                
+                }
         </div>
-      </form>
-    </div>
-  );
-};
+    )
+}
 
-export default PostAdForm;
+export default Form
