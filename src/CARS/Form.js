@@ -7,82 +7,91 @@ import { getAnalytics } from "firebase/analytics";
 import  {getAuth} from "firebase/auth"
  
 // import Firebase from './firebase';
-import aakar from "src/aakar.jpgg"
+import aakar from "../../src/aakar.jpg"
 
 const Form = () => {
 
     const questionset1 = [
        {
-        name : "RELATING TO PEOPLE",
+        name : "1.RELATING TO PEOPLE",
         options : ["1.NO ABNORMALITY","2.AVOIDS LOOKING /EXCESS SHY/CLINGY","3.UNAWARE OF ADULT/ ALOOFNESS/FORCEFUL ATTEMPTS NEEDEDc","4.HARDLY ANY RESPONSE EVEN TO MOST FORCEFUL ATTEMPT"],
         id:"Q1"
        },
        {
-        name : "IMITATION",
+        name : "2.IMITATION",
         options :  ["1.APPROPRIATE","2.ONLY SIMPLE BEHAVIOURS LIKE CLAP, NEEDS PROMPT","3.EVEN SIMPLE ONE NEEDS GREAT EFFORTS","4.RARELY OR NEVER IMITATES ANY SOUND OR ACTION EVEN WITH GREAT EFFORTS"],
         id:"Q2"
        },
        {
-        name : "EMOTIONAL RESPONSE",
+        name : "3.RESPONSE",
         options :  ["1.AGE-APPROPRIATE SITUATION APPROPRIATE","2.OCCASIONAL INAPPROPRIATE","3.INAPPRPRIATE, INHIBITED OR EXCESSIVE, MAY GRIMACE , LAUGH OR BECOME RIGID EVEN WITHOUT REASON","4.RARELY APPROPRIATE THAT TOO ONLY WHEN MOOD, WILD EMOTIONS EVEN IF NO REASON"],
         id:"Q3"
        },
        {
-        name : "BODY USE",
+        name : "4.BODY USE",
         options :  ["1.EASE AND COORDINATION LIKE A NORMAL KID","2.CLUMSY POOR COORDINATION, REPITITIVE MOVEMENTS","3.STARNGE/ UNUSAL BEHAVIOURS/ FINGER MOVEMENTS, STARING, PICKING AT BODY, SELF DIRECTED AGGRESSION, ROCKING SPINNING TOE WALKING, FINGER WRIGGLING","4.SEVERELY ABONORMAL AND REPITITIVE BODY MOVEMENTS DESPITE DIVERSIONS"],
         id:"Q4"
        },
        {
-        name : "OBJECT USE5",
+        name : "5.OBJECT USE5",
         options :  ["1.NORMAL INTEREST AND SUE OF TOYS, AGE APPROPRIATE","2.ATYPICAL INTEREST IN A TOY, OR BANGS/ MOUTHS IT	","3.INTEREST IN OTHER OBJECTS OR FASCINATED ABOUT ONLY ONE OBJECT/MOVEMENT /SHAPE","4.SEVERE THAN ABOVE WITH DIFFICULT TO DISTRACT"],
         id:"Q5"
        }
     ]
     const questionset2 = [
         {
-         name : "Q6.Difficulty in comprehension/communication",
+         name : "6.ADAPTATION TO CHANGE",
+         options : ["1.NOTICES/ COMMENTS ON CHANGES IN ROUTINE, ACCEPTS WITHOUT DISTRESS","2.CHILD CONTINUES WITH SAME TASK EVEN IF ADULT TRIES TO CHANGE ITY","3.ACTIVELY RESISTS CHANGE, DIFFICULT TO DTSRACT, GETS DISTARCTED/ANGRY  WITH CHANGED ROUTINE","4.SEVERE REACTION TO CHANGE WHEN FORCED- GETS ANGRY/VIOLET/TANTRUM"],
          id:"Q6"
         },
         {
-         name : "Q7.May/may not indicate needs by gestures or leading adults by the hand",
+         name : "7.VISUAL RESPONSEN",
+         options :  ["1.NORMAL AGE APPROPRIATE, VISION USED WITH OTHER NORMAL SENSES TO EXPLORE A NEW OBJECTE","2.SOMETIMES NEEDS REMINDED TO LOOK AT OBJECT, STARES INTO SPACE, MAY AVOID EYE CONTACT","3.NEEDS FREQUENT REMINDER TO LOOK, AVOIDS EYE CONTACT, LOOKS AT OBJECTS IN UNUSUAL ANGLE, HOLDS OBJECTS CLOSE TO EYES","4.CONSISTENTLY AVOIDS , PEOPLE OR SOME OBJECTS, EXTREME STARINGS"],
          id:"Q7"
         },
         {
-         name : "Q8. Echolalia/using nonsensical words and muttering to self",
+         name : "8.LISTENING SKILLS",
+         options :  ["1.AGE APPROPRIAATE AND NORMAL ALONGWITH OTHER SENSES","2.SOME LACK OF RESPONSE OR MILD OVER REACTION, DELAYED ","3.IGNORES FEW TIMES OR COVERS EARS TO EVERY DAY SOUNDS","4.EXTREME OVER REACTS OR UDNER REACTS"],
          id:"Q8"
         },
         {
-         name : "Q9. Lack of Pretend play ",
+         name : "9.TASTE SMELL TOUCH RESPONSE AND USE",
+         options :  ["1.USES AND EXPLOTRES NEW OBJECTS AGE APPROPRIATELY","2.MOUTHS, TASTES, SMELLES INEDIBLE, IGNORE OR OVERREACT MILD PAIN","3.MODERATELY ABNORMAL USE, PREOCCUPIED WITH TOUCH , SMELL, TASTE","4.PREOCCUPIED WITH ONLY ANY OF THESE ACTIVITIES, IGNORES PAIN OR REACTS STRONGLYS"],
          id:"Q9"
         },
         {
-         name : "Q10.Likes sameness in everyday routine",
+         name : "10.FEAR Or NERVOUSNESS",
+         options :  ["1.NORMAL FOR AGE & SITUATION","2.OCCASIONALLY TOO MUCH OR TOO LITTLE FEAR","3.LITTLE MORE OR LITTLE LESS FEAR THAN A YOUNGER KID","4.DOESN’T SETTLE WITH REPEATED EXPERIENCES, FAILS TO SHOW APPROPRIATE REGARD FOR HAZARDS THAT OTHER KIDS AVOID"],
          id:"Q10"
         }
      ]
      const questionset3 = [
         {
-         name : "Q11. Inappropriate attachment to objects",
+         name : "11.VERBAL COMMUNICATION",
+         options : ["1.NORMAL FOR AGE AND SITUATION, ACCEPTS WITHOUT DISTRESS","2.CHILD CONTINUES WITH SAME TASK EVEN IF ADULT TRIES TO CHANGE ITY","3.NO SPEECH OR EXCESSIVE QUESTIONING OR MIXED WITH JARGONING","4.MEANINGLESS SQUEALS, WEIRD SOUNDS, COMPLEX NOISES, BIZZARE"],
          id:"Q11"
         },
         {
-         name : "Q12. Unsual body movements such as flapping hands or rocking or jumping",
+         name : "12.NONVERBAL COMMUNICATION",
+         options :  ["1.NORMAL FOR AGE & SITUATION","2.IMMATURE, VAGUE POINTING","3.UNABLE TO EXPRESS NONVERBALLY, CANT UNDERSTAND NONVERBAL","4.MEANINGLESS GESTURES, CANT UNDERSTAND OTHERS GESTURES"],
          id:"Q12"
         },
         {
-         name : "Q13. Extreme restlessness,hyperactivity/overpassivity or prefers to be alone all the time ",
+         name : "13.ACTIVITY LEVEL",
+         options :  ["1.AGE APPROPRIAATE AND NORMAL ALONGWITH OTHER SENSES","2.SOME LACK OF RESPONSE OR MILD OVER REACTION, DELAYED ","3.IGNORES FEW TIMES OR COVERS EARS TO EVERY DAY SOUNDS","4.EXTREME OVER REACTS OR UDNER REACTS"],
          id:"Q13"
         },
         {
-         name : "Q14. Not responsive to normal teaching methods",
+         name : "14.LEVEL AND CONSISTENCY OF INTELLECTUAL RESPONSE",
+         options :  ["1.IS INTELLIGENT,AS AGE APPROPRIATE","2.SKILS DELAYED, LOW IQ<70, ACROSS AL AREAS","3.AT LEAST ONE SKIL IN AVERAGE RANGE,IQ 100-115","4.SAVANT SKILLS, SPECIAL ABNORMAL INTELIGENCE"],
          id:"Q14"
         },
         {
-         name : "Q15. Doesn’t like to be hugged or or touched/apparent insensitivity to pain",
+         name : "15.GEENRAL IMPRRESSIONS",
+         options :  ["1.NOT AUTISM","2.MILD","3.MANY SYMPTOMS","4.MANY MORE / EXTREME SYMPTOMS"],
          id:"Q15"
         }
      ]
-
      const allQs = [...questionset1,...questionset2,...questionset3];
     var qsAns = [];
     const [ans,setAns ] = useState();
@@ -133,6 +142,7 @@ const Form = () => {
     const processScore = (value) => {
         console.log(value)
         value = value[0]
+        console.log(value)
         if(value == 1){
             console.log(score)
             score = score + 1;
@@ -148,7 +158,7 @@ const Form = () => {
     
     const getVal = () => { 
             var val;
-            for(let i=1;i<=20;i++){
+            for(let i=1;i<=15;i++){
                 val = document.getElementById(`Q${i}`).value;   
                 console.log(val)
                 qsAns.push(val);
@@ -408,13 +418,13 @@ const Form = () => {
                             <> 
                               
                        <br /> <br /> <br />  
-                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section1">Section 1 :  SOCIAL INTERACTION  </Button></div>
+                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section1">Section 1 </Button></div>
                         <UncontrolledCollapse  toggler="#section1">
                             {questionset1.map((qs1)=>{
                                 return(
                                     <>
                                         <FormGroup row p-0 >
-                                            <Label for="exampleSex" sm-2>
+                                            <Label for="example" sm-2>
                                              {qs1.name}
                                             </Label>
                                             <Col sm-10>
@@ -440,9 +450,74 @@ const Form = () => {
                             })}
                        
                         </UncontrolledCollapse>
+                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section2">Section 2  </Button></div>
+                        <UncontrolledCollapse  toggler="#section2">
+                            {questionset2.map((qs1)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="example" sm-2>
+                                             {qs1.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs1.id}
+                                                    name={qs1.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    {
+                                                        qs1.options.map(option =>{
+                                                            return(
+                                                                <><option>{option}</option></>
+                                                            )
+                                                        })
+                                                    }
+                                                </Input>
+                                            </Col>
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
+                       
+                        </UncontrolledCollapse>
+                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section3">Section 3  </Button></div>
+                        <UncontrolledCollapse  toggler="#section3">
+                            {questionset3.map((qs1)=>{
+                                return(
+                                    <>
+                                        <FormGroup row p-0 >
+                                            <Label for="example" sm-2>
+                                             {qs1.name}
+                                            </Label>
+                                            <Col sm-10>
+                                                <Input
+                                                    id={qs1.id}
+                                                    name={qs1.id}
+                                                    type="select"
+                                                    className="inp"
+                                                    
+                                                >
+                                                    {
+                                                        qs1.options.map(option =>{
+                                                            return(
+                                                                <><option>{option}</option></>
+                                                            )
+                                                        })
+                                                    }
+                                                </Input>
+                                            </Col>
+                                            
+                                        </FormGroup>
+                                    </>
+                                )
+                            })}
+                       
+                        </UncontrolledCollapse>
 
 
-                        <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section2">Section 2 : COMMUNICATION </Button></div>
+                        {/* <div style={{textAlign:"center",margin:"15px"}}><Button color="info" id="section2">Section 2 : COMMUNICATION </Button></div>
                         <UncontrolledCollapse  toggler="#section2">
                         {questionset2.map((qs2)=>{
                                 return(
@@ -518,7 +593,7 @@ const Form = () => {
                                 )
                             })}
 
-                        </UncontrolledCollapse>
+                        </UncontrolledCollapse> */}
 
 
                         <div style={{display:"flex",flexDirection:"row",justifyContent:"center"}} >

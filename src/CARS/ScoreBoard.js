@@ -6,25 +6,25 @@ import { saveAs } from 'file-saver'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import moment from 'moment';
-import aakar from "../../aakar.jpg"
+import aakar from "./aakar.jpg"
 import Draggable from 'react-draggable'; // The default
 
 
 const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
-    const [text,setText] = useState("No Autism");
+    const [text,setText] = useState("Normal");
     const [criteria,setCriteria] = useState("");
 
     console.log(ans)
     useEffect(() =>{
-        if(finalScore >= 20 && finalScore <=35){
-            setText("No Autism")
-            setCriteria("20 - 35");
+        if(finalScore < 30){
+            setText("Normal")
+            setCriteria("< 30");
         }
-        else if(finalScore >= 30 && finalScore <=43){
-            setText("Likely Autism")
-            setCriteria("20 - 35");
+        else if(finalScore >= 30 && finalScore <= 36){
+            setText("Mild to Moderate")
+            setCriteria("30 - 36");
         }
-        else if( finalScore >= 44){
+        else if( finalScore >= 37){
             setText("Severe Autism")
             setCriteria("20 - 35");
         }
