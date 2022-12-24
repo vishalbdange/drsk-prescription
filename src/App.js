@@ -1,6 +1,8 @@
 import React,{ createRef, useState ,useEffect,useRef} from 'react'
 import './App.css';
 import PrescriptionForm from './PrescriptionForm'
+import Prescriptions from './All_Prescriptions/prescriptions'
+import Prescription from './All_Prescriptions/Prescription'
 import PrescriptionFormEmpty from './PrescriptionFormEmpty'
 import Preview from './Preview';
 import PdfTemplate from './PdfTemplate';
@@ -22,6 +24,11 @@ import PreviewEmpty from './PreviewEmpty';
 import Form2 from './Form2/Form2'
 import Form1 from './Form1/Form1'
 import CARS from './CARS/Form'
+import Form10IA from './Form_10IA/Form'
+
+
+
+
 
 const styles = StyleSheet.create({
   page: {
@@ -43,7 +50,10 @@ function App() {
   
 
   return (
+    <>
+   
     <Router>
+     
       <Routes>
         
         <Route exact path="/" element={ <Home />} />
@@ -56,9 +66,16 @@ function App() {
         <Route  exact path="/form2" element={<Form2 />} />
         <Route  exact path="/form1" element={<Form1 />} />
         <Route  exact path="/cars" element={<CARS />} />
+        <Route  exact path="/form10ia" element={<Form10IA />} />
+        <Route  exact path="/all" element={<Prescriptions />} />
+        <Route  exact path="/all/prescriptions/:pid" element={<Prescription />} />
+        {/* <Route  exact path="/all/:pid" 
+                render={(props) =>
+        <Prescription {...props} key={props.match.params.id} />
+      }/> */}
       </Routes>
     </Router>
-
+    </>
   );
 }
 

@@ -245,7 +245,7 @@ const Form = () => {
                                 </div> <br />
                                 <div style={{textAlign:"center",fontSize:"20px"}}>
                                 <Badge color="danger" >
-                                    DSM 4 Autism score
+                                    CARS Assesment
                                 </Badge>
                                 </div>
                             <form onSubmit={gotoAssesment} style={{padding:"20px 100px"}}>

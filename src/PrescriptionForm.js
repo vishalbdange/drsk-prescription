@@ -8,6 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormGroup, Form, Input, Label, Button, Col, Alert } from 'reactstrap'
 import {FormControl,InputLabel,Select,MenuItem,Badge} from '@material-ui/core'
 import ImageCapture from "react-image-data-capture";
+import axios from 'axios'
+import NavbarComponent from './NavbarComponent';
+import Draggable from 'react-draggable';
+import {ArrowCircleDown,ArrowCircleUp,ArrowCircleUp1} from '@mui/icons-material';
+import {IconButton} from '@material-ui/core';
 const prescription_Items = require('./prescription_Items').prescription_Items;
 const PrescriptionForm = ({ changeImgURL }) => {
 
@@ -23,7 +28,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
         Sex: '',
         Diagnosis: '',
         Goal: '',
-        MoblieNo: '',
+        m_num: '',
         Prescription: [],
         Receipt: ' ',
         Description: "For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions."
@@ -65,10 +70,29 @@ const PrescriptionForm = ({ changeImgURL }) => {
         //     validateContent(emptyStates)
         // }
         // else{
+        console.log(state)
         prescription = values.val;
-        setState({ ...state, Prescription: values.val })
+        console.log(prescription)
+        state.Prescription = prescription;
+        // setState({ ...state, Prescription: prescription })
+        console.log(state)
+    
         localStorage.setItem('prescription', JSON.stringify(prescription))
-
+        //Backend post request here
+        console.log("Printing Prescription")
+        // axios.post('http://localhost:5000/prescription,', state)
+        // .then((response) => {
+        //     console.log(response.data)
+        //     console.log("Prescription posted sucessfully")
+        // });
+        axios({
+            method: 'post',
+            url: 'https://aakar-clinic.onrender.com/prescription',
+            data: state, // you are sending body instead
+            headers: {
+            'Content-Type': 'application/json'
+            }, 
+          })
         navigate("/prescription-view")
         // }
     }
@@ -77,6 +101,27 @@ const PrescriptionForm = ({ changeImgURL }) => {
     function createInputs() {
         return values.val.map((el, i) =>
             <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                 <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={() => moveUp(i)}
+                    color="inherit"
+                    >
+                    <ArrowCircleUp />
+                    </IconButton>
+                <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={() => moveDown(i)}
+                color="inherit"
+                >
+                <ArrowCircleDown />
+                </IconButton>
+                {/* <Input type='button' style={{ width: "60px", borderRadius: "10%", margin: "10px" }} value='Up' onClick={() => moveUp(i)} /> */}
                 <Input type="text" value={el || ''} style={{ margin: "10px", width: "720px" }} onChange={e => { handleChangeList(e, i) }} />
                 <Input type='button' style={{ width: "60px", borderRadius: "10%", margin: "10px" }} value='X' onClick={() => removeClick(i)} />
             </div>
@@ -93,6 +138,32 @@ const PrescriptionForm = ({ changeImgURL }) => {
     function handleChangeList(e, i) {
         let vals = [...values.val];
         vals[i] = e.target.value;
+        setValues({ val: vals });
+    }
+
+    function moveUp(i){
+        console.log(i)
+        let vals = [...values.val]
+        var temp = vals[i];
+        console.log(vals[i])
+        console.log(vals[i-1])
+        if(i>0){
+            vals[i]=vals[i-1];
+            vals[i-1]=temp;
+        }
+        setValues({ val: vals });
+    }
+    function moveDown(i){
+        console.log(i)
+        let vals = [...values.val]
+        let n = vals.length;
+        var temp = vals[i];
+        console.log(vals[i])
+        console.log(vals[i+1])
+        if(i<n-1){
+            vals[i]=vals[i+1];
+            vals[i+1]=temp;
+        }
         setValues({ val: vals });
     }
     const addClick = (text) => {
@@ -123,7 +194,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
             setEmptyStates({ ...emptyStates, isAge: true })
         } else if (name == "DOB") {
             setEmptyStates({ ...emptyStates, isDOB: true })
-        } else if (name == "MobileNo") {
+        } else if (name == "m_num") {
             setEmptyStates({ ...emptyStates, isMobileNo: true })
         } else if (name == "Receipt") {
             setEmptyStates({ ...emptyStates, isReceipt: true })
@@ -132,10 +203,11 @@ const PrescriptionForm = ({ changeImgURL }) => {
         }
         const value = name == "ImageFile" ? e.target.files[0] : e.target.value;
 
+
         setState({ ...state, [name]: value })
 
     }
-    const [enterPswd, setEnterPswd] = useState(true);
+    const [enterPswd, setEnterPswd] = useState(false);
     const [pswd, setPswd] = useState('');
     const onHandleChangePswd = (e) => {
         const value = e.target.value;
@@ -198,6 +270,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
 
 
         <div className="PreForm">
+            <NavbarComponent />
             <div style={{ textAlign: "center", display: "flex", justifyContent: "center", padding: "20px" }}><img src={aakar} className="aakar-logo" alt="Aakar Clinic" /> </div>
             {/* {validateContent} */}
             {
@@ -340,7 +413,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                             <FormGroup floating style={{ width: "400px", margin: "4px", margin: "4px" }}>
                                 <Input
                                     id="MobileNo"
-                                    name="MobileNo"
+                                    name="m_num"
                                     placeholder="MobileNo"
                                     type="text"
                                     onChange={handleChange}
@@ -395,8 +468,13 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     style={{padding:"2px",backgroundColor:"white"}}
                                     
                                 >
-                                    {prescription_Items.map((p_item,i) => {
-                                        return(<MenuItem onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>)                                        
+                                    {prescription_Items.map((p_item,key) => {
+                                        return(<>
+                                        
+                                            <MenuItem onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                       
+                                        </>
+                                        )                                        
                                     })}
                                 </Select>   
                                 </Badge>               
