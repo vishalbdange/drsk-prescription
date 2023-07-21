@@ -1,27 +1,58 @@
 exports.prescription_Items = [
+    //1-11 and 19 prefilled
+    //Font Style Change 
+    "ALL MEDICINES THAT HAVE SINGLE DAILY DOSE WITHOUT TIME WRITTEN SHOULD BE GIVEN EARLY MORNING EMPTY STOMACH MIXED WITH ALL OTHER MORNING MEDICINES AS A MORNING HEALTHDRINK",
+    "SYR BIQPLUS  10 ML A DAY FOR 1 MONTH",
+    "SYR L CARNOSHINE 400 10 ML A DAY FOR 1 MONTH ",
+    "SYR TENONTEN 10 ML 2 TIMES A DAY FOR 1 MONTH ",
+    "TAB SHARPZ/AlphaGPC 1 TAB A DAY FOR 1 MONTH ",
+    "SYR DOFOTIL/GutClear 10 ML------10 ML FOR 1 MONTH ",
     "ARISTOZYME DROPS  1ML DAILY FOR 1 MONTH ",
-    "SYR GutClear/CremaPeg 10 ML------10 ML FOR 1 MONTH ",
-    "SYR BIQPLUS /MAGZAY IQ/COGNI3 10 ML A DAY FOR 1 MONTH ",
-    "SYR L CARNOSHINE 400/KRTSHINE 400 / ASP Carno 10 ML A DAY FOR 1 MONTH ",
-    "SYR TENONTEN 10 ML A DAY FOR 1 MONTH ",
+    "TAB KRAVIONQ10 1 TAB  A  DAY FOR 1 MONTH ",
+    "TAB RISDONE/RPDONE 1MG TAB GIVE 1/8---------0-------1/4 8:00 PMFOR 1 MONTH ", // bold
+    "TAB TOMKID 10 MG 1/4 AT 8 AM---------------1/4 AT 4PM FOR 1 MONTH ",   //bold
+    "SYR Flunil 1ML--------1ML FOR 1 MONTH ",
+    "TAB CENTIQ P 1 TAB DAILY MORNING FOR 1 MONTH",
+    "SYR KREBSOMAG 10ML A DAY FOR 1 MONTH ",
+    "SYR QCARNI10 10 ML A DAY FOR 1 MONTH ",
+    "SYR BRIVAZEN/ BRIVASURE 1ML--------1ML FOR 1 MONTH ",
+    "TAB Flunil/Fludac 10mg-------- 2 TIMES A DAY ",
+    "TAB BRIV 100 MG 1/4---------1/4 8:00 PM FOR 1 MONTH ",
+    "SYR  OXETOL/ZENOXA 2 ML  DAILY MORNING FOR 1 MONTH",
+    "SYR MEMTONE 2ML------------2ML 8:00 PM  FOR 1 MONTH ",
+    "TAB DEPRANEX 5mg 1/4-------------- FOR 21 DAYS ",
+    "TAB REJUNEXCD3 1 TAB A DAY FOR 1 MONTH ",
+    "TAB Allegra 120  1/2 Tab 2 times FOR 1 MONTH ",
+    "SYR ASP Carno 10 ML A DAY FOR 1 MONTH ",
     "SYR STORAX 1ML A DAY FOR 1 MONTH ",
     "SYR CERCETAM 1ML A DAY FOR 1 MONTH ",
-    "SYR MEMTONE 2ML------------2ML FOR 1 MONTH ",
-    "SYR KREBSOMAG 5ML A DAY FOR 1 MONTH ",
-    "SYR QCARNI10 10 ML A DAY FOR 1 MONTH ",
-    "TAB RISDONE/RPDONE 1MG TAB GIVE 1/8---------0-------1/4 FOR 1 MONTH ",
-    "TAB KRAVIONQ10 1 TAB  A  DAY FOR 1 MONTH ",
-    "TAB SHARPZ/AlphaGPC 1 TAB A DAY FOR 1 MONTH ",
-    "T MONTECORT L 1/2--------------1/2   FOR 21 DAYS ",
-    "TAB TOMKID 10 MG 1/4 AT 8 AM---------------1/4 AT 4PM FOR 1 MONTH ",
     "SYR KLCLAV DS 10 ML A DAY FOR 15 DAYS ",
-    "TAB REJUNEXCD3 1 TAB A DAY FOR 1 MONTH ",
+    "TAB Bycine OD 1 TAB DAILY -- FOR 1 MONTH",
+    "TAB VERNACE 500mg  --- 1 TAB 2 TIMES A DAY - FOR 1 Month",
+    "TAB  STORAX P R 1 TAB DAILY MORNING FOR 1 MONTH",
     "CAP OZ M3 1 CAP A DAY FOR 1 MONTH ",
-    "TAB BRIV 100 MG 1/4---------1/4 FOR 1 MONTH ",
-    "SYR BRIVAZEN/ BRIVASURE 1ML--------1ML FOR 1 MONTH ",
-    "SYR Flunil 1ML--------1ML FOR 1 MONTH ",
-    "TAB Allegra 120  1/2 Tab 2 times FOR 1 MONTH ",
+    "NO/SATURDAY/WEEKEND HOLIDAY TO ANY MEDICINES EXCEPT BOLD ONES"
 ] ;
+
+
+//Checkboxes 
+/**
+ * 
+ * Current Issues
+ *  1.Jumping/Running/Climbing/Roaming
+ *  2.Hitting/Hurting/Biting/Throwing
+ *  3.Stimming/Object Obsession
+ *  4.Indigestion/Constipation
+ *  5.Pointing/Imitation/Non-Verbal Communication
+ *  6.Vocabulary/Speech/Comprehension/Composition
+ *  7.Sleep
+ *   
+ * 
+ */
+
+
+
+
 
 
 /*

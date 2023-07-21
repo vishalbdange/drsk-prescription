@@ -17,17 +17,15 @@ import jsPDF from 'jspdf'
 import moment from 'moment';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import CsvDownload from 'react-json-to-csv'
 import NavbarComponent from './NavbarComponent'
-import { Paper } from '@mui/material'
-import Divider from '@mui/material/Divider';
-import CsvDownloadButton from 'react-json-to-csv'
 import {Link} from 'react-router-dom'
 import ReactToPrint from "react-to-print";
 import axios from 'axios'
 import {IconButton} from '@material-ui/core'
 import SendIcon from '@mui/icons-material/Send';
-
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircle from '@mui/icons-material/AddCircle'
+import ShareIcon from '@mui/icons-material/Share'
 
 
 const Preview = ({imageURL}) => {
@@ -39,12 +37,21 @@ const Preview = ({imageURL}) => {
     // var p_data = [];
     var prescription_string = ''
 
+    const checkboxes = {
+        "check1" : "Jumping/Running/Climbing/Roaming",
+        "check2" : "Hitting/Hurting/Biting/Throwing",
+        "check3" : "Stimming/Object Obsession",
+        "check4" : "Indigestion/Constipation",
+        "check5" : "Pointing/Imitation/Non-Verbal Communication",
+        "check6" : "Vocabulary/Speech/Comprehension/Composition",
+        "check7" : "Sleep"
+    }
+
     for (let p of prescription){
         prescription_string = ' '+p + ''
     }
-    const { DOB, file,Visit_No,Name, Address,Age, Sex, Diagnosis,Goal,m_num,Receipt,Description,ImageFile,EmptyTextArea1} = state;
+    const { DOB, file,Visit_No,Name, Address,Age, Sex, Diagnosis,Goal,m_num,Receipt,Description,ImageFile,EmptyTextArea1,check1,check2,check3,check4,check5,check6,check7} = state;
     // const csvData = {...state,prescription:prescription}
-    console.log(DOB)
     const saveToMail = () => {
         const input = document.getElementById("Page");
         html2canvas(input, { logging: true, letterRendering: 1, useCORS: true, }).then(canvas => {
@@ -57,7 +64,7 @@ const Preview = ({imageURL}) => {
             axios({
                 method: 'post',
                 // url: 'https://aakar-clinic.onrender.com/prescription',
-                url: 'http://localhost:5000/saveimg',
+                url: 'https://aakar-clinic.onrender.com/saveimg',
                 data:  {'base64String':imgData,'name':state.Name}, // you are sending body instead
                 headers: {
                 'Content-Type': 'application/json'
@@ -106,14 +113,15 @@ const Preview = ({imageURL}) => {
         localStorage.setItem('counter', ++count)
         console.log(JSON.parse(localStorage.getItem('counter')))
     },[window.unload])
- 
-   
+    
+    let  filteredCheckBoxes= [];
+    const [finalchecks,setFinalchecks] = useState([]);
     useEffect(() => {
         // console.log(Prescription)
         // const csvDOB = DOB.toString();
         // const csvPrescription = prescription.toString();
     
-        // const csvState = {
+        // const csvStfilteredCheckBoxesate = {
         //     csvDOB,Visit_No,Name, csvPrescription,Address,Age, Sex, Diagnosis,Goal,MobileNo,Receipt,Description
         // }
         // const prescription_d = JSON.parse(localStorage.getItem('prescription_data'));
@@ -121,13 +129,22 @@ const Preview = ({imageURL}) => {
         // localStorage.setItem('prescription_data', JSON.stringify(prescription_d))
         // p_data = prescription_d;
         state.Prescription[0] = prescription_string;
-        console.log(state)
+        if(check1) { filteredCheckBoxes.push(checkboxes.check1)}
+        if(check2) { filteredCheckBoxes.push(checkboxes.check2)}
+        if(check3) { filteredCheckBoxes.push(checkboxes.check3)}
+        if(check4) { filteredCheckBoxes.push(checkboxes.check4)}
+        if(check5) { filteredCheckBoxes.push(checkboxes.check5)}
+        if(check6) { filteredCheckBoxes.push(checkboxes.check6)}
+        if(check7) { filteredCheckBoxes.push(checkboxes.check7)}
+        console.log(filteredCheckBoxes)
+        setFinalchecks(filteredCheckBoxes);
         if(window.innerWidth > 900){
             setTextAreaStyle({width:"100%",border:"none",padding:"0%",margin:"0%",overflow:"hidden !important",maxHeight:"200px"})
         } 
         else if(window.innerWidth  < 900 &&  window.innerWidth > 510){  
             setTextAreaStyle({width:"100%",border:"none",padding:"0%",margin:"0%",overflow:"hidden !important",maxHeight:"400px"});
         }
+
     })
     function getAge(dob) {
           
@@ -214,13 +231,14 @@ const Preview = ({imageURL}) => {
     function ChangeFormateDate(date){
         var p = date.split(/\D/g)
         return [p[2],p[1],p[0] ].join("/")
-     }
-     var x =  moment().format('LLLL');
-     var displayDate = x;
+    }
+    
+    var x =  moment().format('LLLL');
+    var displayDate = x;
       
     var age_c  = getAge(DOB); 
     if(age_c == ""){
-            age_c = Age     ; 
+            age_c = Age; 
     }
 
     const reactToPrintTrigger = () => {
@@ -240,6 +258,21 @@ const Preview = ({imageURL}) => {
             console.log(e.target.value)
             setPersonToMail(e.target.value)
       }
+      const  dataURLtoFile = (dataurl, filename)  => {
+        console.log(dataurl)
+        var arr = dataurl?.split(',')
+        console.log(arr)
+        var mime = arr[0]?.match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr?.length, 
+            u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr?.charCodeAt(n);
+        }
+        
+        return new File([u8arr], filename, {type:mime});
+    }
+
       const sendMailToPerson = () => {
         setShowMailBox(false);
         const input = document.getElementById("Page");
@@ -253,7 +286,7 @@ const Preview = ({imageURL}) => {
             axios({
                 method: 'post',
                 // url: 'https://aakar-clinic.onrender.com/prescription',
-                url: 'http://localhost:5000/saveimg',
+                url: 'https://aakar-clinic.onrender.com/saveimg',
                 data:  {'base64String':imgData,'name':Name,'mobile_no':m_num,'personToMail':personToMail}, // you are sending body instead
                 headers: {
                 'Content-Type': 'application/json'
@@ -263,10 +296,45 @@ const Preview = ({imageURL}) => {
               console.log("save Img post req sent !")    
         })
       }
+    // const [imgData,setImageData] = useState('')
+    var imgData = '';
+    const handleShare = async () => {
+        const input = document.getElementById("Page");
+      
+        html2canvas(input, { logging: true, letterRendering: 1, useCORS: true, }).then(canvas => {
+            const imgWidth = 0;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            // setImageData(canvas.toDataURL('img/png'));
+            imgData = canvas.toDataURL('img/png');
+            console.log(imgData)
+        })
+        // alert(JSON.stringify(imgData))
+       
+        console.log(imgData)
+        const file = dataURLtoFile(imgData,"prescription.png");
+        // const file = dataURItoBlob(imgData);
+        console.log(file)
+        const data = {
+            files: [
+                file
+            ],
+            title: "Prescription",
+            text: "Aakar Clinic"
+        };
+
+        try {
+        if (!navigator.canShare(data)) {
+           console.log("Can't share");
+        }
+        await navigator.share(data);
+        // alert("Sharing..")
+        } catch (err) {
+            console.error(err);
+        }
+  };
     return (
         <>
-         <NavbarComponent />
-         
+        <NavbarComponent />
         <div className="prescription-view" >
         {/* <CsvDownloadButton  data={[state]}/> */}
         {/* <Link to="/prescription">TO Prescription</Link> */}
@@ -276,7 +344,6 @@ const Preview = ({imageURL}) => {
                 <br />
                 <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                 <ReactToPrint
-                    
                     content={reactToPrintContent}
                     trigger={reactToPrintTrigger}
                 />
@@ -295,6 +362,9 @@ const Preview = ({imageURL}) => {
                     </>
 
                 ):(<></>)}
+                <IconButton onClick={handleShare}><ShareIcon fontSize="large" color="primary" /></IconButton>
+
+                <IconButton><Link to="/prescription" target="_blank"><AddCircle /></Link></IconButton>
                 </div>
                  <br />
 
@@ -363,78 +433,78 @@ const Preview = ({imageURL}) => {
                     </div>
                 </section>
 
-                <section class="patient-profile" style={{ backgroundImage: `url(${sign1})`}}>
+                <section style={{ backgroundImage: `url(${sign1})`}}>
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={0} >
-                        <Grid item xs={3}  style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",borderTop:"1px solid #F6BE00",fontSize:"12px"}}>
+                        <Grid item xs={3}  style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",borderTop:"1px solid grey",fontSize:"12px"}}>
                             <b > &nbsp;&nbsp;Date</b> 
                         </Grid>
                       
-                        <Grid item xs={9}  style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",borderTop:"1px solid #F6BE00",fontSize:"12px"}}>
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeftColor:"1px solid grey",borderTop:"1px solid grey",fontSize:"12px"}}>
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{displayDate} 
                         </Grid>
                        
                         {/* <Grid item xs={6} >
                             <b > &nbsp;&nbsp;Payment Receipt No. : &nbsp; </b> W-{JSON.parse(localStorage.getItem('counter'))+2000}/2022
                         </Grid> */}
-                        <Grid item xs={3}  style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}}>
+                        <Grid item xs={3}  style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}}>
                             <b> &nbsp;&nbsp;Visit_No </b>   
                         </Grid>
-                        <Grid item xs={9}  style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}}>
+                        <Grid item xs={9}  style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}}>
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{Visit_No}  
                         </Grid>
-                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
+                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                             <b > &nbsp;&nbsp;ID </b>   
                         </Grid>
-                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{m_num}  
                         </Grid>
-                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
+                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                             <b > &nbsp;&nbsp;Age</b>   
                         </Grid>
-                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{age_c}  
                         </Grid>
                        
-                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
+                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                             <b > &nbsp;&nbsp;Name </b>   
                         </Grid>
-                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{Name}  
                         </Grid>
                        
-                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
+                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                             <b > &nbsp;&nbsp;DOB </b>   
                         </Grid>
-                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{DOB}  
                         </Grid>
                        
-                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
+                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                             <b > &nbsp;&nbsp;Sex </b>   
                         </Grid>
-                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid grey",borderLeft:"1px solid grey",fontSize:"12px"}} >
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{Sex}  
                         </Grid>
                        
-                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
+                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid grey",borderRight:"1px solid grey",fontSize:"12px"}} >
                             <b > &nbsp;&nbsp;Address </b>   
                         </Grid>
-                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderLeft:"1px solid grey",borderRight:"1px solid grey",fontSize:"12px"}} >
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{Address}  
                         </Grid>
                        
-                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
+                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid grey",borderRight:"1px solid grey",fontSize:"12px"}} >
                             <b > &nbsp;&nbsp;Diagnosis </b>   
                         </Grid>
-                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderLeft:"1px solid grey",borderRight:"1px solid grey",fontSize:"12px"}} >
                         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{Diagnosis}  
                         </Grid>
                        
-                        <Grid item xs={3} style={{borderBottom:"1px solid #F6BE00",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
+                        <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid grey",borderRight:"1px solid grey",fontSize:"12px"}} >
                             <b > &nbsp;&nbsp;Goal for next month </b>   
                         </Grid>
-                        <Grid item xs={9} style={{borderBottom:"1px solid #F6BE00",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
+                        <Grid item xs={9} style={{borderBottom:"1px solid grey",borderLeft:"1px solid grey",borderRight:"1px solid grey",fontSize:"12px"}} >
                         &nbsp;&nbsp; &nbsp;&nbsp;{Goal}  
                         </Grid>
                         <Grid item xs={12} style={{fontSize:"12px"}} >
@@ -446,6 +516,18 @@ const Preview = ({imageURL}) => {
                
                 <hr/>
                 </section>
+                 <section >
+                    <div><b>Current Issues : </b>
+                
+                    </div>
+                    <ol>
+                        {finalchecks?.map((c)=>{
+                            return(
+                                <li style={{fontSize:"12px"}}>{c}</li>
+                            )
+                        })}
+                   </ol>
+                 </section>
               <section style={{ backgroundImage: `url(${sign1})`}}>
                 {
                     prescription.length === 0 ? (
@@ -460,7 +542,7 @@ const Preview = ({imageURL}) => {
                                    return(
                                        <li style={{fontSize:"12px"}}>{p}</li>
                                    )
-                           })}</ul >
+                           })}</ul>
                        </>
                     )
                 }
@@ -474,6 +556,7 @@ const Preview = ({imageURL}) => {
                    </p>
                    {/* </Draggable>      */}
                     <br /> 
+                    <p style={{fontFamily:"'Schoolbell', arial, serif"}}><b>Date : </b>{(JSON.stringify(new Date()).slice(1,11))}</p>
                     {/* <Draggable style={{margin:"0px !important",padding:"0px !important",width:"100px !important"}}> */}
                     <div style={{height:"100px",margin :"0px !important",paddingLeft:"50px",maxWidth:"100px !important"}}>
                     <img  style={{height:"75px",margin:"0px !important",padding:"0px !important"}}  src={sign} alt='sign' />
@@ -503,7 +586,7 @@ const Preview = ({imageURL}) => {
                             {/* <Draggable> */}
                                 <section>
                                     <br/>
-                                    <p><strong>Payment Receipt No. : </strong> W-{JSON.parse(localStorage.getItem('counter'))+2000}/2022</p>
+                                    <p><strong>Payment Receipt No. : </strong> W-{JSON.parse(localStorage.getItem('counter'))+2000}/2023</p>
                                     {   
                                         (Receipt == '') ? (<div></div>) : 
                                         (<p><strong>Payment Receipt :  </strong> {Receipt}</p>) 

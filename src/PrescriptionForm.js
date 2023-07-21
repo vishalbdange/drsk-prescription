@@ -7,7 +7,7 @@ import './Form.css'
 import aakar from "./aakar.jpg"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormGroup, Form, Input, Label, Button, Col, Alert } from 'reactstrap'
-import {FormControl,InputLabel,Select,MenuItem,Badge} from '@material-ui/core'
+import {FormControlLabel,InputLabel,Select,MenuItem,Badge,Checkbox} from '@material-ui/core'
 import ImageCapture from "react-image-data-capture";
 import NavbarComponent from './NavbarComponent';
 import Draggable from 'react-draggable';
@@ -35,7 +35,15 @@ const PrescriptionForm = ({ changeImgURL }) => {
         Prescription: [],
         Receipt: '',
         Description: "For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions.",
-        EmptyTextArea1 : ""
+        EmptyTextArea1 : "",
+        check1:false,
+        check2:false,
+        check3:false,
+        check4:false,
+        check5:false,
+        check6:false,
+        check7:false
+
     });
     var prescription = [];
     var ImageURL = null;
@@ -101,11 +109,25 @@ const PrescriptionForm = ({ changeImgURL }) => {
         navigate("/prescription-view")
         // }
     }
-    const [values, setValues] = useState({ val: [] });
+    const [values, setValues] = useState({ val: [
+        "ALL MEDICINES THAT HAVE SINGLE DAILY DOSE WITHOUT TIME WRITTEN SHOULD BE GIVEN EARLY MORNING EMPTY STOMACH MIXED WITH ALL OTHER MORNING MEDICINES AS A MORNING HEALTHDRINK",
+        "SYR BIQPLUS  10 ML A DAY FOR 1 MONTH",
+        "SYR L CARNOSHINE 400 10 ML A DAY FOR 1 MONTH ",
+        "SYR TENONTEN 10 ML 2 TIMES A DAY FOR 1 MONTH ",
+        "SYR KRTSHINE 400 / ASP Carno 10 ML A DAY FOR 1 MONTH ",
+        "TAB SHARPZ/AlphaGPC 1 TAB A DAY FOR 1 MONTH ",
+        "SYR DOFOTIL/GutClear 10 ML------10 ML FOR 1 MONTH ",
+        "ARISTOZYME DROPS  1ML DAILY FOR 1 MONTH ",
+        "TAB KRAVIONQ10 1 TAB  A  DAY FOR 1 MONTH ",
+        "TAB RISDONE/RPDONE 1MG TAB GIVE 1/8---------0-------1/4 8:00 PMFOR 1 MONTH ", // bold
+        "TAB TOMKID 10 MG 1/4 AT 8 AM---------------1/4 AT 4PM FOR 1 MONTH ",   //bold
+        "SYR Flunil 1ML--------1ML FOR 1 MONTH ",
+        "SYR MEMTONE 2ML------------2ML 8:00 PM  FOR 1 MONTH ",
+    ] });
 
     function createInputs() {
         return values.val.map((el, i) =>
-            <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center",maxWidth:"720px"}}>
                  <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -206,13 +228,15 @@ const PrescriptionForm = ({ changeImgURL }) => {
         } else if (name == "ImageFile") {
             setEmptyStates({ ...emptyStates, isImageFile: true })
         }
-        const value = name == "ImageFile" ? e.target.files[0] : e.target.value;
-
+        var  value ;
+        value = (name == "ImageFile" ? e.target.files[0] : e.target.value);
+        if(name == "check1" || name == "check2" ||name == "check3" || name == "check4" ||name == "check5" || name == "check6" ||name == "check7"){
+            value = e.target.checked
+        }
         setState({ ...state, [name]: value })
-
     }
     const [enterPswd, setEnterPswd] = useState(true);
-    const [pswd, setPswd] = useState('');
+    const [pswd, setPswd] = useState(''); 
     const onHandleChangePswd = (e) => {
         const value = e.target.value;
         if(value == '9064'){
@@ -276,6 +300,16 @@ const PrescriptionForm = ({ changeImgURL }) => {
     // imgFile can be used as a file upload form submission
     const formData = new FormData();
     formData.append("file", imgFile);
+
+
+    /* Checkboxes  */
+    // const [checkBoxes,setCheckBoxes] = useState({"check1":false,"check2":false,"check3":false,"check4":false,"check5":false,"check6":false,"check7":false})
+    // const handleChangeCheckBox = (e) => {
+    //     // console.log(e.target.name)
+    //     // console.log(e.target.checked)
+    //     setCheckBoxes({...checkBoxes,[e.target.name]:e.target.checked})
+    // }
+
     return (
 
 
@@ -474,10 +508,20 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     required
                                     onChange={handleChange}
                                 />
-
+                            </FormGroup>
+                            </div>
+                            <div style={{backgroundColor:"white",padding:"5px"}}>
+                            <FormGroup>                                
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check1" onChange={handleChange} />} label="Jumping/Running/Climbing/Roaming" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check2" onChange={handleChange} />} label="Hitting/Hurting/Biting/Throwing" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check3" onChange={handleChange} />} label="Stimming/Object Obsession" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check4" onChange={handleChange} />} label="Indigestion/Constipation" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check5" onChange={handleChange} />} label="Pointing/Imitation/Non-Verbal Communication" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check6" onChange={handleChange} />} label="Vocabulary/Speech/Comprehension/Composition" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check7" onChange={handleChange} />} label="Sleep" />
                             </FormGroup>
                         </div>
-                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                             {createInputs()}
                             <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-around"}}>
                                 <Input type='button' value='+ Add Prescription ' onClick={() => addClick('')} style={{ marginBottom: "10px",marginRight:"15px", width: "500px" }} />
@@ -493,7 +537,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     {prescription_Items.map((p_item,key) => {
                                         return(<>
                                         
-                                            <MenuItem onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
                                        
                                         </>
                                         )                                        
