@@ -13,8 +13,8 @@ import NavbarComponent from './NavbarComponent';
 import Draggable from 'react-draggable';
 import {ArrowCircleDown,ArrowCircleUp,ArrowCircleUp1} from '@mui/icons-material';
 import {IconButton} from '@material-ui/core';
+import {general_medicines,constipation_controller,control_medicines,cross_motor_medicines,epilepsy_medicines,fine_motor_medicines,cognitive_medicines} from './PrescriptionItems/ALL_MEDICINES'
 import axios from 'axios'
-
 
 const prescription_Items = require('./prescription_Items').prescription_Items;
 const PrescriptionForm = ({ changeImgURL }) => {
@@ -109,21 +109,24 @@ const PrescriptionForm = ({ changeImgURL }) => {
         navigate("/prescription-view")
         // }
     }
+    // const [values, setValues] = useState({ val: [
+    //     "ALL MEDICINES THAT HAVE SINGLE DAILY DOSE WITHOUT TIME WRITTEN SHOULD BE GIVEN EARLY MORNING EMPTY STOMACH MIXED WITH ALL OTHER MORNING MEDICINES AS A MORNING HEALTHDRINK",
+    //     "SYR BIQPLUS  10 ML A DAY FOR 1 MONTH",
+    //     "SYR L CARNOSHINE 400 10 ML A DAY FOR 1 MONTH ",
+    //     "SYR TENONTEN 10 ML 2 TIMES A DAY FOR 1 MONTH ",
+    //     "SYR KRTSHINE 400 / ASP Carno 10 ML A DAY FOR 1 MONTH ",
+    //     "TAB SHARPZ/AlphaGPC 1 TAB A DAY FOR 1 MONTH ",
+    //     "SYR DOFOTIL/GutClear 10 ML------10 ML FOR 1 MONTH ",
+    //     "ARISTOZYME DROPS  1ML DAILY FOR 1 MONTH ",
+    //     "TAB KRAVIONQ10 1 TAB  A  DAY FOR 1 MONTH ",
+    //     "TAB RISDONE/RPDONE 1MG TAB GIVE 1/8---------0-------1/4 8:00 PMFOR 1 MONTH ", // bold
+    //     "TAB TOMKID 10 MG 1/4 AT 8 AM---------------1/4 AT 4PM FOR 1 MONTH ",   //bold
+    //     "SYR Flunil 1ML--------1ML FOR 1 MONTH ",
+    //     "SYR MEMTONE 2ML------------2ML 8:00 PM  FOR 1 MONTH ",
+    // ] });
     const [values, setValues] = useState({ val: [
-        "ALL MEDICINES THAT HAVE SINGLE DAILY DOSE WITHOUT TIME WRITTEN SHOULD BE GIVEN EARLY MORNING EMPTY STOMACH MIXED WITH ALL OTHER MORNING MEDICINES AS A MORNING HEALTHDRINK",
-        "SYR BIQPLUS  10 ML A DAY FOR 1 MONTH",
-        "SYR L CARNOSHINE 400 10 ML A DAY FOR 1 MONTH ",
-        "SYR TENONTEN 10 ML 2 TIMES A DAY FOR 1 MONTH ",
-        "SYR KRTSHINE 400 / ASP Carno 10 ML A DAY FOR 1 MONTH ",
-        "TAB SHARPZ/AlphaGPC 1 TAB A DAY FOR 1 MONTH ",
-        "SYR DOFOTIL/GutClear 10 ML------10 ML FOR 1 MONTH ",
-        "ARISTOZYME DROPS  1ML DAILY FOR 1 MONTH ",
-        "TAB KRAVIONQ10 1 TAB  A  DAY FOR 1 MONTH ",
-        "TAB RISDONE/RPDONE 1MG TAB GIVE 1/8---------0-------1/4 8:00 PMFOR 1 MONTH ", // bold
-        "TAB TOMKID 10 MG 1/4 AT 8 AM---------------1/4 AT 4PM FOR 1 MONTH ",   //bold
-        "SYR Flunil 1ML--------1ML FOR 1 MONTH ",
-        "SYR MEMTONE 2ML------------2ML 8:00 PM  FOR 1 MONTH ",
     ] });
+
 
     function createInputs() {
         return values.val.map((el, i) =>
@@ -510,7 +513,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                 />
                             </FormGroup>
                             </div>
-                            <div style={{backgroundColor:"white",padding:"5px"}}>
+                            <div style={{backgroundColor:"white",padding:"25px",borderRadius:"8px"}}>
                             <FormGroup>                                
                                 <FormControlLabel fontColor="white" control={<Checkbox name="check1" onChange={handleChange} />} label="Jumping/Running/Climbing/Roaming" />
                                 <FormControlLabel fontColor="white" control={<Checkbox name="check2" onChange={handleChange} />} label="Hitting/Hurting/Biting/Throwing" />
@@ -522,19 +525,23 @@ const PrescriptionForm = ({ changeImgURL }) => {
                             </FormGroup>
                         </div>
                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                            {createInputs()}
-                            <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-around"}}>
-                                <Input type='button' value='+ Add Prescription ' onClick={() => addClick('')} style={{ marginBottom: "10px",marginRight:"15px", width: "500px" }} />
-                                <Badge badgeContent="New" color="primary">
+                           
+                                <Input type='button' value='+ Add Prescription ' onClick={() => addClick('')} style={{ marginTop:"10px",marginBottom: "15px",marginRight:"15px", width: "500px" }} />
+                                <div style={{display:"flex",alignItems:"center"}}>
+                               <div>
+                                <div style={{backgroundColor:"white",padding:"6px",marginRight:"10px"}}>
+                                        GENERAL MEDICINES
+                                </div>
                                 <Select    
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select" 
-                                    value='All'
-                                    label='All'
+                                    value="General All"
+                                    label="General Medicines"
                                     style={{padding:"2px",backgroundColor:"white"}}
                                     
                                 >
-                                    {prescription_Items.map((p_item,key) => {
+                                
+                                    {general_medicines.map((p_item,key) => {
                                         return(<>
                                         
                                             <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
@@ -542,10 +549,149 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                         </>
                                         )                                        
                                     })}
-                                </Select>   
-                                </Badge>               
+                                </Select>     
+                                </div>     
+                                <div>
+                                <div style={{backgroundColor:"white",padding:"6px",marginRight:"10px"}}>
+                                    EPILEPSY MEDICINES 
+                                </div>
+                                <Select    
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select" 
+                                    value="General All"
+                                    label="General Medicines"
+                                    style={{padding:"2px",backgroundColor:"white"}}
+                                    
+                                >
+                                
+                                    {epilepsy_medicines.map((p_item,key) => {
+                                        return(<>
+                                        
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                       
+                                        </>
+                                        )                                        
+                                    })}
+                                </Select>     
+                                </div> 
+                                <div>
+                                <div style={{backgroundColor:"white",padding:"6px",marginRight:"10px"}}>
+                                    CONTROL MEDICINES
+                                </div>
+                                <Select    
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select" 
+                                    value="General All"
+                                    label="General Medicines"
+                                    style={{padding:"2px",backgroundColor:"white"}}
+                                    
+                                >
+                                
+                                    {control_medicines.map((p_item,key) => {
+                                        return(<>
+                                        
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                       
+                                        </>
+                                        )                                        
+                                    })}
+                                </Select>     
+                                </div>   
+                                <div>
+                                <div style={{backgroundColor:"white",padding:"6px",marginRight:"10px"}}>
+                                        COGNITIVE MEDICINES
+                                </div>
+                                <Select    
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select" 
+                                    value="General All"
+                                    label="Cognitive Medicines"
+                                    style={{padding:"2px",backgroundColor:"white"}}
+                                    
+                                >
+                                
+                                    {cognitive_medicines.map((p_item,key) => {
+                                        return(<>
+                                        
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                       
+                                        </>
+                                        )                                        
+                                    })}
+                                </Select>     
+                                </div>  
+                                <div>
+                                <div style={{backgroundColor:"white",padding:"6px",marginRight:"10px"}}>
+                                    FINE MOTOR MEDICINES
+                                </div>
+                                <Select    
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select" 
+                                    value="General All"
+                                    label="Fine Motor Medicines"
+                                    style={{padding:"2px",backgroundColor:"white"}}
+                                    
+                                >
+                                
+                                    {fine_motor_medicines.map((p_item,key) => {
+                                        return(<>
+                                        
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                       
+                                        </>
+                                        )                                        
+                                    })}
+                                </Select>     
+                                </div> 
+                                <div>
+                                <div style={{backgroundColor:"white",padding:"6px",marginRight:"10px"}}>
+                                    CROSS MOTOR MEDICINES
+                                </div>
+                                <Select    
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select" 
+                                    value="General All"
+                                    label="Cross Motor Medicines"
+                                    style={{padding:"2px",backgroundColor:"white"}}
+                                    
+                                >
+                                
+                                    {cross_motor_medicines.map((p_item,key) => {
+                                        return(<>
+                                        
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                       
+                                        </>
+                                        )                                        
+                                    })}
+                                </Select>     
+                                </div> 
+                                <div>
+                                <div style={{backgroundColor:"white",padding:"6px",marginRight:"10px"}}>
+                                  CONSTIPATION CONTROLLER
+                                </div>
+                                <Select    
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select" 
+                                    value="General All"
+                                    label="Constipation Controller"
+                                    style={{padding:"2px",backgroundColor:"white"}}
+                                    
+                                >
+                                
+                                    {constipation_controller.map((p_item,key) => {
+                                        return(<>
+                                        
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                       
+                                        </>
+                                        )                                        
+                                    })}
+                                </Select>     
+                                </div> 
                             </div>
-                            <FormGroup floating style={{ width: "400px", margin: "4px" }}>
+                            {createInputs()}
+                            <FormGroup floating style={{ width: "400px", marginTop: "25px" ,marginBottom:"5px"}}>
                                 <Input
                                     id="exampleReceipt"
                                     name="Receipt"

@@ -4,7 +4,7 @@ import aakar from "./aakar.jpg"
 import TestPDF from './TestPDF'
 import { useScreenshot } from 'use-react-screenshot'
 import { saveAs } from 'file-saver'
-import sign from "./sign.png"
+import sign from "./sign_new.jpg"
 
 import sign1 from "./sign1.png"
 import drskinfo from "./drskinfo.jpeg"
@@ -540,7 +540,7 @@ const Preview = ({imageURL}) => {
            
                            <ul> {prescription?.map((p)=>{
                                    return(
-                                       <li style={{fontSize:"12px"}}>{p}</li>
+                                       <li style={{fontSize:"12px"}}><b>{p}</b></li>
                                    )
                            })}</ul>
                        </>
@@ -558,7 +558,7 @@ const Preview = ({imageURL}) => {
                     <br /> 
                     <p style={{fontFamily:"'Schoolbell', arial, serif"}}><b>Date : </b>{(JSON.stringify(new Date()).slice(1,11))}</p>
                     {/* <Draggable style={{margin:"0px !important",padding:"0px !important",width:"100px !important"}}> */}
-                    <div style={{height:"100px",margin :"0px !important",paddingLeft:"50px",maxWidth:"100px !important"}}>
+                    <div style={{height:"100px",marginTop :"10px",paddingLeft:"50px",maxWidth:"100px !important"}}>
                     <img  style={{height:"75px",margin:"0px !important",padding:"0px !important"}}  src={sign} alt='sign' />
                     <img  style={{height:"75px",margin:"0px !important",padding:"0px !important"}}  src={drskinfo} alt='drskinfo' />
                      
