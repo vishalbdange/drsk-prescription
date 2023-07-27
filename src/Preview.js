@@ -4,7 +4,8 @@ import aakar from "./aakar.jpg"
 import TestPDF from './TestPDF'
 import { useScreenshot } from 'use-react-screenshot'
 import { saveAs } from 'file-saver'
-import sign from "./sign_new.jpg"
+// import sign from "./sign_new.jpg"
+import sign from "./sign_new.png"
 
 import sign1 from "./sign1.png"
 import drskinfo from "./drskinfo.jpeg"
@@ -33,7 +34,15 @@ const Preview = ({imageURL}) => {
     var componentRef = useRef();
     var state = JSON.parse(localStorage.getItem('state'));
     const prescription = JSON.parse(localStorage.getItem('prescription'));
-        // console.log(state)
+    const general_medicines_selected = []
+    const epilepsy_medicines_selected  = []
+    const cognitive_medicines_selected  = []
+    const control_medicines_selected  = []
+    const gross_motor_medicines_selected = []
+    const fine_motor_medicines_selected = []
+    const constipation_controller_selected  = []
+    const other_prescriptions = []
+    // console.log(state)
     // var p_data = [];
     var prescription_string = ''
 
@@ -52,6 +61,34 @@ const Preview = ({imageURL}) => {
     }
     const { DOB, file,Visit_No,Name, Address,Age, Sex, Diagnosis,Goal,m_num,Receipt,Description,ImageFile,EmptyTextArea1,check1,check2,check3,check4,check5,check6,check7} = state;
     // const csvData = {...state,prescription:prescription}
+     prescription.map((text) =>{
+        if(text.includes("general_medicines") ){
+            console.log("general_01")
+            console.log(text.replace("_general_medicines",""))
+            general_medicines_selected.push(text.replace("_general_medicines",""));
+            console.log(general_medicines_selected)
+        }else if(text.includes("epilepsy_medicines") ) {
+            epilepsy_medicines_selected.push(text.replace("_epilepsy_medicines",""));
+        }
+        else if(text.includes("control_medicines") ) {
+            control_medicines_selected.push(text.replace("_control_medicines",""));
+        }
+        else if(text.includes("gross_motor_medicines") ) {
+            gross_motor_medicines_selected.push(text.replace("_gross_motor_medicines",""));
+        }
+        else if(text.includes("fine_motor_medicines") ) {
+            fine_motor_medicines_selected.push(text.replace("_fine_motor_medicines",""));
+        }
+        else if(text.includes("cognitive_medicines") ) {
+            cognitive_medicines_selected.push(text.replace("_cognitive_medicines",""));
+        }
+        else if(text.includes("constipation_controller") ) {
+            constipation_controller_selected.push(text.replace("_constipation_controller",""));
+        }else {
+            other_prescriptions.push(text)
+        }
+     })
+   
     const saveToMail = () => {
         const input = document.getElementById("Page");
         html2canvas(input, { logging: true, letterRendering: 1, useCORS: true, }).then(canvas => {
@@ -136,7 +173,6 @@ const Preview = ({imageURL}) => {
         if(check5) { filteredCheckBoxes.push(checkboxes.check5)}
         if(check6) { filteredCheckBoxes.push(checkboxes.check6)}
         if(check7) { filteredCheckBoxes.push(checkboxes.check7)}
-        console.log(filteredCheckBoxes)
         setFinalchecks(filteredCheckBoxes);
         if(window.innerWidth > 900){
             setTextAreaStyle({width:"100%",border:"none",padding:"0%",margin:"0%",overflow:"hidden !important",maxHeight:"200px"})
@@ -516,7 +552,7 @@ const Preview = ({imageURL}) => {
                
                 <hr/>
                 </section>
-                 <section >
+                <section >
                     <div><b>Current Issues : </b>
                 
                     </div>
@@ -528,7 +564,7 @@ const Preview = ({imageURL}) => {
                         })}
                    </ol>
                  </section>
-              <section style={{ backgroundImage: `url(${sign1})`}}>
+                <section style={{ backgroundImage: `url(${sign1})`}}>
                 {
                     prescription.length === 0 ? (
                         <></>
@@ -537,12 +573,99 @@ const Preview = ({imageURL}) => {
                             
                         <div ><b>Prescription : </b></div>
                         <b><p style={{fontSize:"10px"}}> (Join parent support group and read more about Goal Directed Cognitive Approach at <a href="http://www.neuropediatrician.com">www.neuropediatrician.com</a>)</p></b>
-           
-                           <ul> {prescription?.map((p)=>{
-                                   return(
-                                       <li style={{fontSize:"12px"}}><b>{p}</b></li>
-                                   )
-                           })}</ul>
+                            
+                          {
+                            general_medicines_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>General Medicines </p></b>) : <></>
+                          }
+                           <ul>
+                           {general_medicines_selected?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+
+                           {
+                            epilepsy_medicines_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Epilepsy Medicines </p></b>) : <></>
+                          }
+                           <ul>
+                           {epilepsy_medicines_selected?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+                           {
+                            control_medicines_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Control Medicines </p></b>) : <></>
+                          }
+                           <ul>
+                           {control_medicines_selected?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+                           {
+                            cognitive_medicines_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Cognitive Medicines </p></b>) : <></>
+                          }
+                           <ul>
+                           {cognitive_medicines_selected?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+                           {
+                            fine_motor_medicines_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Fine Motor Medicines </p></b>) : <></>
+                          }
+                           <ul>
+                           {fine_motor_medicines_selected?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+                           {
+                            gross_motor_medicines_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Gross Motor Medicines </p></b>) : <></>
+                          }
+                           <ul>
+                           {gross_motor_medicines_selected?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+                           {
+                            constipation_controller_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Constipation Controller </p></b>) : <></>
+                          }
+                           <ul>
+                           {constipation_controller_selected?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+                           {
+                            constipation_controller_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Constipation Controller </p></b>) : <></>
+                          }
+                           <ul>
+                           {constipation_controller_selected?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+                           {
+                             other_prescriptions?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Other Medicines </p></b>) : <></>
+                          }
+                           <ul>
+                           {other_prescriptions?.map((p)=>{
+                                return <><li>{p}</li></>
+                           })}
+                           </ul>
+
+
+                           {/* else if(p.includes("_epilepsy_medicines_selected")){
+                                p=p.replace("_epilepsy_medicines","")
+                                return <><b><p style={{fontSize:"9px"}}>Epilepsy Medicines </p></b><li>{p}</li></>
+                              }else if(p.includes("_control_medicines")){
+                                p=p.replace("_control_medicines","")
+                                return <><b><p style={{fontSize:"9px"}}>Control Medicines </p></b><li>{p}</li></>
+                              }else if(p.includes("_cognitive_medicines")){
+                                p=p.replace("_cognitive_medicines","")
+                                return <><b><p style={{fontSize:"9px"}}>Cognitive Medicines </p></b><li>{p}</li></>
+                              }else if(p.includes("_fine_motor_medicines")){
+                                p=p.replace("_fine_motor_medicines","")
+                                return <><b><p style={{fontSize:"9px"}}>Fine Motor Medicines </p></b><li>{p}</li></>
+                              }
+                              else if(p.includes("_constipation_controller")){
+                                p=p.replace("_constipation_controller","")
+                                return <><b><p style={{fontSize:"9px"}}>Constipation Medicines </p></b><li>{p}</li></>
+                              } */}
                        </>
                     )
                 }

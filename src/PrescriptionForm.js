@@ -13,7 +13,7 @@ import NavbarComponent from './NavbarComponent';
 import Draggable from 'react-draggable';
 import {ArrowCircleDown,ArrowCircleUp,ArrowCircleUp1} from '@mui/icons-material';
 import {IconButton} from '@material-ui/core';
-import {general_medicines,constipation_controller,control_medicines,cross_motor_medicines,epilepsy_medicines,fine_motor_medicines,cognitive_medicines} from './PrescriptionItems/ALL_MEDICINES'
+// import {general_medicines,constipation_controller,control_medicines,cross_motor_medicines,epilepsy_medicines,fine_motor_medicines,cognitive_medicines} from './PrescriptionItems/ALL_MEDICINES'
 import axios from 'axios'
 
 const prescription_Items = require('./prescription_Items').prescription_Items;
@@ -21,6 +21,14 @@ const PrescriptionForm = ({ changeImgURL }) => {
 
     console.log(prescription_Items[0])     
     const navigate = useNavigate();
+    
+    const general_medicines_selected =  []
+    const epilepsy_medicines_selected = []
+    const control_medicines_selected = []
+    const gross_motor_medicines_selected = []
+    const fine_motor_medicines_selected = []
+    const cognitive_medicines_selected = []
+    const constipation_controller_selected = []
     const [state, setState] = useState({
         DOB: '',
         file: null,
@@ -34,6 +42,13 @@ const PrescriptionForm = ({ changeImgURL }) => {
         m_num: '',
         Prescription: [],
         Receipt: '',
+        general_medicines_selected,
+        epilepsy_medicines_selected,
+        control_medicines_selected,
+        cognitive_medicines_selected,
+        gross_motor_medicines_selected,
+        fine_motor_medicines_selected,
+        constipation_controller_selected,
         Description: "For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions.",
         EmptyTextArea1 : "",
         check1:false,
@@ -43,6 +58,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
         check5:false,
         check6:false,
         check7:false
+        
 
     });
     var prescription = [];
@@ -82,13 +98,20 @@ const PrescriptionForm = ({ changeImgURL }) => {
         //     validateContent(emptyStates)
         // }
         // else{
-        console.log(state)
+        // console.log(state)
         prescription = values.val;
         console.log(prescription)
         state.Prescription = prescription;
         // setState({ ...state, Prescription: prescription })
-        console.log(state)
-    
+        // console.log(state)
+        // console.log(general_medicines_selected)
+        // console.log(epilepsy_medicines_selected)
+        // console.log(cognitive_medicines_selected)
+        // console.log(gross_motor_medicines_selected)
+        // console.log(control_medicines_selected)
+        // console.log(constipation_controller_selected)
+        // console.log(fine_motor_medicines_selected)
+
         localStorage.setItem('prescription', JSON.stringify(prescription))
         //Backend post request here
         console.log("Printing Prescription")
@@ -128,13 +151,15 @@ const PrescriptionForm = ({ changeImgURL }) => {
     ] });
 
 
+    
+
     function createInputs() {
         return values.val.map((el, i) =>
             <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center",maxWidth:"720px"}}>
                  <IconButton
                     size="large"
                     aria-label="account of current user"
-                    aria-controls="menu-appbar"
+                    aria-controls="menu-app bar"
                     aria-haspopup="true"
                     onClick={() => moveUp(i)}
                     color="inherit"
@@ -197,9 +222,33 @@ const PrescriptionForm = ({ changeImgURL }) => {
         setValues({ val: vals });
     }
     const addClick = (text) => {
-        setValues({ val: [...values.val, text] })
+        setValues({ val: [...values.val, text] })   
+        if(text.includes("general_medicines") ){
+            console.log("general_01")
+            console.log(text.replace("_general_medicines",""))
+            general_medicines_selected.push(text.replace("_general_medicines",""));
+            console.log(general_medicines_selected)
+        }else if(text.includes("epilepsy_medicines") ) {
+            epilepsy_medicines_selected.push(text.replace("_epilepsy_medicines",""));
+        }
+        else if(text.includes("control_medicines") ) {
+            control_medicines_selected.push(text.replace("_control_medicines",""));
+        }
+        else if(text.includes("gross_motor_medicines") ) {
+            gross_motor_medicines_selected.push(text.replace("_gross_motor_medicines",""));
+        }
+        else if(text.includes("fine_motor_medicines") ) {
+            fine_motor_medicines_selected.push(text.replace("_fine_motor_medicines",""));
+        }
+        else if(text.includes("cognitive_medicines") ) {
+            cognitive_medicines_selected.push(text.replace("_cognitive_medicines",""));
+        }
+        else if(text.includes("constipation_controller") ) {
+            constipation_controller_selected.push(text.replace("_constipation_controller",""));
+        }
     }
- 
+    
+    localStorage.setItem("general_medicines_selected",JSON.stringify("general_medicines"))
 
     const removeClick = (i) => {
         let vals = [...values.val];
@@ -313,6 +362,67 @@ const PrescriptionForm = ({ changeImgURL }) => {
     //     setCheckBoxes({...checkBoxes,[e.target.name]:e.target.checked})
     // }
 
+     localStorage.setItem("general_medicines",JSON.stringify([ 
+        "SYR FLEXON 5ML____5ML____5ML FOR 5 DAYS",
+        "SYR KLCLAV DS 5ML_________5ML FOR 5 DAYS",
+        "SYR CHESTON LS 5ML_____5ML_____5ML FOR 5 DAYS",
+        "SYR MOTAIRLC KID 5ML_________5ML FOR 21 DAYS",
+        "SYR SINAREST 5ML_________5ML FOR 5 DAYS",
+        "SYR OFM 5ML_________5ML FOR 5 DAYS",
+        "VISYLAC GG DROP 1ML DAILY FOR 5 DAYS",
+        "SYR RINICLANSI 5ML_______5ML FOR 10 DAYS",
+        "SYR ZIFI (100) 2.5ML________2.5ML FOR 7 DAYS",
+        "SYR DEFCORT 5ML__________5ML FOR 5 DAYS"
+    ]))
+    localStorage.setItem("epilepsy_medicines",JSON.stringify([ 
+        " SYR ZENOXXA 2ML__________2ML FOR 3 MONTHS",
+        "SYR BRIVASURE/BRIVAZEN 2ML__________2ML FOR 3 MONTHS",
+        "SYR VALPROF 2ML__________2ML FOR 3 MONTHS",
+        "T. BRIV (100) 1/4_________1/4 FOR MONTHS",
+        "SYR LEVERA 2ML__________2ML FOR 3 MONTHS",
+        " T. PERAMPA 2MG___________2MG  FOR 3 MONTHS" 
+    ]))
+    localStorage.setItem("gross_motor_medicines",JSON.stringify([ 
+        " T. CENTIQ P 1 TAB DAILY FOR 1 MONTH",
+        " T. PIRACETUM 800MG 1 TAB DAILY FOR 1 MONTH",
+        "SYR CERCETAM 1 ML DAILY FOR 1 MONTH"
+    ]))
+    localStorage.setItem("fine_motor_medicines",JSON.stringify([ 
+        "SYR KRETSOMAG 10ML DAILY FOR 1 MONTH",
+        "SYR QCARWIO 10ML DAILY FOR 1 MONTH",
+        "T. KRANONQ10 1 TAB DAILY FOR  1MONTH",
+        "T.MINAMINQPLUS 1 TAB DAILY FOR 1 MONTH",
+        "T.BYCINE OD 1 TAB DAILY FOR 1 MONTH",
+        "T.REJUNEX CDS 1 TAB DAILY FOR 1 MONTH"
+    ]))
+
+   localStorage.setItem("control_medicines",JSON.stringify([ 
+        "T. TOMKID 10MG 1/2_________1/2  FOR 1 MONTH",
+        "T.RPDONE 1MG   1/4_________1/4 FOR 1 MONTH",
+        "T. RISDONE LS (2MG) 1/2________1/2 FOR 1 MONTH",
+        "SYR MEMTONE 2ML__________2ML_________5ML FOR 1 MONTH "
+    ]))
+    localStorage.setItem("cognitive_medicines",JSON.stringify([ 
+        "SYR  L-CARNOSTONE 10ML DAILY FOR 1 MONTH",
+        "SYR BIGPLUS 10ML DAILY FOR 1 MONTH",
+        "SYR PARADOX 10ML DAILY FOR 1 MONTH",
+        "SYR ASPCARNO 10ML DAILY FOR 1 MONTH",
+        "SYR KRTSWUE 10ML DAILY FOR 1 MONTH",
+        "SYR MECOB 10ML DAILY FOR 1 MONTH"
+    ]))
+    localStorage.setItem("constipation_controller",JSON.stringify([ 
+        "SYR DOTOTIL 10ML __________10ML FOR 1 MONTH",
+        "SYR REGCLEAR/MNOUT/LAXOTIL  1OZ(30ML) DAILY FOR 1 MONTH",
+        "SYR GUTCLEAR 10ML DAILY FOR 1 MONTH"
+    ]))
+    
+    const general_medicines = JSON.parse(localStorage.getItem("general_medicines"))
+    const epilepsy_medicines = JSON.parse(localStorage.getItem("epilepsy_medicines"))
+    const cognitive_medicines = JSON.parse(localStorage.getItem("cognitive_medicines"))
+    const control_medicines = JSON.parse(localStorage.getItem("control_medicines"))
+    const gross_motor_medicines = JSON.parse(localStorage.getItem("gross_motor_medicines"))
+    const fine_motor_medicines = JSON.parse(localStorage.getItem("fine_motor_medicines"))
+    const constipation_controller = JSON.parse(localStorage.getItem("constipation_controller"))
     return (
 
 
@@ -543,9 +653,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                 
                                     {general_medicines.map((p_item,key) => {
                                         return(<>
-                                        
-                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
-                                       
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item + " _general_medicines")}  >{p_item}</MenuItem>
                                         </>
                                         )                                        
                                     })}
@@ -567,7 +675,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     {epilepsy_medicines.map((p_item,key) => {
                                         return(<>
                                         
-                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item + " _epilepsy_medicines")}  >{p_item}</MenuItem>
                                        
                                         </>
                                         )                                        
@@ -590,7 +698,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     {control_medicines.map((p_item,key) => {
                                         return(<>
                                         
-                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item + " _control_medicines")}  >{p_item}</MenuItem>
                                        
                                         </>
                                         )                                        
@@ -613,7 +721,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     {cognitive_medicines.map((p_item,key) => {
                                         return(<>
                                         
-                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item + "_cognitive_medicines")}  >{p_item}</MenuItem>
                                        
                                         </>
                                         )                                        
@@ -636,7 +744,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     {fine_motor_medicines.map((p_item,key) => {
                                         return(<>
                                         
-                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item + " _fine_motor_medicines")}  >{p_item}</MenuItem>
                                        
                                         </>
                                         )                                        
@@ -645,7 +753,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                 </div> 
                                 <div>
                                 <div style={{backgroundColor:"white",padding:"6px",marginRight:"10px"}}>
-                                    CROSS MOTOR MEDICINES
+                                    GROSS MOTOR MEDICINES
                                 </div>
                                 <Select    
                                     labelId="demo-simple-select-label"
@@ -656,10 +764,10 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     
                                 >
                                 
-                                    {cross_motor_medicines.map((p_item,key) => {
+                                    {gross_motor_medicines.map((p_item,key) => {
                                         return(<>
                                         
-                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item +" _gross_motor_medicines")}  >{p_item}</MenuItem>
                                        
                                         </>
                                         )                                        
@@ -682,7 +790,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     {constipation_controller.map((p_item,key) => {
                                         return(<>
                                         
-                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item)}  >{p_item}</MenuItem>
+                                            <MenuItem style={{maxWidth:"650px"}} onClick={() => addClick({p_item}.p_item + " _constipation_controller")}  >{p_item}</MenuItem>
                                        
                                         </>
                                         )                                        
@@ -691,6 +799,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                 </div> 
                             </div>
                             {createInputs()}
+                            <Input type='button' value='+ Add Prescription ' onClick={() => addClick('')} style={{ marginTop:"10px",marginBottom: "15px",marginRight:"15px", width: "500px" }} />
                             <FormGroup floating style={{ width: "400px", marginTop: "25px" ,marginBottom:"5px"}}>
                                 <Input
                                     id="exampleReceipt"
@@ -713,8 +822,9 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                     name="Description"
                                     type="textarea"
                                     placeholder="Description"
-                                    defaultValue="For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions. Read www.pedneuro.in for Dr kondekar's Protocol of managing Autism. For basic health queries  visit  www.aakaarclinic.com or www.kondekar.com. F/u on whatsapp every 07 days to titrate doses and physical follow up one monthly or as needed"
-                                    style={{ height: "160px" }}
+                                    defaultValue="All medicines are better given early morning empty stomach as and when child wakes up from sleep.All medicines are better given as a health drink, all morning doses mixed together with each other in a small bowl, even tablets can be crushed and mixed. It's safe.Those kids who can't swallow, can be given with a syringe spurt in small amounts.Occasional medicine may have noon dose which can be given any time between 2 to 6 pm, preferably not with food.Night dose if any can be given around 8 pm to 9 pm only.
+                                    For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions. Read www.pedneuro.in for Dr kondekar's Protocol of managing Autism. For basic health queries  visit  www.aakaarclinic.com or www.kondekar.com. F/u on whatsapp every 07 days to titrate doses and physical follow up one monthly or as needed"
+                                    style={{ height: "160px" }} 
                                     className="inp"
                                     onChange={handleChange}
 
