@@ -42,13 +42,6 @@ const PrescriptionForm = ({ changeImgURL }) => {
         m_num: '',
         Prescription: [],
         Receipt: '',
-        general_medicines_selected,
-        epilepsy_medicines_selected,
-        control_medicines_selected,
-        cognitive_medicines_selected,
-        gross_motor_medicines_selected,
-        fine_motor_medicines_selected,
-        constipation_controller_selected,
         Description: "For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions.",
         EmptyTextArea1 : "",
         check1:false,
@@ -223,32 +216,32 @@ const PrescriptionForm = ({ changeImgURL }) => {
     }
     const addClick = (text) => {
         setValues({ val: [...values.val, text] })   
-        if(text.includes("general_medicines") ){
-            console.log("general_01")
-            console.log(text.replace("_general_medicines",""))
-            general_medicines_selected.push(text.replace("_general_medicines",""));
-            console.log(general_medicines_selected)
-        }else if(text.includes("epilepsy_medicines") ) {
-            epilepsy_medicines_selected.push(text.replace("_epilepsy_medicines",""));
-        }
-        else if(text.includes("control_medicines") ) {
-            control_medicines_selected.push(text.replace("_control_medicines",""));
-        }
-        else if(text.includes("gross_motor_medicines") ) {
-            gross_motor_medicines_selected.push(text.replace("_gross_motor_medicines",""));
-        }
-        else if(text.includes("fine_motor_medicines") ) {
-            fine_motor_medicines_selected.push(text.replace("_fine_motor_medicines",""));
-        }
-        else if(text.includes("cognitive_medicines") ) {
-            cognitive_medicines_selected.push(text.replace("_cognitive_medicines",""));
-        }
-        else if(text.includes("constipation_controller") ) {
-            constipation_controller_selected.push(text.replace("_constipation_controller",""));
-        }
+        // if(text.includes("general_medicines") ){
+        //     console.log("general_01")
+        //     console.log(text.replace("_general_medicines",""))
+        //     general_medicines_selected.push(text.replace("_general_medicines",""));
+        //     console.log(general_medicines_selected)
+        // }else if(text.includes("epilepsy_medicines") ) {
+        //     epilepsy_medicines_selected.push(text.replace("_epilepsy_medicines",""));
+        // }
+        // else if(text.includes("control_medicines") ) {
+        //     control_medicines_selected.push(text.replace("_control_medicines",""));
+        // }
+        // else if(text.includes("gross_motor_medicines") ) {
+        //     gross_motor_medicines_selected.push(text.replace("_gross_motor_medicines",""));
+        // }
+        // else if(text.includes("fine_motor_medicines") ) {
+        //     fine_motor_medicines_selected.push(text.replace("_fine_motor_medicines",""));
+        // }
+        // else if(text.includes("cognitive_medicines") ) {
+        //     cognitive_medicines_selected.push(text.replace("_cognitive_medicines",""));
+        // }
+        // else if(text.includes("constipation_controller") ) {
+        //     constipation_controller_selected.push(text.replace("_constipation_controller",""));
+        // }
     }
     
-    localStorage.setItem("general_medicines_selected",JSON.stringify("general_medicines"))
+    
 
     const removeClick = (i) => {
         let vals = [...values.val];
@@ -353,7 +346,6 @@ const PrescriptionForm = ({ changeImgURL }) => {
     const formData = new FormData();
     formData.append("file", imgFile);
 
-
     /* Checkboxes  */
     // const [checkBoxes,setCheckBoxes] = useState({"check1":false,"check2":false,"check3":false,"check4":false,"check5":false,"check6":false,"check7":false})
     // const handleChangeCheckBox = (e) => {
@@ -366,54 +358,61 @@ const PrescriptionForm = ({ changeImgURL }) => {
         "SYR FLEXON 5ML____5ML____5ML FOR 5 DAYS",
         "SYR KLCLAV DS 5ML_________5ML FOR 5 DAYS",
         "SYR CHESTON LS 5ML_____5ML_____5ML FOR 5 DAYS",
-        "SYR MOTAIRLC KID 5ML_________5ML FOR 21 DAYS",
+        "SYR MONTAIR LC KID 5ML_________5ML FOR 21 DAYS",
         "SYR SINAREST 5ML_________5ML FOR 5 DAYS",
         "SYR OFM 5ML_________5ML FOR 5 DAYS",
-        "VISYLAC GG DROP 1ML DAILY FOR 5 DAYS",
-        "SYR RINICLANSI 5ML_______5ML FOR 10 DAYS",
+        "VIZYLAC GG DROP 1ML DAILY FOR 5 DAYS",
+        "SYR RINICLAUSI 5ML_______5ML FOR 10 DAYS",
         "SYR ZIFI (100) 2.5ML________2.5ML FOR 7 DAYS",
         "SYR DEFCORT 5ML__________5ML FOR 5 DAYS"
     ]))
     localStorage.setItem("epilepsy_medicines",JSON.stringify([ 
-        " SYR ZENOXXA 2ML__________2ML FOR 3 MONTHS",
+        "SYR ZENOXA 2ML__________2ML FOR 3 MONTHS",
         "SYR BRIVASURE/BRIVAZEN 2ML__________2ML FOR 3 MONTHS",
-        "SYR VALPROF 2ML__________2ML FOR 3 MONTHS",
+        "SYR VALPROL 2ML__________2ML FOR 3 MONTHS",
         "T. BRIV (100) 1/4_________1/4 FOR MONTHS",
         "SYR LEVERA 2ML__________2ML FOR 3 MONTHS",
-        " T. PERAMPA 2MG___________2MG  FOR 3 MONTHS" 
     ]))
     localStorage.setItem("gross_motor_medicines",JSON.stringify([ 
-        " T. CENTIQ P 1 TAB DAILY FOR 1 MONTH",
-        " T. PIRACETUM 800MG 1 TAB DAILY FOR 1 MONTH",
+        " T. CENTIQ P/ STORAX PR 1 TAB DAILY FOR 1 MONTH",
+        " T. PIRACETAM 800MG 1 TAB DAILY FOR 1 MONTH",
         "SYR CERCETAM 1 ML DAILY FOR 1 MONTH"
     ]))
     localStorage.setItem("fine_motor_medicines",JSON.stringify([ 
-        "SYR KRETSOMAG 10ML DAILY FOR 1 MONTH",
-        "SYR QCARWIO 10ML DAILY FOR 1 MONTH",
-        "T. KRANONQ10 1 TAB DAILY FOR  1MONTH",
+        "SYR KREBSOMAG 10ML DAILY FOR 1 MONTH",
+        "SYR QCARNI 1O 10ML DAILY FOR 1 MONTH",
+        "T. KRAVIONQ10 1 TAB DAILY FOR  1MONTH",
         "T.MINAMINQPLUS 1 TAB DAILY FOR 1 MONTH",
-        "T.BYCINE OD 1 TAB DAILY FOR 1 MONTH",
-        "T.REJUNEX CDS 1 TAB DAILY FOR 1 MONTH"
+        "T.BYCINE OD / ESSFOL 1 TAB DAILY FOR 1 MONTH",
+        "T.REJUNEX CD3 1 TAB DAILY FOR 1 MONTH",
+        "T. SHARPZ  1TAB DAILY FOR 1 MONTH"
+    
     ]))
 
    localStorage.setItem("control_medicines",JSON.stringify([ 
-        "T. TOMKID 10MG 1/2_________1/2  FOR 1 MONTH",
+        "T. TOMKID 10MG 1/2(8AM)_________1/2(4PM)  FOR 1 MONTH",
         "T.RPDONE 1MG   1/4_________1/4 FOR 1 MONTH",
         "T. RISDONE LS (2MG) 1/2________1/2 FOR 1 MONTH",
-        "SYR MEMTONE 2ML__________2ML_________5ML FOR 1 MONTH "
+        "SYR MEMTONE 2ML__________2ML_________5ML FOR 1 MONTH ",
+        "T. ASPRITO 5MG 1/4--------1/4 FOR 1 MONTH ",
+        "SYR. FLUNIL 2ML---------2ML---------0ML FOR 1 MONTH",
+        "Capsule FLUNIL 10MG---------10MG----------0MG FOR 1 MONTH",
+        "T. DEPRANEX 5MG 1/4 MORNING ONLY DAILY FOR 1 MONTH"
     ]))
     localStorage.setItem("cognitive_medicines",JSON.stringify([ 
-        "SYR  L-CARNOSTONE 10ML DAILY FOR 1 MONTH",
-        "SYR BIGPLUS 10ML DAILY FOR 1 MONTH",
+        "SYR  L-CARNOSHINE 400mg/ml 10ML DAILY FOR 1 MONTH",
+        "SYR BIQPLUS 10ML DAILY FOR 1 MONTH",
         "SYR PARADOX 10ML DAILY FOR 1 MONTH",
         "SYR ASPCARNO 10ML DAILY FOR 1 MONTH",
-        "SYR KRTSWUE 10ML DAILY FOR 1 MONTH",
-        "SYR MECOB 10ML DAILY FOR 1 MONTH"
+        "SYR KRTSHINE 10ML DAILY FOR 1 MONTH",
+        "SYR MECOB 10ML DAILY FOR 1 MONTH",
+        "SYR TENONTEN 10ml daily FOR 1 MONTH"
     ]))
     localStorage.setItem("constipation_controller",JSON.stringify([ 
-        "SYR DOTOTIL 10ML __________10ML FOR 1 MONTH",
-        "SYR REGCLEAR/MNOUT/LAXOTIL  1OZ(30ML) DAILY FOR 1 MONTH",
-        "SYR GUTCLEAR 10ML DAILY FOR 1 MONTH"
+        "SYR DOFOTIL 10ML __________10ML FOR 1 MONTH",
+        "SYR PEGCLEAR/MUOUT/LAXOLITE  1OZ(30ML) DAILY FOR 1 MONTH",
+        "SYR GUTCLEAR 10ML DAILY FOR 1 MONTH",
+        "TUMMYSOFT DROPS 1ML DAILY (ALTERNATE DAYS)"
     ]))
     
     const general_medicines = JSON.parse(localStorage.getItem("general_medicines"))
@@ -632,6 +631,12 @@ const PrescriptionForm = ({ changeImgURL }) => {
                                 <FormControlLabel fontColor="white" control={<Checkbox name="check5" onChange={handleChange} />} label="Pointing/Imitation/Non-Verbal Communication" />
                                 <FormControlLabel fontColor="white" control={<Checkbox name="check6" onChange={handleChange} />} label="Vocabulary/Speech/Comprehension/Composition" />
                                 <FormControlLabel fontColor="white" control={<Checkbox name="check7" onChange={handleChange} />} label="Sleep" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check8" onChange={handleChange} />} label="Flapping" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check9" onChange={handleChange} />} label="OCD" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check10" onChange={handleChange} />} label="Anxiety" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check11" onChange={handleChange} />} label="Unusual Cry" />
+                                <FormControlLabel fontColor="white" control={<Checkbox name="check12" onChange={handleChange} />} label="Unusual Laugh" />
+
                             </FormGroup>
                         </div>
                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>

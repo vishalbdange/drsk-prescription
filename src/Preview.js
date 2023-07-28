@@ -5,7 +5,7 @@ import TestPDF from './TestPDF'
 import { useScreenshot } from 'use-react-screenshot'
 import { saveAs } from 'file-saver'
 // import sign from "./sign_new.jpg"
-import sign from "./sign_new.png"
+import sign from "./sign_new.jpg"
 
 import sign1 from "./sign1.png"
 import drskinfo from "./drskinfo.jpeg"
@@ -458,7 +458,7 @@ const Preview = ({imageURL}) => {
                 <br />
 
                 
-                <section class="doctor-info">
+                <section class="doctor-info" >
                     <div class="doctor-name">
                     <span>Dr Santosh <surname>Kondekar</surname></span>
                     <p>Reg N:86230 ,MD DNB DCH FCPS FAIMER</p>
@@ -553,13 +553,13 @@ const Preview = ({imageURL}) => {
                 <hr/>
                 </section>
                 <section >
-                    <div><b>Current Issues : </b>
+                    <div style={{fontSize:"10px"}}><b>Current Issues : </b>
                 
                     </div>
                     <ol>
                         {finalchecks?.map((c)=>{
                             return(
-                                <li style={{fontSize:"12px"}}>{c}</li>
+                                <li style={{fontSize:"9px"}}>{c}</li>
                             )
                         })}
                    </ol>
@@ -674,12 +674,18 @@ const Preview = ({imageURL}) => {
                       {/* <Draggable>     */}
     
       
-                   <p  style={{fontSize:"11px"}}>
+                   <p  style={{fontSize:"10px"}}>
                        <b>{Description}</b> 
                    </p>
                    {/* </Draggable>      */}
                     <br /> 
                     <p style={{fontFamily:"'Schoolbell', arial, serif"}}><b>Date : </b>{(JSON.stringify(new Date()).slice(1,11))}</p>
+                    
+                    <p style={{fontSize:"10px"}}><strong>Payment Receipt No. : </strong> W-{JSON.parse(localStorage.getItem('counter'))+2000}/2023</p>
+                                    {   
+                                        (Receipt == '') ? (<div></div>) : 
+                                        (<p><strong>Payment Receipt :  </strong> {Receipt}</p>) 
+                                    }
                     {/* <Draggable style={{margin:"0px !important",padding:"0px !important",width:"100px !important"}}> */}
                     <div style={{height:"100px",marginTop :"10px",paddingLeft:"50px",maxWidth:"100px !important"}}>
                     <img  style={{height:"75px",margin:"0px !important",padding:"0px !important"}}  src={sign} alt='sign' />
@@ -692,38 +698,29 @@ const Preview = ({imageURL}) => {
                     {/* </Draggable> */}
                     <br/>
                     {/* <Draggable> */}
-                        <div className="Desc">
-                    <p className="textArea" style={{color:"#338BA8"}}>
-                   Read <b>www.pedneuro.in</b> for Dr kondekar's Protocol of managing Autism. For basic health queries  visit  <b>www.aakaarclinic.com</b> or <b>www.kondekar.com</b>. F/u on whatsapp every 07 days to titrate doses and physical follow up one monthly or as needed
-                   </p>
-                    <b style={{color:"#338BA8",textAlign:"center",margin:"0px",padding:"0px"}}>
-                    <p style={{margin:"0px",padding:"0px",fontSize:"12px"}}> DR KONDEKAR SANTOSH V. MD DNB DCH FCPS R NO  86230 MMC  </p>
-                    <p style={{margin:"0px",padding:"0px",fontSize:"12px"}}>WWW.AAKAARCLINIC.COM  </p>
-                    <p style={{margin:"0px",padding:"0px",fontSize:"12px"}}>AAKAAR CLINIC OPP BYCULLA STATION WEST MUMBAI 400024 INDIA   </p>
-                     </b>
-                     </div>
+                                    
                      {/* </Draggable> */}
                      <Grid container spacing={2}>
                       
                         <Grid item xs={6}>
                             {/* <Draggable> */}
-                                <section>
-                                    <br/>
+                                {/* <section>
+                                
                                     <p><strong>Payment Receipt No. : </strong> W-{JSON.parse(localStorage.getItem('counter'))+2000}/2023</p>
                                     {   
                                         (Receipt == '') ? (<div></div>) : 
                                         (<p><strong>Payment Receipt :  </strong> {Receipt}</p>) 
                                     }
-                                </section>
+                                </section> */}
                             {/* </Draggable> */}
                           
                         </Grid>
                                           
-                        <Grid item xs={6}>
+                        {/* <Grid item xs={6}>
                             <Draggable>
                             <img  style={{height:"75px",margin:"0px !important",padding:"0px !important"}}  src={sign} alt='sign' />
                             </Draggable>
-                        </Grid>
+                        </Grid> */}
                      </Grid>
     
     
