@@ -43,6 +43,7 @@ const PrescriptionForm = ({ changeImgURL }) => {
         Prescription: [],
         Receipt: '',
         Description: "For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions.",
+        Note : "All medicines are better given early morning empty stomach as and when child wakes up from sleep.All medicines are better given as a health drink, all morning doses mixed together with each other in a small bowl, even tablets can be crushed and mixed. It's safe.Those kids who can't swallow, can be given with a syringe spurt in small amounts.Occasional medicine may have noon dose which can be given any time between 2 to 6 pm, preferably not with food.Night dose if any can be given around 8 pm to 9 pm only.",
         EmptyTextArea1 : "",
         check1:false,
         check2:false,
@@ -823,12 +824,27 @@ const PrescriptionForm = ({ changeImgURL }) => {
                             </FormGroup>
                             <FormGroup floating style={{ width: "800px" }}>
                                 <Input
+                                    id="exampleNote"
+                                    name="Note"
+                                    type="textarea"
+                                    placeholder="Note"
+                                    defaultValue="All medicines are better given early morning empty stomach as and when child wakes up from sleep.All medicines are better given as a health drink, all morning doses mixed together with each other in a small bowl, even tablets can be crushed and mixed. It's safe.Those kids who can't swallow, can be given with a syringe spurt in small amounts.Occasional medicine may have noon dose which can be given any time between 2 to 6 pm, preferably not with food.Night dose if any can be given around 8 pm to 9 pm only."
+                                    style={{ height: "160px" }} 
+                                    className="inp"
+                                    onChange={handleChange}
+
+                                />
+                                <Label for="exampleNote">
+                                    Note
+                                </Label>
+                            </FormGroup>
+                            <FormGroup floating style={{ width: "800px" }}>
+                                <Input
                                     id="exampleDescription"
                                     name="Description"
                                     type="textarea"
                                     placeholder="Description"
-                                    defaultValue="All medicines are better given early morning empty stomach as and when child wakes up from sleep.All medicines are better given as a health drink, all morning doses mixed together with each other in a small bowl, even tablets can be crushed and mixed. It's safe.Those kids who can't swallow, can be given with a syringe spurt in small amounts.Occasional medicine may have noon dose which can be given any time between 2 to 6 pm, preferably not with food.Night dose if any can be given around 8 pm to 9 pm only.
-                                    For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions. Read www.pedneuro.in for Dr kondekar's Protocol of managing Autism. For basic health queries  visit  www.aakaarclinic.com or www.kondekar.com. F/u on whatsapp every 07 days to titrate doses and physical follow up one monthly or as needed"
+                                    defaultValue="For neurodevelopmental disorders and delays Daily Occupational Therapy,behaviour Therapy and Speech therapy is important to achieve milestones needed for activities of daily living and later control and regulation of sensory and motor issues related to development and speech,so that concrete operations can be taught and further complex skills can be achieved.Its like tutions. Read www.pedneuro.in for Dr kondekar's Protocol of managing Autism. For basic health queries  visit  www.aakaarclinic.com or www.kondekar.com. F/u on whatsapp every 07 days to titrate doses and physical follow up one monthly or as needed"
                                     style={{ height: "160px" }} 
                                     className="inp"
                                     onChange={handleChange}

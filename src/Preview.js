@@ -57,9 +57,9 @@ const Preview = ({imageURL}) => {
     }
 
     for (let p of prescription){
-        prescription_string = ' '+p + ''
+        prescription_string = ' '+ p + '';
     }
-    const { DOB, file,Visit_No,Name, Address,Age, Sex, Diagnosis,Goal,m_num,Receipt,Description,ImageFile,EmptyTextArea1,check1,check2,check3,check4,check5,check6,check7} = state;
+    const { DOB, file,Visit_No,Name, Address,Age, Sex, Diagnosis,Goal,m_num,Receipt,Description,Note,ImageFile,EmptyTextArea1,check1,check2,check3,check4,check5,check6,check7} = state;
     // const csvData = {...state,prescription:prescription}
      prescription.map((text) =>{
         if(text.includes("general_medicines") ){
@@ -631,14 +631,7 @@ const Preview = ({imageURL}) => {
                                 return <><li>{p}</li></>
                            })}
                            </ul>
-                           {
-                            constipation_controller_selected?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Constipation Controller </p></b>) : <></>
-                          }
-                           <ul>
-                           {constipation_controller_selected?.map((p)=>{
-                                return <><li>{p}</li></>
-                           })}
-                           </ul>
+                           
                            {
                              other_prescriptions?.length > 0 ? (<b><p style={{fontSize:"9px"}}>Other Medicines </p></b>) : <></>
                           }
@@ -672,11 +665,14 @@ const Preview = ({imageURL}) => {
                 </section>
                 <section  style={{fontSize:"9px !important",backgroundImage: `url(${sign1})`}} >
                       {/* <Draggable>     */}
-    
-      
+                    <b style={{fontSize:"9px"}}>Note</b>
+                    <p  style={{fontSize:"10px"}}>
+                       <b>{Note }</b> 
+                   </p>
                    <p  style={{fontSize:"10px"}}>
                        <b>{Description}</b> 
                    </p>
+
                    {/* </Draggable>      */}
                     <br /> 
                     <p style={{fontFamily:"'Schoolbell', arial, serif"}}><b>Date : </b>{(JSON.stringify(new Date()).slice(1,11))}</p>
