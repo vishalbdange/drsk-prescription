@@ -11,6 +11,7 @@ import ReactPDF from '@react-pdf/renderer';
 import TestPDF from "./TestPDF.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from './AutismScorePredictor/Form'
+import IndianAutismForm from './IndianAutismScore/Form.js'
 import AutismDSM from './AUTISM DSM/AutismDSM'
 import NavbarComponent from "./NavbarComponent"
 import Home from "./Home"
@@ -62,6 +63,7 @@ function App() {
         <Route  exact path="/prescription-view" element={<Preview  imageURL={imageURL}/>} />
         <Route  exact path="/short-prescription-view" element={<PreviewEmpty  imageURL={imageURL}/>} />
         <Route  exact path="/autism-score" element={<Form />} />
+        <Route  exact path="/indian-autism-score" element={<IndianAutismForm />} />
         <Route  exact path="/autism-dsm" element={<AutismDSM />} />
         <Route  exact path="/form2" element={<Form2 />} />
         <Route  exact path="/form1" element={<Form1 />} />
