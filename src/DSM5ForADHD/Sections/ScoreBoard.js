@@ -10,48 +10,13 @@ import aakar from "../../aakar.jpg"
 import Draggable from 'react-draggable'; // The default
 
 
-const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
+const ScoreBoard = ({finalScore,patientForm,allQs,ans,inattention,hyperactivity,ischildAdhd,isadultAdhd}) => {
     const [text,setText] = useState("No Autism");
     const [criteria,setCriteria] = useState("");
     const [disability,setDisability] = useState("");
 
     console.log(allQs)
-    useEffect(() =>{
-        if(finalScore <=70){
-            setText("No Autism")
-            setDisability("40%")
-            setCriteria("Below 70");
-        }
-        else if(finalScore >= 71 && finalScore <=106){
-            setText("Mild Autism")
-            setCriteria("70-106");
-        }
-        else if( finalScore >=107 && finalScore <=153){
-            setText("Moderate Autism")
-            setCriteria("107-153");
-        }  else if( finalScore >= 154 ){
-            setText("Severe Autism")
-            setCriteria("Above 153");
-        }
-        if(finalScore >= 71 && finalScore <=88){
-            setDisability("50%") 
-        }else if(finalScore >=89 && finalScore <=105){
-            setDisability("60%")
-        }
-        else if(finalScore >=106 && finalScore <=123){
-            setDisability("70%")
-        }
-        else if(finalScore >=124 && finalScore <=140){
-            setDisability("80%")
-        }
-        else if(finalScore >=141 && finalScore <=158){
-            setDisability("90%")
-        }
-        else if(finalScore >=159){
-            setDisability("100%")
-        }
-    },[])
-
+    console.log(ans)
     const exportPDF = () => {
         const input = document.getElementById("Page");
 
@@ -151,146 +116,117 @@ const ScoreBoard = ({finalScore,patientForm,allQs,ans}) => {
             ref={ref}
             >
                 <CardBody>
-                <CardTitle tag="h5">
+                {/* <CardTitle tag="h5">
                     Result : {text} 
-                </CardTitle>
-                <CardTitle tag="h5">
+                </CardTitle> */}
+                <div>
+                   
+                 {
+                     (() => {
+                        if (patientForm.Age < 18){
+                            if(ischildAdhd){
+                                return (<CardSubtitle
+                                            className="mb-2 "
+                                            tag="h7"
+                                        ><b>Result : </b>  Child has ADHD </CardSubtitle>)
+                            }else{
+                                return (<CardSubtitle
+                                    className="mb-2 "
+                                    tag="h7"
+                                ><b>Result : </b>Child does not have ADHD </CardSubtitle>)
+                            }
+                        }else{
+                            if(isadultAdhd){
+                                return (<CardSubtitle
+                                    className="mb-2 "
+                                    tag="h7"
+                                ><b>Result : </b>Adult has ADHD </CardSubtitle>)
+                            }else{
+                                return (<CardSubtitle
+                                    className="mb-2 "
+                                    tag="h7"
+                                ><b>Result : </b>Adult does not ADHD </CardSubtitle>)
+                            }
+                        }
+                    })()
+                
+                 }
+                </div>
+                <div>
+
+                    {
+                        (()=>{
+                            if(inattention > 0 && hyperactivity > 0 && inattention <= 12 && hyperactivity <= 12){
+                                return (<CardSubtitle
+                                    className="mb-2 "
+                                    tag="h7"
+                                ><b>Severity : </b>  Mild ADHD </CardSubtitle>)
+                            }
+                            else  if(inattention <= 24 && hyperactivity <= 24){
+                                return (<CardSubtitle
+                                    className="mb-2 "
+                                    tag="h7"
+                                ><b>Severity : </b>  Moderate ADHD </CardSubtitle>)
+                            } 
+                            else  if(inattention <= 48 && hyperactivity <= 48){
+                                return (<CardSubtitle
+                                    className="mb-2 "
+                                    tag="h7"
+                                ><b>Severity : </b>  Moderate ADHD </CardSubtitle>)
+                            } else if(inattention > 0 && hyperactivity > 0){
+                                    return (<CardSubtitle
+                                        className="mb-2 "
+                                        tag="h7"
+                                    ><b>Severity : </b>  Severe ADHD </CardSubtitle>)
+                            }
+                        })()
+                    }
+                </div>
+                {/* <CardTitle tag="h5">
                  ISAA Score : {disability}
-                </CardTitle>
+                </CardTitle> */}
+                <div>
                 <CardSubtitle
-                    className="mb-2 text-muted"
-                    tag="h6"
+                    className="mb-2 "
+                    tag="h7"
                 >
-                    Autism Score : {finalScore}
+                    <b>Inattention Score : </b>{inattention}
                    
                 </CardSubtitle>
-                <hr  style={{ width:"0%",outline:"0"} }/>
+                </div>
+                <div>
+                <CardSubtitle
+                    className="mb-2 "
+                    tag="h7"
+                >
+                    <b>Hyperactivity Score : </b>{hyperactivity}
+                   
+                </CardSubtitle>
+                </div>
+                 <div>
+                <CardSubtitle
+                    className="mb-2 "
+                    tag="h7"
+                >
+                    <b>Total Score : </b>{inattention+hyperactivity}
+                   
+                </CardSubtitle>
+                </div>
+                <br/>
+                <p>Minimum 1 point for at least 6 items in each section is needed to say child has ADHD, MINIMUM 1 point for 5 items for each section will mean adult has adhd.
+                <br/><br/>
+                    6-12 score in each section is mild adhd <br/>
+                    12 -24 is moderate adhd<br/>
+                    24 to 48 is high moderate adhd<br/>
+                    Beyond 48 is severe adhd</p>
+                
                 <p>
                 Happy to have a <b>no</b> label, have lots of hopes. Score can change 3 monthly and some issues which you may find to answer as sometimes or often....
                 Till then work on what is lacking in the child, beyond the label. This score is based on old classification DSM IV, <b>do confirm what u scored is same with the dr scoring same for your kid.</b>
                 </p>
 
 <hr  style={{ width:"0%",outline:"0"} }/>
-                <Table
-                    style={{fontSize:"15px "}}
-                    >
-                    <thead>
-                        <tr>
-                        <th>
-                            Autism Score 
-                        </th>
-                        <th>
-                            Degree of Autism
-                        </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">
-                            Below 70
-                        </th>
-                        <td>
-                            No Autism
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            71-106
-                        </th>
-                        <td>
-                             Mild Autism
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            107-153
-                        </th>
-                        <td>
-                             Moderate Autism
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                           Above 153
-                        </th>
-                        <td>
-                             Severe Autism
-                        </td>
-                        </tr>
-                    </tbody>
-                    </Table>
-                    <Table
-                    style={{fontSize:"15px "}}
-                    >
-                    <thead>
-                        <tr>
-                        <th>
-                            Autism Score 
-                        </th>
-                        <th>
-                            Disablility Precentage(%)
-                        </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">
-                            Below 70
-                        </th>
-                        <td>
-                            40
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            71-88
-                        </th>
-                        <td>
-                            50
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            89-105
-                        </th>
-                        <td>
-                            60
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                           106-123
-                        </th>
-                        <td>
-                            70
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                           124-140
-                        </th>
-                        <td>
-                            80
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            141-158
-                        </th>
-                        <td>
-                            90
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            Above 158
-                        </th>
-                        <td>
-                            100
-                        </td>
-                        </tr>
-                    </tbody>
-                    </Table>
+                    
                 <CardText>
                     <b>Note : </b> 
                     <p>Repeat to the same test every 3 months.  <br />If any doubts or issues regarding the score or confirmation of he dignosis and its advice related to treatment , contact &nbsp; Dr.Kondekar <b>9869405747</b> .</p>

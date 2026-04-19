@@ -68,8 +68,8 @@ const Home = () => {
                     <Link to="/prescription" ><Button  color="info" >Prescription </Button></Link> &nbsp;&nbsp;
                     <Link to="/short-prescription" ><Button  color="info" >Certificate </Button></Link> &nbsp;    &nbsp;   
                     <Link to="/autism-score" ><Button color="info" >Autism-Score </Button></Link>&nbsp;&nbsp;
-                    <Link to="/form2" ><Button color="info" >Form2</Button></Link>
-                
+                    <Link to="/form2" ><Button color="info" >Form2</Button></Link>&nbsp;&nbsp;
+                    <Link to="/dsm5-for-adhd" ><Button color="info" >DSM5 for ADHD</Button></Link>
                 </ListItem>
                 <ListItem>
                        

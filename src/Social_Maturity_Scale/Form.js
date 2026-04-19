@@ -12,184 +12,150 @@ import aakar from "../aakar.jpg"
 
 const Form = () => {
 
+    const qset1 = [
+        { name: "1. Crows Laugh", id: "Q1" }, 
+        { name: "2. Balance head (biscuits, bread, etc.)", id: "Q2" },
+        { name: "3. Grasps objects within reach", id: "Q3" }, 
+        { name: "4. Reaches for familiar persons", id: "Q4" },
+         { name: "5. Rolls over, (unassisted)", id: "Q5" },
+         { name: "6. Reaches for nearby objects", id: "Q6" },
+         { name: "7. Occupies self-upright", id: "Q7" },
+         { name: "8. Sits unsupported", id: "Q8" },
+         { name: "9. Pulls self upright", id: "Q9" },
+         { name: "10. Talks , imitates sounds 2-3 Years", id: "Q10" },
+         { name: "11. Drinks from cup or glass assisted", id: "Q11" },
+         { name: "12. Moves about on floor (creeping, crawling)", id: "Q12" },
+         { name: "13. Grasps with thumb and finger", id: "Q13" },
+         { name: "14. Demands personal attention", id: "Q14" },
+         { name: "15. Stands alone", id: "Q15" },
+         { name: "16. Does not drool", id: "Q16" },
+         { name: "17. Follows simple instructions", id: "Q17" },
+         { name: "18. Walks about room unattended", id: "Q18" },
+         { name: "19. Marks with pencil or crayon or chalk", id: "Q19" },
+         { name: "20. Masticates (chews) solid or semi-solid food", id: "Q20" },
+         { name: "21. Pulls off clothes", id: "Q21" },
+         { name: "22. Transfers objects", id: "Q22" },
+         { name: "23. Overcomes simple obstacles", id: "Q23" },
+         { name: "24. Fetches or carries familiar objects", id: "Q24" },
+         { name: "25. Drinks from cup or glass", id: "Q25" },
+         { name: "26. Walks without support", id: "Q26" },
+         { name: "27. Plays with other children", id: "Q27" },
+         { name: "28. Eats with own hands (biscuits, bread, etc.)", id: "Q28" },
+         { name: "29. Goes about hours or yard", id: "Q29" },
+         { name: "30. Discriminates edible substances from non-edibles", id: "Q30" },
+         { name: "31. Usesname of familiar objects", id: "Q31" },
+         { name: "32. Walks upstairs unassisted", id: "Q32" },
+         { name: "33. Unwraps sweets, chocolates", id: "Q33" },
+         { name: "34. Talks in short sentences", id: "Q34" },
+         { name: "35. Signals to go to toilet", id: "Q35" },
+         { name: "36. Initiates own play activities", id: "Q36" },
+         { name: "37. Removes shirt or frock if unbuttoned", id: "Q37" },
+         { name: "38. Eats with spoon/hands (food)", id: "Q38" },
+         { name: "39. Gets drink (water) unassisted", id: "Q39" },
+         { name: "40. Dries own hands", id: "Q40" },
+         { name: "41. Avoids simple hazards", id: "Q41" },
+         { name: "42. Puts on short or frock unassisted (need not button)",id:"Q42" },
+         { name: "43. Can do paper folding", id: "Q43" },
+         { name: "44. Relates experience", id: "Q44" },
+         { name: "45. Walks downstairs, one step at a time", id: "Q45" },
+         {name: "46. Plays co-operatively at kindergarten level.", "id": "Q46"}, {name: "47. Buttons shirt or frock", id: "Q47"},
+          {name: "48. Helps at little household tasks", id: "Q48"},
+          {name: "49. Performs for others", id: "Q49"},
+          {name: "50. Washes hands unidd", id: "Q50"},
+          {name: "51. Cares for self at toilet", id: "Q51"},
+          {name: "52. Washes face unassisted", id: "Q52"},
+          {name: "53. Goes about neighbourhood unattended", id: "Q53"}
+        ]
 
     const questionset1 = [
         {
-            name: "Q1. Has poor eye contact",
+            name: "1.  Inability to establish and/or maintain eye contact",
             id: "Q1"
         },
         {
-            name: "Q2. Lacks social smile",
+            name: "Q2. Child does not respond when called,sometimes appears to be deaf",
             id: "Q2"
         },
         {
-            name: "Q3. Remains aloof",
+            name: "Q3. Difficulty in mixing and playing with other children of same age",
             id: "Q3"
         },
         {
-            name: "Q4. Does not reach out to others",
+            name: "Q4. Lack of appropriate emotional response",
             id: "Q4"
         },
         {
-            name: "Q5. Unable to relate to people",
+            name: "Q5. Can do certain tasks well,but not the tasks involving social undestanding",
             id: "Q5"
-        },
-        {
-            name: "Q6. Unable to respond to social or environmental cues",
-            id: "Q6"
-        },
-        {
-            name: "Q7. Engages in solitary or repetitive play activities",
-            id: "Q7"
-        },
-        {
-            name: "Q8. Unable to take turns in social interaction",
-            id: "Q8"
-        },
-        {
-            name: "Q9. Does not maintain peer relationship",
-            id: "Q9"
         }
     ]
     const questionset2 = [
         {
-            name: "Q10.Show inappropriate emotional response",
+            name: "Q6.Difficulty in comprehension/communication",
+            id: "Q6"
+        },
+        {
+            name: "Q7.May/may not indicate needs by gestures or leading adults by the hand",
+            id: "Q7"
+        },
+        {
+            name: "Q8. Echolalia/using nonsensical words and muttering to self",
+            id: "Q8"
+        },
+        {
+            name: "Q9. Lack of Pretend play ",
+            id: "Q9"
+        },
+        {
+            name: "Q10.Likes sameness in everyday routine",
             id: "Q10"
-        },
-        {
-            name: "Q11.Shows exaggerated emotions",
-            id: "Q11"
-        },
-        {
-            name: "Q12. Engages in self-stimulating emotions",
-            id: "Q12"
-        },
-        {
-            name: "Q13. Lacks fear of danger",
-            id: "Q13"
-        },
-        {
-            name: "Q14.Excited or agitated for no apparent reason",
-            id: "Q14"
         }
     ]
     const questionset3 = [
         {
-            name: "Q15. Acquired speech and lost it",
+            name: "Q11. Inappropriate attachment to objects",
+            id: "Q11"
+        },
+        {
+            name: "Q12. Unsual body movements such as flapping hands or rocking or jumping",
+            id: "Q12"
+        },
+        {
+            name: "Q13. Extreme restlessness,hyperactivity/overpassivity or prefers to be alone all the time ",
+            id: "Q13"
+        },
+        {
+            name: "Q14. Not responsive to normal teaching methods",
+            id: "Q14"
+        },
+        {
+            name: "Q15. Doesn’t like to be hugged or or touched/apparent insensitivity to pain",
             id: "Q15"
-        },
-        {
-            name: "Q16.Has difficulty in using nonverbal language or gestures to communicate",
-            id: "Q16"
-        },
-        {
-            name: "Q17. Engages in stereotyped and repetitive words",
-            id: "Q17"
-        },
-        {
-            name: "Q18. Engages in echolalia speech",
-            id: "Q18"
-        },
-        {
-            name: "Q19. Produces infantile squeals /unusual noises",
-            id: "Q19"
-        },
-        {
-            name: "Q20. Unable to initiate or sustain interaction with others",
-            id: "Q20"
-        },
-        {
-            name: "Q21. Uses jargon or meaningless words",
-            id: "Q21"
-        },
-        {
-            name: "Q22. Uses pronoun reversals",
-            id: "Q22"
-        },
-        {
-            name: "Q23. Unable to grasp pragmatics/real meaning of communication",
-            id: "Q23"
         }
-
     ]
     const questionset4 = [
         {
-            name: "Q24. Engages in stereotyped and repetitive motor mannerisms",
-            id: "Q24"
+            name: " Q16. Intolerance/addiction to certain sounds,tastes,odours,visuals",
+            id: "Q16"
         },
         {
-            name: "Q25. Shows attachment to inanimate objects",
-            id: "Q25"
+            name: "Q17. No understanding or fear of real dangers /Excessive fear for heights,change in position",
+            id: "Q17"
         },
         {
-            name: "Q26. Shows restlessness/hyperactivity",
-            id: "Q26"
+            name: "Q18. Enjoys spinning or rotating objects",
+            id: "Q18"
         },
         {
-            name: "Q27. Exhibits aggression",
-            id: "Q27"
+            name: " Q19. Inappropriate laughing and giggling/crying spells with extreme distress for no apparent reason",
+            id: "Q19"
         },
         {
-            name: "Q28. Throws temper Tantrums",
-            id: "Q28"
-        }
-        ,
-        {
-            name: "Q29. Engages in self-injurious behaviour",
-            id: "Q29"
-        }
-        ,
-        {
-            name: "Q30. Insists on sameness",
-            id: "Q30"
+            name: "Q20. Difficulty in fine motor skills/a tendency to fall/clumsiness/resistance to motor movement activities ",
+            id: "Q20"
         }
     ]
-    const questionset5 = [
-        {
-            name: "Q31. Unusually sensitive to sensory stimuli",
-            id: "Q31"
-        },
-        {
-            name: "Q32. Stares into space for long periods of time",
-            id: "Q32"
-        },
-        {
-            name: "Q33. Has difficulty in tracking objects",
-            id: "Q33"
-        },
-        {
-            name: "Q34. Has unusual vision",
-            id: "Q34"
-        },
-        {
-            name: "Q35. Is insensitive to pain",
-            id: "Q35"
-        }
-        ,
-        {
-            name: "Q36. Responds to objects people unusually smiling touch /smell",
-            id: "Q36"
-        }
-    ]
-    const questionset6 = [
-        {
-            name: " Q37. Inconsistent attention/concentration",
-            id: "Q37"
-        },
-        {
-            name: "Q38. Shows delay in responding",
-            id: "Q38"
-        },
-        {
-            name: "Q39. Has unusual memory",
-            id: "Q39"
-        },
-        {
-            name: " Q40. Has savant ability: unusual super intellect",
-            id: "Q40"
-        }
-    ]
-    const allQs = [...questionset1, ...questionset2, ...questionset3, ...questionset4, ...questionset5, ...questionset6];
+    const allQs = [...questionset1, ...questionset2, ...questionset3, ...questionset4];
     var qsAns = [];
     const [ans, setAns] = useState();
     const [section, setSection] = useState(1);
@@ -238,16 +204,17 @@ const Form = () => {
     }
     const processScore = (value) => {
         console.log(value)
-        if (value == "Rarely") {
+        if (value == "Never") {
+            console.log("Never")
+            console.log(score)
             score = score + 1;
+            console.log(score)
         } else if (value == "Sometimes") {
             score += 2;
-        } else if (value == "Frequently") {
+        } else if (value == "Often") {
             score += 3;
-        } else if (value == "Mostly") {
-            score += 4;
         } else if (value == "Always") {
-            score += 5;
+            score += 4;
         }
     }
 
@@ -267,7 +234,7 @@ const Form = () => {
     }
     const getVal = () => {
         var val;
-        for (let i = 1; i <= 40; i++) {
+        for (let i = 1; i <= 20; i++) {
             val = document.getElementById(`Q${i}`).value;
             console.log(val)
             qsAns.push(val);
@@ -351,7 +318,7 @@ const Form = () => {
                                     </div> <br />
                                     <div style={{ textAlign: "center", fontSize: "20px" }}>
                                         <Badge color="danger" >
-                                            ADHD ISAA2 Indian Autism score
+                                            DSM 4 Autism score
                                         </Badge>
                                     </div>
                                     <form onSubmit={gotoAssesment} style={{ padding: "20px 100px" }}>
@@ -368,7 +335,7 @@ const Form = () => {
                                                     className="autInp"
                                                     onChange={handleChangeForm}
                                                     required
-                                                    style={{ width: "300px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }}
+                                                    style={{ width: "400px", padding: "5px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }}
 
                                                 />
                                             </Col>
@@ -385,8 +352,7 @@ const Form = () => {
                                                     className="autInp"
                                                     onChange={handleChangeForm}
                                                     required
-                                                    style={{ width: "300px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }}
-                                                />
+                                                    style={{ width: "400px", padding: "5px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }} />
                                             </Col>
                                         </FormGroup>
                                         <FormGroup style={{ textAlign: "center" }}>
@@ -401,8 +367,7 @@ const Form = () => {
                                                     className="autInp"
                                                     onChange={handleChangeForm}
                                                     required
-                                                    style={{ width: "300px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }}
-                                                />
+                                                    style={{ width: "400px", padding: "5px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }} />
                                             </Col>
                                         </FormGroup>
                                         <FormGroup style={{ textAlign: "center" }}>
@@ -417,8 +382,7 @@ const Form = () => {
                                                     className="autInp"
                                                     onChange={handleChangeForm}
                                                     required
-                                                    style={{ width: "300px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }}
-                                                />
+                                                    style={{ width: "400px", padding: "5px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }} />
                                             </Col>
                                         </FormGroup>
                                         <FormGroup style={{ textAlign: "center" }}>
@@ -434,8 +398,7 @@ const Form = () => {
                                                     className="autInp"
                                                     onChange={handleChangeForm}
                                                     required
-                                                    style={{ width: "300px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }}
-                                                />
+                                                    style={{ width: "400px", padding: "5px", outline: "none", border: "none", boxShadow: "1px 1px 6px grey", borderRadius: "4px" }} />
                                             </Col>
                                         </FormGroup>
                                         <div style={{ textAlign: "center" }}> <Button type="submit">Go To Assesment</Button> </div>
@@ -453,7 +416,7 @@ const Form = () => {
                                                                 <div style={{ padding: "20px 100px", textAlign: "center" }}>
                                                                     <p>Password is : www.pedneuro.in</p>
                                                                     <FormGroup >
-                                                                        <Label for="exampleName" >
+                                                                        <Label for="exampleSex" >
                                                                             Enter Password :
                                                                         </Label>
                                                                         <Col style={{ textAlign: "center" }} >
@@ -521,15 +484,15 @@ const Form = () => {
                                                 )
                                                 :
                                                 (
-                                                    <div style={{marginLeft:"30px"}}>
+                                                    <>
                                                         <br /> <br /> <br />
-                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section1">Section 1 :  Social relation with reciprocity  </Button></div>
+                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section1">Section 1 :  SOCIAL INTERACTION  </Button></div>
                                                         <UncontrolledCollapse toggler="#section1">
                                                             {questionset1.map((qs1) => {
                                                                 return (
                                                                     <>
                                                                         <FormGroup row p-0 >
-                                                                            <Label for="exampleName" sm-2>
+                                                                            <Label for="exampleSex" sm-2>
                                                                                 {qs1.name}
                                                                             </Label>
                                                                             <Col sm-10>
@@ -541,16 +504,13 @@ const Form = () => {
 
                                                                                 >
                                                                                     <option>
-                                                                                        Rarely
+                                                                                        Never
                                                                                     </option>
                                                                                     <option>
                                                                                         Sometimes
                                                                                     </option>
                                                                                     <option>
-                                                                                        Frequently
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Mostly
+                                                                                        Often
                                                                                     </option>
                                                                                     <option>
                                                                                         Always
@@ -565,13 +525,13 @@ const Form = () => {
                                                         </UncontrolledCollapse>
 
 
-                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section2">Section 2 : Emotional responsiveness </Button></div>
+                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section2">Section 2 : COMMUNICATION </Button></div>
                                                         <UncontrolledCollapse toggler="#section2">
                                                             {questionset2.map((qs2) => {
                                                                 return (
                                                                     <>
                                                                         <FormGroup row p-0 >
-                                                                            <Label for="exampleName" sm-2>
+                                                                            <Label for="exampleSex" sm-2>
                                                                                 {qs2.name}
                                                                             </Label>
                                                                             <Col sm-10>
@@ -582,17 +542,14 @@ const Form = () => {
                                                                                     className="inp"
 
                                                                                 >
-                                                                                   <option>
-                                                                                        Rarely
+                                                                                    <option>
+                                                                                        Never
                                                                                     </option>
                                                                                     <option>
                                                                                         Sometimes
                                                                                     </option>
                                                                                     <option>
-                                                                                        Frequently
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Mostly
+                                                                                        Often
                                                                                     </option>
                                                                                     <option>
                                                                                         Always
@@ -606,7 +563,7 @@ const Form = () => {
 
                                                         </UncontrolledCollapse>
 
-                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section3">Section 3 : Speech Language Communication </Button></div>
+                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section3">Section 3 : BEHAVIOURAL CHARACTERISTICS </Button></div>
 
                                                         <UncontrolledCollapse toggler="#section3">
 
@@ -614,7 +571,7 @@ const Form = () => {
                                                                 return (
                                                                     <>
                                                                         <FormGroup row p-0 >
-                                                                            <Label for="exampleName" sm-2>
+                                                                            <Label for="exampleSex" sm-2>
                                                                                 {qs3.name}
                                                                             </Label>
                                                                             <Col sm-10>
@@ -625,17 +582,14 @@ const Form = () => {
                                                                                     className="inp"
 
                                                                                 >
-                                                                                <option>
-                                                                                        Rarely
+                                                                                    <option>
+                                                                                        Never
                                                                                     </option>
                                                                                     <option>
                                                                                         Sometimes
                                                                                     </option>
                                                                                     <option>
-                                                                                        Frequently
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Mostly
+                                                                                        Often
                                                                                     </option>
                                                                                     <option>
                                                                                         Always
@@ -650,7 +604,7 @@ const Form = () => {
                                                         </UncontrolledCollapse>
 
 
-                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section4">Section 4:  Behavioural pattern </Button></div>
+                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section4">Section 4:  SENSORY INTEGRATION </Button></div>
 
                                                         <UncontrolledCollapse toggler="#section4">
 
@@ -658,7 +612,7 @@ const Form = () => {
                                                                 return (
                                                                     <>
                                                                         <FormGroup row p-0 >
-                                                                            <Label for="exampleName" sm-2>
+                                                                            <Label for="exampleSex" sm-2>
                                                                                 {qs4.name}
                                                                             </Label>
                                                                             <Col sm-10>
@@ -670,101 +624,13 @@ const Form = () => {
 
                                                                                 >
                                                                                     <option>
-                                                                                        Rarely
+                                                                                        Never
                                                                                     </option>
                                                                                     <option>
                                                                                         Sometimes
                                                                                     </option>
                                                                                     <option>
-                                                                                        Frequently
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Mostly
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Always
-                                                                                    </option>
-                                                                                </Input>
-                                                                            </Col>
-                                                                        </FormGroup>
-                                                                    </>
-                                                                )
-                                                            })}
-
-                                                        </UncontrolledCollapse>
-
-                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section4">Section 5:  Sensory aspects </Button></div>
-
-                                                        <UncontrolledCollapse toggler="#section4">
-
-                                                            {questionset5.map((qs5) => {
-                                                                return (
-                                                                    <>
-                                                                        <FormGroup row p-0 >
-                                                                            <Label for="exampleName" sm-2>
-                                                                                {qs5.name}
-                                                                            </Label>
-                                                                            <Col sm-10>
-                                                                                <Input
-                                                                                    id={qs5.id}
-                                                                                    name={qs5.id}
-                                                                                    type="select"
-                                                                                    className="inp"
-
-                                                                                >
-                                                                                    <option>
-                                                                                        Rarely
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Sometimes
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Frequently
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Mostly
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Always
-                                                                                    </option>
-                                                                                </Input>
-                                                                            </Col>
-                                                                        </FormGroup>
-                                                                    </>
-                                                                )
-                                                            })}
-
-                                                        </UncontrolledCollapse>
-                                                        <div style={{ textAlign: "center", margin: "15px" }}><Button color="info" id="section4">Section 6:  Cognitive Component </Button></div>
-
-                                                        <UncontrolledCollapse toggler="#section4">
-
-                                                            {questionset6.map((qs6) => {
-                                                                return (
-                                                                    <>
-                                                                        <FormGroup row p-0 >
-                                                                            <Label for="exampleName" sm-2>
-                                                                                {qs6.name}
-                                                                            </Label>
-                                                                            <Col sm-10>
-                                                                                <Input
-                                                                                    id={qs6.id}
-                                                                                    name={qs6.id}
-                                                                                    type="select"
-                                                                                    className="inp"
-
-                                                                                >
-                                                                                 <option>
-                                                                                        Rarely
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Sometimes
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Frequently
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        Mostly
+                                                                                        Often
                                                                                     </option>
                                                                                     <option>
                                                                                         Always
@@ -781,7 +647,7 @@ const Form = () => {
                                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }} >
                                                             <Button color="success" onClick={handleSubmit}>Show Autism Score </Button>
                                                         </div>
-                                                    </div>)}
+                                                    </>)}
                                     </>
                             }
                         </>

@@ -2,7 +2,6 @@ import React,{ createRef, useState ,useEffect,useRef} from 'react'
 import './Preview.css'
 import aakar from "./assets/aakar.jpg"
 import autism2 from '../autism2.jpeg'
-// import TestPDF from './assets/TestPDF'
 import { useScreenshot } from 'use-react-screenshot'
 import { saveAs } from 'file-saver'
 import sign from "./assets/sign.png"
@@ -315,7 +314,7 @@ const Preview = (prop) => {
     const handleSubmitEdit = () =>{
 
         console.log(presEdited)
-        axios.put(`https://aakar-clinic.onrender.com/all/prescriptions/${pres.pid}-${pres.name}`, presEdited)
+        axios.put(`https://aakar-clinic-02.onrender.com/all/prescriptions/${pres.pid}-${pres.name}`, presEdited)
         handleClose();
     }
 
@@ -326,7 +325,7 @@ const Preview = (prop) => {
         <div className="prescription-view" >
         {/* <CsvDownloadButton data={pres}/> */}
         <div style={{textAlign:"center",marginTop:"10px"}}>
-            <h4 style={{color:"blue"}}>(Edit here)
+            {/* <h4 style={{color:"blue"}}>(Edit here)
            <IconButton
                     size="large"
                     aria-label="Edit"
@@ -338,7 +337,7 @@ const Preview = (prop) => {
                     >
                     <EditIcon />
             </IconButton>
-            </h4>
+            </h4> */}
             <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Edit Prescription</DialogTitle>
                 <DialogContent>
@@ -406,7 +405,7 @@ const Preview = (prop) => {
                  <TextField
                     autoFocus
                     onChange={(e)=> handleChangeEdit(e)}
-                    defaultValue={pres.dob.slice(0,-14)}
+                    defaultValue={pres?.dob?.slice(0,-14)}
                     margin="dense"
                     name="dob"
                     id="dob"
@@ -596,7 +595,7 @@ const Preview = (prop) => {
                         <b > &nbsp;&nbsp;DOB </b>   
                     </Grid>
                     <Grid item xs={9} style={{borderBottom:"1px solid grey",borderRight:"1px solid #F6BE00",fontSize:"12px"}} >
-                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{pres.dob.slice(0,-14)}  
+                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{pres.dob?.slice(0,-14)}  
                     </Grid>
                    
                     <Grid item xs={3} style={{borderBottom:"1px solid grey",borderLeft:"1px solid #F6BE00",borderRight:"1px solid grey",fontSize:"12px"}} >
@@ -724,7 +723,7 @@ const Preview = (prop) => {
            
             </div>
             </section>
-            {/* <TestPDF state={state} /> */}
+
 
         </div>
         </>
